@@ -19,16 +19,16 @@ jobs:
     - name: Get latest N8N pre-release version
       id: latest_release
       run: |
-        # 获取所有预发布版本,按发布时间排序,取第一个
+        # 获取 name 中包含 rc 的版本，按发布时间排序，取最新的一个
         LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | \
-          jq -r '[.[] | select(.prerelease == true)] | sort_by(.published_at) | reverse | first | .tag_name')
+          jq -r '[.[] | select(.name | test("rc"))] | sort_by(.published_at) | reverse | first | .tag_name')
         
         if [ "$LATEST_VERSION" = "null" ] || [ -z "$LATEST_VERSION" ]; then
-          echo "⚠️  No pre-release version found!"
+          echo "⚠️  No RC version found!"
           exit 1
         fi
         
-        echo "✅ Latest pre-release tag: $LATEST_VERSION"
+        echo "✅ Latest RC tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
     - name: Setup corepack and pnpm
