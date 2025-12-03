@@ -21,6 +21,13 @@ jobs:
       run: |
         # 只获取预发布版本（prerelease=true）
         LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | jq -r '[.[] | select(.prerelease == true)][0].tag_name')
+        
+        # 检查是否成功获取
+        if [ "$LATEST_VERSION" = "null" ] || [ -z "$LATEST_VERSION" ]; then
+          echo "Error: No pre-release version found"
+          exit 1
+        fi
+        
         echo "Latest pre-release tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
