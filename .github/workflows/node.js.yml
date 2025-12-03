@@ -16,12 +16,12 @@ jobs:
       matrix:
         node-version: [22.x]
     steps:
-    - name: Get latest N8N release version (including pre-releases)
+    - name: Get latest N8N pre-release version
       id: latest_release
       run: |
-        # 获取最新的发布版本（包括预发布版本）
-        LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | jq -r '.[0].tag_name')
-        echo "Latest release tag: $LATEST_VERSION"
+        # 只获取预发布版本（prerelease=true）
+        LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | jq -r '[.[] | select(.prerelease == true)][0].tag_name')
+        echo "Latest pre-release tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
     - name: Setup corepack and pnpm
