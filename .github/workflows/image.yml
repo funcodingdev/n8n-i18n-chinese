@@ -35,17 +35,26 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 提取版本号
+      # 提取版本号：优先使用手动输入，其次使用 GITHUB_REF，最后获取最新标签
       - name: 提取版本号
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # 手动触发：使用输入的标签
             RAW_TAG="${{ github.event.inputs.tag }}"
-          else
+          elif [ "${{ github.event_name }}" = "release" ]; then
+            # Release 触发：使用 GITHUB_REF
             RAW_TAG=${GITHUB_REF##*/}
+          else
+            # 其他情况：获取 git 仓库中最新的标签
+            RAW_TAG=$(git tag --sort=-version:refname | head -n 1)
+            if [ -z "$RAW_TAG" ]; then
+              echo "❌ 错误：无法获取标签"
+              exit 1
+            fi
           fi
           VERSION=${RAW_TAG#n8n@}
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "版本号: $VERSION"
+          echo "✅ 版本号: $VERSION (来源: ${{ github.event_name }})"
 
       # 构建并推送多架构 Docker 镜像（支持 AMD64 和 ARM64）
       - name: 构建并推送 Docker 镜像

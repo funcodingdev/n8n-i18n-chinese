@@ -52,12 +52,20 @@ jobs:
             VERSION=${RAW_TAG#n8n@}
             echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
             echo "BUILD_LATEST_ONLY=false" >> $GITHUB_ENV
-            echo "版本号: $VERSION"
+            echo "✅ 手动触发 - 版本号: $VERSION"
           else
-            # workflow_run 触发：只构建 latest，基于 latest 基础镜像
-            echo "BUILD_LATEST_ONLY=true" >> $GITHUB_ENV
-            echo "RELEASE_VERSION=latest" >> $GITHUB_ENV
-            echo "自动触发：只构建 latest 标签"
+            # workflow_run 触发：获取最新标签版本
+            RAW_TAG=$(git tag --sort=-version:refname | head -n 1)
+            if [ -z "$RAW_TAG" ]; then
+              echo "⚠️  警告：无法获取标签，使用 latest"
+              echo "BUILD_LATEST_ONLY=true" >> $GITHUB_ENV
+              echo "RELEASE_VERSION=latest" >> $GITHUB_ENV
+            else
+              VERSION=${RAW_TAG#n8n@}
+              echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+              echo "BUILD_LATEST_ONLY=false" >> $GITHUB_ENV
+              echo "✅ 自动触发 - 使用最新标签: $VERSION"
+            fi
           fi
 
       # 构建并推送带版本号的多架构镜像（手动触发时）
