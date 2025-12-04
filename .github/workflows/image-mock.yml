@@ -22,10 +22,11 @@ jobs:
     # 只有当前一个工作流成功时才运行（针对 workflow_run 触发）
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout tag code
+      - name: Checkout latest code for Dockerfile.mock
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.event.workflow_run.head_branch || github.ref }}
+          # 始终使用 main 分支的最新代码（包含 Dockerfile.mock）
+          ref: main
           fetch-depth: 0
 
       - name: Set up Docker Buildx
@@ -40,24 +41,38 @@ jobs:
       - name: Extract version
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            # 手动触发：使用输入的版本号
             RAW_TAG="${{ github.event.inputs.tag }}"
-          elif [ "${{ github.event_name }}" = "workflow_run" ]; then
-            # 从前一个工作流获取最新的标签
-            RAW_TAG=$(git describe --tags --abbrev=0)
+            VERSION=${RAW_TAG#n8n@}
+            echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+            echo "BUILD_LATEST_ONLY=false" >> $GITHUB_ENV
+            echo "版本号: $VERSION"
           else
-            RAW_TAG=${GITHUB_REF##*/}
+            # workflow_run 触发：只构建 latest，基于 latest 基础镜像
+            echo "BUILD_LATEST_ONLY=true" >> $GITHUB_ENV
+            echo "RELEASE_VERSION=latest" >> $GITHUB_ENV
+            echo "自动触发：只构建 latest 标签"
           fi
-          VERSION=${RAW_TAG#n8n@}
-          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "版本号: $VERSION"
 
-      - name: Build and push multi-arch Docker images
+      - name: Build and push multi-arch Docker images (with version)
+        if: env.BUILD_LATEST_ONLY == 'false'
         run: |
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             --build-arg VERSION=$RELEASE_VERSION \
             -f Dockerfile.mock \
             -t funcodingdev/n8n-chinese-mock:$RELEASE_VERSION \
+            -t funcodingdev/n8n-chinese-mock:latest \
+            --push \
+            .
+
+      - name: Build and push multi-arch Docker images (latest only)
+        if: env.BUILD_LATEST_ONLY == 'true'
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            --build-arg VERSION=latest \
+            -f Dockerfile.mock \
             -t funcodingdev/n8n-chinese-mock:latest \
             --push \
             .
