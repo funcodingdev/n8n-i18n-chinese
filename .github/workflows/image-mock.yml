@@ -1,14 +1,16 @@
-name: Release Docker Image Mock
+# 构建并发布 Mock 模式的 Docker 镜像
+# Mock 模式用于测试环境，基于正式镜像构建
+name: 发布 Docker Mock 镜像
 
 on:
   # 当 image.yml 工作流成功完成时自动触发
   workflow_run:
-    workflows: ["Release Docker Image"]
+    workflows: ["发布 Docker 镜像"]
     types:
       - completed
     branches:
       - main
-  # 保留手动触发选项
+  # 支持手动触发，需要提供标签名称
   workflow_dispatch:
     inputs:
       tag:
@@ -22,23 +24,27 @@ jobs:
     # 只有当前一个工作流成功时才运行（针对 workflow_run 触发）
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout latest code for Dockerfile.mock
+      # 检出 main 分支的最新代码（包含 Dockerfile.mock）
+      - name: 检出 Mock Dockerfile 代码
         uses: actions/checkout@v4
         with:
           # 始终使用 main 分支的最新代码（包含 Dockerfile.mock）
           ref: main
           fetch-depth: 0
 
-      - name: Set up Docker Buildx
+      # 设置 Docker Buildx 以支持多架构构建
+      - name: 设置 Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to DockerHub
+      # 登录到 DockerHub
+      - name: 登录 DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract version
+      # 提取版本号并判断构建模式
+      - name: 提取版本号
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             # 手动触发：使用输入的版本号
@@ -54,7 +60,8 @@ jobs:
             echo "自动触发：只构建 latest 标签"
           fi
 
-      - name: Build and push multi-arch Docker images (with version)
+      # 构建并推送带版本号的多架构镜像（手动触发时）
+      - name: 构建并推送 Mock 镜像（带版本）
         if: env.BUILD_LATEST_ONLY == 'false'
         run: |
           docker buildx build \
@@ -66,7 +73,8 @@ jobs:
             --push \
             .
 
-      - name: Build and push multi-arch Docker images (latest only)
+      # 仅构建并推送 latest 标签的多架构镜像（自动触发时）
+      - name: 构建并推送 Mock 镜像（仅 latest）
         if: env.BUILD_LATEST_ONLY == 'true'
         run: |
           docker buildx build \

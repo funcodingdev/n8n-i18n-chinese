@@ -1,7 +1,7 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# 此工作流会安装 Node 依赖、构建源码并自动打包 N8N 编辑器界面的中文语言包
+# 详细信息请参考: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: package editor-ui languages
+name: 打包编辑器界面语言包
 
 on:
   schedule:
@@ -16,10 +16,11 @@ jobs:
       matrix:
         node-version: [22.x]
     steps:
-    - name: Get latest N8N pre-release version
+    # 获取 N8N 最新的预发布版本号
+    - name: 获取最新预发布版本
       id: latest_release
       run: |
-        # 获取 name 中包含 rc 的版本，按发布时间排序，取最新的一个
+        # 从 GitHub API 获取包含 rc 的版本，按发布时间倒序排列，取第一个
         LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | \
         jq -r '[.[] | select(.name | test("rc"))] | sort_by(.published_at) | reverse | first | .tag_name')
         
@@ -31,12 +32,14 @@ jobs:
         echo "✅ Latest RC tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
-    - name: Setup corepack and pnpm
+    # 配置包管理器 corepack 和 pnpm
+    - name: 配置包管理器
       run: |
         npm i -g corepack@0.31
         corepack enable
 
-    - name: Checkout local
+    # 检出本地中文化项目仓库
+    - name: 检出本地仓库
       uses: actions/checkout@v4
       with:
         path: ./n8n-i18n-chinese
@@ -49,11 +52,12 @@ jobs:
     #     echo "version=$VERSION" >> $GITHUB_OUTPUT
     #   working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
 
-    - name: Check if tag exists
+    # 检查远程仓库是否已存在该标签
+    - name: 检查标签是否存在
       id: check_tag
       run: |
         TAG="${{ steps.latest_release.outputs.latest }}"
-        echo "Checking for remote tag: $TAG"
+        echo "检查远程标签: $TAG"
         if git ls-remote --tags origin | grep "refs/tags/$TAG$"; then
           echo "exists=true" >> $GITHUB_OUTPUT
         else
@@ -61,12 +65,14 @@ jobs:
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
-    - name: Exit if tags exist
+    # 如果标签已存在，则停止工作流
+    - name: 标签存在则退出
       if: steps.check_tag.outputs.exists == 'true'
       run: |
-        echo "Tags exist, stopping workflow."
+        echo "标签已存在，停止工作流"
 
-    - name: Translate New Strings
+    # 使用 AI 翻译新增的字符串到中文
+    - name: 翻译新增字符串
       if: steps.check_tag.outputs.exists == 'false'
       run: pnpm install && node translate.js
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/script
@@ -75,7 +81,8 @@ jobs:
         OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
         OPENROUTER_API_CONCURRENT: ${{ vars.OPENROUTER_API_CONCURRENT }}
 
-    - name: Translate Publish Git
+    # 提交翻译结果到 Git 仓库
+    - name: 提交翻译结果
       if: steps.check_tag.outputs.exists == 'false'
       run: |
         git config --global user.name "github-actions"
@@ -92,7 +99,8 @@ jobs:
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
-    - name: Checkout n8n
+    # 检出 N8N 官方仓库的指定版本
+    - name: 检出 N8N 官方仓库
       if: steps.check_tag.outputs.exists == 'false'
       uses: actions/checkout@v4
       with:
@@ -100,24 +108,30 @@ jobs:
         ref: ${{ steps.latest_release.outputs.latest }}
         path: ./n8n
 
-    - uses: actions/setup-node@v4.2.0
+    # 设置 Node.js 环境
+    - name: 设置 Node.js 环境
+      uses: actions/setup-node@v4.2.0
       if: steps.check_tag.outputs.exists == 'false'
       with:
         node-version: 22.x
 
-    - name: Set pnpm resolution mode
+    # 配置 pnpm 使用最高版本解析模式
+    - name: 设置 pnpm 解析模式
       if: steps.check_tag.outputs.exists == 'false'
       run: echo "resolution-mode=highest" >> /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/.npmrc
 
-    - run: pnpm install --frozen-lockfile
+    # 安装项目依赖
+    - name: 安装项目依赖
+      run: pnpm install --frozen-lockfile
       if: steps.check_tag.outputs.exists == 'false'
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
 
-    - name: check n8n editor-ui is old
+    # 检测 N8N 编辑器目录结构（新版本在 frontend/editor-ui，旧版本在 editor-ui）
+    - name: 检测编辑器目录结构
       id: editorui_dir
       run: |
-        DIR_PATH="/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/editor-ui"       # 你要检查的目录
-        FALLBACK_DIR="/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/editor-ui" # 备用目录
+        DIR_PATH="/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/editor-ui"       # 新版目录路径
+        FALLBACK_DIR="/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/editor-ui" # 旧版目录路径
 
         if [ -d "$DIR_PATH" ]; then
           echo "flag=new" >> $GITHUB_OUTPUT
@@ -127,11 +141,13 @@ jobs:
           echo "dir=$FALLBACK_DIR" >> $GITHUB_OUTPUT
         fi
 
-    - name: Move editor-ui i18n language
+    # 复制中文语言包到 N8N i18n 目录
+    - name: 复制中文语言包
       if: steps.check_tag.outputs.exists == 'false'
       run:     cp -r /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/languages/* "/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/@n8n/i18n/src/locales/"
 
-    - name: Patch I18n zhCn
+    # 应用中文国际化补丁
+    - name: 应用国际化补丁
       if: steps.editorui_dir.outputs.flag == 'new' && steps.check_tag.outputs.exists == 'false'
       run: |
         git apply /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/patches/feat__i18n_zhCn.patch
@@ -139,9 +155,11 @@ jobs:
         head -n 30 /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/@n8n/i18n/src/index.ts
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
 
-    - name: Pnpm build editor-ui
+    # 构建编辑器界面
+    - name: 构建编辑器界面
       if: steps.check_tag.outputs.exists == 'false'
       run: |
+        # 运行构建命令，如果失败则继续检测
         pnpm run build:n8n || echo "构建失败，重新检测是否成功"
         if [ -d "/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/editor-ui/dist" ]; then
           echo "n8n-editor-ui:build 存在，构建成功"
@@ -151,26 +169,30 @@ jobs:
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
 
-    - name: 打包 dist 产物
+    # 压缩构建产物为 tar.gz 归档文件
+    - name: 打包构建产物
       if: steps.check_tag.outputs.exists == 'false'
       run: |
         tar -czvf editor-ui.tar.gz dist
       working-directory: ${{ steps.editorui_dir.outputs.dir }}
 
-    - name: 拷贝 dist 到项目目录
+    # 将构建产物拷贝到本地项目目录
+    - name: 拷贝构建产物
       if: steps.check_tag.outputs.exists == 'false'
       run: |
         cp -r ${{ steps.editorui_dir.outputs.dir }}/dist /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/editor-ui-dist
 
-    - name: Update docker-compose.yml version
+    # 更新 docker-compose.yml 文件中的版本号
+    - name: 更新 Docker Compose 版本号
       if: steps.check_tag.outputs.exists == 'false'
       run: |
         RAW_TAG="${{ steps.latest_release.outputs.latest }}"
-        VERSION="${RAW_TAG#n8n@}"  # 去掉前缀 n8n@
+        VERSION="${RAW_TAG#n8n@}"  # 去掉前缀 n8n@，提取版本号
         echo "Replacing {version} with $VERSION in docker-compose.yml"
         sed -i "s/{version}/$VERSION/g" /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/docker-compose.yml
 
-    - name: 创建 git tag
+    # 创建 Git 标签并推送到远程仓库
+    - name: 创建并推送标签
       if: steps.check_tag.outputs.exists == 'false'
       run: |
         TAG="${{ steps.latest_release.outputs.latest }}"
@@ -183,15 +205,16 @@ jobs:
         git push origin $TAG
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
+    # 创建 GitHub Release 并上传构建产物
     - name: 创建 GitHub Release
       if: steps.check_tag.outputs.exists == 'false'
       id: create_release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ steps.latest_release.outputs.latest }}
-        name: Release editor-ui to ${{ steps.latest_release.outputs.latest }}
+        name: 发布编辑器界面 ${{ steps.latest_release.outputs.latest }}
         body: |
-          自动发布的N8N预发布版本中文语言包
+          自动发布的 N8N 预发布版本中文语言包
         draft: false
         prerelease: false
         files: ${{ steps.editorui_dir.outputs.dir }}/editor-ui.tar.gz
