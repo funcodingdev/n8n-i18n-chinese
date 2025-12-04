@@ -1,8 +1,14 @@
-name: Release Docker Image
+name: Release Docker Image Mock
 
 on:
-  release:
-    types: [published]
+  # 当 image.yml 工作流成功完成时自动触发
+  workflow_run:
+    workflows: ["Release Docker Image"]
+    types:
+      - completed
+    branches:
+      - main
+  # 保留手动触发选项
   workflow_dispatch:
     inputs:
       tag:
@@ -13,11 +19,13 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     environment: test
+    # 只有当前一个工作流成功时才运行（针对 workflow_run 触发）
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout tag code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.event.workflow_run.head_branch || github.ref }}
           fetch-depth: 0
 
       - name: Set up Docker Buildx
@@ -33,6 +41,9 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             RAW_TAG="${{ github.event.inputs.tag }}"
+          elif [ "${{ github.event_name }}" = "workflow_run" ]; then
+            # 从前一个工作流获取最新的标签
+            RAW_TAG=$(git describe --tags --abbrev=0)
           else
             RAW_TAG=${GITHUB_REF##*/}
           fi
