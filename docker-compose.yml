@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  n8ntest:
+  n8n:
     image: n8nio/n8n:{version}
-    container_name: n8ntest
+    container_name: n8n-chinese
     ports:
       - "15678:5678"
     environment:

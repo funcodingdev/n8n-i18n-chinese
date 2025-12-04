@@ -16,12 +16,19 @@ jobs:
       matrix:
         node-version: [22.x]
     steps:
-    - name: Get latest N8N release version (including pre-releases)
+    - name: Get latest N8N pre-release version
       id: latest_release
       run: |
-        # 获取最新的发布版本（包括预发布版本）
-        LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | jq -r '.[0].tag_name')
-        echo "Latest release tag: $LATEST_VERSION"
+        # 获取 name 中包含 rc 的版本，按发布时间排序，取最新的一个
+        LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | \
+        jq -r '[.[] | select(.name | test("rc"))] | sort_by(.published_at) | reverse | first | .tag_name')
+        
+        if [ "$LATEST_VERSION" = "null" ] || [ -z "$LATEST_VERSION" ]; then
+        echo "⚠️  No RC version found!"
+        exit 1
+        fi
+        
+        echo "✅ Latest RC tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
     - name: Setup corepack and pnpm
@@ -184,7 +191,7 @@ jobs:
         tag_name: ${{ steps.latest_release.outputs.latest }}
         name: Release editor-ui to ${{ steps.latest_release.outputs.latest }}
         body: |
-          自动发布的中文语言包版本。
+          自动发布的N8N预发布版本中文语言包
         draft: false
         prerelease: false
         files: ${{ steps.editorui_dir.outputs.dir }}/editor-ui.tar.gz
