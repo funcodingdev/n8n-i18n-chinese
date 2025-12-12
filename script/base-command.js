@@ -281,6 +281,8 @@ class BaseCommand {
                 'isDebugInEditorLicensed',
                 'isWorkerViewLicensed',
                 'isAiCreditsEnabled',
+                'isAiAssistantEnabled',
+                'isAskAiEnabled',
                 'isFoldersEnabled',
                 'isProjectRoleAdminLicensed',
                 'isProjectRoleEditorLicensed',
@@ -288,7 +290,6 @@ class BaseCommand {
                 'isCustomNpmRegistryEnabled',
                 'isWithinUsersLimit',
                 'isApiKeyScopesEnabled',
-                'isAskAiEnabled',
                 'isAdvancedExecutionFiltersEnabled',
             ].forEach((key) => {
                 licenseAny[key] = () => true;
@@ -303,7 +304,6 @@ class BaseCommand {
                 licenseAny[key] = () => constants_1.UNLIMITED_LICENSE_QUOTA;
             });
             licenseAny.isAPIDisabled = () => false;
-            licenseAny.isAiAssistantEnabled = () => true;
             licenseAny.getAiCredits = () => 999999;
             licenseAny.getPlanName = () => 'Enterprise';
             licenseAny.getConsumerId = () => 'enterprise-mock-consumer';
@@ -312,6 +312,7 @@ class BaseCommand {
             licenseAny.getMainPlan = () => undefined;
             licenseAny.getInfo = () => 'Enterprise Mock License';
             licenseAny.enableAutoRenewals = () => { };
+            licenseAny.disableAutoRenewals = () => { };
             this.logger.info('[ENTERPRISE MOCK] ✅ All enterprise features enabled');
         }
         catch (error) {
