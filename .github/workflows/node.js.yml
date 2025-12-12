@@ -20,16 +20,18 @@ jobs:
     - name: 获取最新预发布版本
       id: latest_release
       run: |
-        # 从 GitHub API 获取包含 rc 的版本，按发布时间倒序排列，取第一个
+        # 从 GitHub API 获取 releases 列表
+        # 使用 jq 筛选字段 prerelease 为 true 的对象
+        # 按 published_at 时间倒序排序，取第一个，最后提取 tag_name
         LATEST_VERSION=$(curl -s https://api.github.com/repos/n8n-io/n8n/releases | \
-        jq -r '[.[] | select(.name | test("rc"))] | sort_by(.published_at) | reverse | first | .tag_name')
+        jq -r '[.[] | select(.prerelease == true)] | sort_by(.published_at) | reverse | first | .tag_name')
         
         if [ "$LATEST_VERSION" = "null" ] || [ -z "$LATEST_VERSION" ]; then
-        echo "⚠️  No RC version found!"
-        exit 1
+          echo "⚠️  No Prerelease version found!"
+          exit 1
         fi
         
-        echo "✅ Latest RC tag: $LATEST_VERSION"
+        echo "✅ Latest Prerelease tag: $LATEST_VERSION"
         echo "latest=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
     # 配置包管理器 corepack 和 pnpm
