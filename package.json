@@ -17,6 +17,7 @@
     "qs": "latest"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "p-limit": "^2.3.0"
   }
 }

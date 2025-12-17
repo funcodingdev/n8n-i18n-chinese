@@ -1,6 +1,7 @@
 require('dotenv').config()
 const fs = require('fs');
 const lodash = require("lodash")
+const pLimit = require('p-limit');
 
 if (!process.env.OPENROUTER_API_KEY){
     console.error("请设置环境变量 OPENROUTER_API_KEY");
@@ -18,8 +19,27 @@ const targetLanguages = [
     }
 ]
 
+function retry(fn, maxRetry = 5, interval = 1000) {
+    return new Promise((resolve, reject) => {
+        let retryCount = 0
+        const retry = () => {
+            fn()
+                .then(resolve)
+                .catch(err => {
+                    if (retryCount >= maxRetry) {
+                        reject(err)
+                    } else {
+                        retryCount++
+                        setTimeout(retry, interval)
+                    }
+                })
+        }
+        retry()
+    })
+}
+
 async function doTranslate(message, language) {
-    const response = await fetch(OPENROUTER_API_BASE + "/chat/completions", {
+    const response = await retry(() => fetch(OPENROUTER_API_BASE + "/chat/completions", {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + process.env.OPENROUTER_API_KEY,
@@ -45,7 +65,7 @@ async function doTranslate(message, language) {
                 }
             ],
         }),
-    });
+    }));
 
     // 请求过多，等待重试
     if (response.status === 429){
@@ -92,33 +112,29 @@ function putObjectValue(obj, key, value) {
 async function translate(waitTranslateList, targetObject, targetLanguage) {
     let promises = [];
     let doNum = 0;
-    let concurrentNum = process.env.OPENROUTER_API_CONCURRENT || 2;
+    let concurrentNum = parseInt(process.env.OPENROUTER_API_CONCURRENT || 2);
+
+    console.log('concurrentNum', concurrentNum);
+
+    const limit = pLimit(concurrentNum); // 限制同时执行 5 个任务
 
     for (let i = 0; i < waitTranslateList.length; i++) {
         let item = waitTranslateList[i];
 
-        promises.push(doTranslate(item.message, targetLanguage).then(mesasge => {
-            console.log("翻译 key", item.key, "为", targetLanguage, ":", item.message , ' => ', mesasge);
-            putObjectValue(targetObject, item.key, mesasge)
-        }).catch(e => {
-            console.log("翻译失败", item.key, ":", e);
-        }).finally(() => {
-            doNum++;
-            console.log("剩余翻译数量", waitTranslateList.length - doNum);
+        promises.push(limit(async () => {
+            await doTranslate(item.message, targetLanguage).then(mesasge => {
+                console.log("翻译 key", item.key, "为", targetLanguage, ":", item.message , ' => ', mesasge);
+                putObjectValue(targetObject, item.key, mesasge)
+            }).catch(e => {
+                console.log("翻译失败", item.key, ":", e);
+            }).finally(() => {
+                doNum++;
+                console.log("剩余翻译数量", waitTranslateList.length - doNum);
+            });
         }))
-
-        if (promises.length > concurrentNum){
-            await Promise.all(promises);
-            // 睡眠1s
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            promises = [];
-        }
     }
 
-    if (promises.length > 0){
-        await Promise.all(promises);
-    }
+    await Promise.all(promises);
 }
 
 // 收集需要翻译的key和message
