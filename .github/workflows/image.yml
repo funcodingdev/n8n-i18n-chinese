@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag 名称 (例如: n8n@2.0.0-rc.2)'
+        description: 'Tag 名称 (例如: n8n@2.0.3)'
         required: true
 
 jobs:
