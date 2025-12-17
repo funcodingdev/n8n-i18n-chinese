@@ -271,10 +271,11 @@ class BaseCommand {
                 'isSharingEnabled',
                 'isLdapEnabled',
                 'isSamlEnabled',
+                'isOidcEnabled',
+                'isMFAEnforcementLicensed',
                 'isSourceControlLicensed',
                 'isVariablesEnabled',
                 'isExternalSecretsEnabled',
-                'isWorkflowHistoryLicensed',
                 'isLogStreamingEnabled',
                 'isMultiMainLicensed',
                 'isBinaryDataS3Licensed',
@@ -283,14 +284,21 @@ class BaseCommand {
                 'isAiCreditsEnabled',
                 'isAiAssistantEnabled',
                 'isAskAiEnabled',
+                'isAiBuilderEnabled',
                 'isFoldersEnabled',
                 'isProjectRoleAdminLicensed',
                 'isProjectRoleEditorLicensed',
                 'isProjectRoleViewerLicensed',
                 'isCustomNpmRegistryEnabled',
+                'isCustomRolesLicensed',
                 'isWithinUsersLimit',
                 'isApiKeyScopesEnabled',
                 'isAdvancedExecutionFiltersEnabled',
+                'isInsightsSummaryLicensed',
+                'isInsightsDashboardLicensed',
+                'isInsightsHourlyDataLicensed',
+                'isWorkflowDiffsLicensed',
+                'isProvisioningLicensed',
             ].forEach((key) => {
                 licenseAny[key] = () => true;
             });
@@ -300,11 +308,21 @@ class BaseCommand {
                 'getVariablesLimit',
                 'getWorkflowHistoryPruneLimit',
                 'getTeamProjectLimit',
+                'getMaxUsers',
+                'getMaxActiveWorkflows',
+                'getMaxVariables',
+                'getWorkflowHistoryPruneQuota',
+                'getMaxTeamProjects',
+                'getMaxWorkflowsWithEvaluations',
+                'getInsightsMaxHistory',
+                'getInsightsRetentionMaxAge',
+                'getInsightsRetentionPruneInterval',
             ].forEach((key) => {
                 licenseAny[key] = () => constants_1.UNLIMITED_LICENSE_QUOTA;
             });
             licenseAny.isAPIDisabled = () => false;
             licenseAny.getAiCredits = () => 999999;
+            licenseAny.getMaxAiCredits = () => 999999;
             licenseAny.getPlanName = () => 'Enterprise';
             licenseAny.getConsumerId = () => 'enterprise-mock-consumer';
             licenseAny.getManagementJwt = () => 'mock-jwt-token';
