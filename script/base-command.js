@@ -50,12 +50,12 @@ const message_event_bus_1 = require("../eventbus/message-event-bus/message-event
 const telemetry_event_relay_1 = require("../events/relays/telemetry.event-relay");
 const external_hooks_1 = require("../external-hooks");
 const license_1 = require("../license");
-const load_nodes_and_credentials_1 = require("../load-nodes-and-credentials");
 const community_packages_config_1 = require("../modules/community-packages/community-packages.config");
 const node_types_1 = require("../node-types");
 const posthog_1 = require("../posthog");
 const shutdown_service_1 = require("../shutdown/shutdown.service");
 const workflow_history_manager_1 = require("../workflows/workflow-history/workflow-history-manager");
+const load_nodes_and_credentials_1 = require("../load-nodes-and-credentials");
 class BaseCommand {
     constructor() {
         this.logger = di_1.Container.get(backend_common_1.Logger);
@@ -85,7 +85,6 @@ class BaseCommand {
         process.once('SIGTERM', this.onTerminationSignal('SIGTERM'));
         process.once('SIGINT', this.onTerminationSignal('SIGINT'));
         this.nodeTypes = di_1.Container.get(node_types_1.NodeTypes);
-        await this.executionContextHookRegistry.init();
         await di_1.Container.get(load_nodes_and_credentials_1.LoadNodesAndCredentials).init();
         await this.dbConnection
             .init()
@@ -245,7 +244,6 @@ class BaseCommand {
             if (!license) {
                 return;
             }
-            const originalIsLicensed = license.isLicensed.bind(license);
             const originalGetValue = license.getValue.bind(license);
             license.isLicensed = (feature) => {
                 if (feature === 'feat:showNonProdBanner') {
@@ -299,6 +297,7 @@ class BaseCommand {
                 'isInsightsHourlyDataLicensed',
                 'isWorkflowDiffsLicensed',
                 'isProvisioningLicensed',
+                'isDynamicCredentialsEnabled',
             ].forEach((key) => {
                 licenseAny[key] = () => true;
             });
