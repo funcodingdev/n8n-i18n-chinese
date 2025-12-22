@@ -7,8 +7,8 @@ FROM n8nio/n8n:${VERSION}
 USER root
 
 # 2. 安装 Python 3 (修复 Task Runner 启动报错)
-# --no-cache 表示不缓存安装包，减小镜像体积
-RUN apk add --update --no-cache python3
+# 新版 n8n 镜像基于 Debian，使用 apt-get 安装
+RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -rf /var/lib/apt/lists/*
 
 # 3. 切回 node 用户 (N8N 默认运行用户) 以确保安全
 USER node
