@@ -1170,6 +1170,7 @@
     "expressionModalInput.pairedItemInvalidPinnedError": "取消固定节点“{node}”并执行",
     "expressionModalInput.pairedItemError": "无法确定使用哪个项目",
     "expressionModalInput.pairedItemError.noRunData": "无法确定使用哪个项 - 执行节点以获取更多信息",
+    "fixedCollectionParameter.addField": "添加字段",
     "fixedCollectionParameter.choose": "选择...",
     "fixedCollectionParameter.currentlyNoItemsExist": "当前不存在任何项目",
     "fixedCollectionParameter.deleteItem": "删除项目",
