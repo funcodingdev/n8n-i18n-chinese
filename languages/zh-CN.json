@@ -2215,7 +2215,7 @@
     "resourceLocator.placeholder.searchOrCreate": "搜索或创建...",
     "resourceLocator.placeholder.search": "搜索...",
     "resourceLocator.url.placeholder": "输入 URL...",
-    "resourceLocator.workflow.inactive.tooltip": "必须在使用之前发布",
+    "resourceLocator.workflow.inactive.tooltip": "未发布。可以用于手动测试，但必须在生产环境中运行之前发布。",
     "resourceMapper.autoMappingNotice": "在此模式下，确保传入的数据字段与 {serviceName} 中的 {fieldWord} 同名。（如果需要，请在此节点之前使用“编辑字段”节点来更改它们。）",
     "resourceMapper.mappingMode.label": "映射列模式",
     "resourceMapper.mappingMode.defineBelow.name": "手动映射每个列",
