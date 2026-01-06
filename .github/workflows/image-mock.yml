@@ -1,6 +1,6 @@
 # 构建并发布 Mock 模式的 Docker 镜像
 # Mock 模式用于测试环境，基于正式镜像构建
-name: 发布 Docker Chinese Mock 镜像
+name: 发布 Docker Mock 镜像
 
 on:
   # 支持手动触发，需要提供标签名称
