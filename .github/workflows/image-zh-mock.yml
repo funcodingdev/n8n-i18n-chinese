@@ -17,11 +17,11 @@ jobs:
     # 只有当前一个工作流成功时才运行（针对 workflow_run 触发）
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      # 检出 main 分支的最新代码（包含 Dockerfile.mock）
+      # 检出 main 分支的最新代码（包含 Dockerfile.zhmock）
       - name: 检出 Mock Dockerfile 代码
         uses: actions/checkout@v4
         with:
-          # 始终使用 main 分支的最新代码（包含 Dockerfile.mock）
+          # 始终使用 main 分支的最新代码（包含 Dockerfile.zhmock）
           ref: main
           fetch-depth: 0
 
@@ -68,9 +68,9 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             --build-arg VERSION=$RELEASE_VERSION \
-            -f Dockerfile.mock \
-            -t funcodingdev/n8n-mock:$RELEASE_VERSION \
-            -t funcodingdev/n8n-mock:latest \
+            -f Dockerfile.zhmock \
+            -t funcodingdev/n8n-chinese-mock:$RELEASE_VERSION \
+            -t funcodingdev/n8n-chinese-mock:latest \
             --push \
             .
 
@@ -81,7 +81,7 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
             --build-arg VERSION=latest \
-            -f Dockerfile.mock \
-            -t funcodingdev/n8n-mock:latest \
+            -f Dockerfile.zhmock \
+            -t funcodingdev/n8n-chinese-mock:latest \
             --push \
             .

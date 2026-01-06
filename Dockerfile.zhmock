@@ -1,6 +1,6 @@
 ARG VERSION
 
-FROM n8nio/n8n:${VERSION}
+FROM funcodingdev/n8n-chinese:${VERSION}
 
 # 复制修改后的 base-command.js 文件到容器中
 # 这个文件包含了 Enterprise Mock 功能，可以解锁所有企业版特性
