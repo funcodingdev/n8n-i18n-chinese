@@ -7,8 +7,9 @@
 - **版本更新**：本仓库跟踪 n8n 的**官方最新发布版本**，包含最新功能和改进
 - **企业版功能**：打包的 Docker 镜像额外支持了**企业版功能解锁**，无需许可证即可使用所有企业特性
 - **两种镜像**：
-    - `funcodingdev/n8n-chinese`: 纯中文版镜像
-    - `funcodingdev/n8n-chinese-mock`: 中文版 + 企业版功能解锁
+    - `funcodingdev/n8n-chinese`: 中文版镜像（不含企业版功能）
+    - `funcodingdev/n8n-mock`: 企业版镜像（不含中文汉化）
+    - `funcodingdev/n8n-chinese-mock`: 中文版 + 企业版功能镜像
 
 ## 快速开始
 
