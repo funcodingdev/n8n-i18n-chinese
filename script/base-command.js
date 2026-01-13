@@ -330,7 +330,64 @@ class BaseCommand {
             licenseAny.getInfo = () => 'Enterprise Mock License';
             licenseAny.enableAutoRenewals = () => { };
             licenseAny.disableAutoRenewals = () => { };
-            this.logger.info('[ENTERPRISE MOCK] ✅ All enterprise features enabled');
+            const licenseState = di_1.Container.get(backend_common_1.LicenseState);
+            const licenseStateAny = licenseState;
+            [
+                'isCustomRolesLicensed',
+                'isDynamicCredentialsLicensed',
+                'isSharingLicensed',
+                'isLogStreamingLicensed',
+                'isLdapLicensed',
+                'isSamlLicensed',
+                'isOidcLicensed',
+                'isMFAEnforcementLicensed',
+                'isApiKeyScopesLicensed',
+                'isAiAssistantLicensed',
+                'isAskAiLicensed',
+                'isAiCreditsLicensed',
+                'isAdvancedExecutionFiltersLicensed',
+                'isAdvancedPermissionsLicensed',
+                'isDebugInEditorLicensed',
+                'isBinaryDataS3Licensed',
+                'isMultiMainLicensed',
+                'isVariablesLicensed',
+                'isSourceControlLicensed',
+                'isExternalSecretsLicensed',
+                'isAPIDisabled',
+                'isWorkerViewLicensed',
+                'isProjectRoleAdminLicensed',
+                'isProjectRoleEditorLicensed',
+                'isProjectRoleViewerLicensed',
+                'isCustomNpmRegistryLicensed',
+                'isFoldersLicensed',
+                'isInsightsSummaryLicensed',
+                'isInsightsDashboardLicensed',
+                'isInsightsHourlyDataLicensed',
+                'isWorkflowDiffsLicensed',
+                'isProvisioningLicensed',
+            ].forEach((key) => {
+                licenseStateAny[key] = () => true;
+            });
+            licenseStateAny.isAPIDisabled = () => false;
+            [
+                'getMaxUsers',
+                'getMaxActiveWorkflows',
+                'getMaxVariables',
+                'getMaxAiCredits',
+                'getWorkflowHistoryPruneQuota',
+                'getInsightsMaxHistory',
+                'getInsightsRetentionMaxAge',
+                'getInsightsRetentionPruneInterval',
+                'getMaxTeamProjects',
+                'getMaxWorkflowsWithEvaluations',
+            ].forEach((key) => {
+                licenseStateAny[key] = () => constants_1.UNLIMITED_LICENSE_QUOTA;
+            });
+            licenseStateAny.getMaxAiCredits = () => 999999;
+            licenseStateAny.getInsightsMaxHistory = () => 365;
+            licenseStateAny.getInsightsRetentionMaxAge = () => 365;
+            licenseStateAny.getInsightsRetentionPruneInterval = () => 7;
+            this.logger.info('[ENTERPRISE MOCK] ✅ All enterprise features enabled (License + LicenseState)');
         }
         catch (error) {
             this.logger.error('[ENTERPRISE MOCK] Failed to enable enterprise mock:', error);
