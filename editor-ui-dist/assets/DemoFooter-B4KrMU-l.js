@@ -1,0 +1,62 @@
+import { C as computed, E as createCommentVNode, P as defineComponent, T as createBlock, et as openBlock } from "./vue.runtime.esm-bundler-tP5dCd7J.js";
+import "./_MapCache-Camb8nkv.js";
+import "./src-Kbykqxq3.js";
+import "./en-CF30SCh2.js";
+import "./preload-helper-CR0ecmWK.js";
+import "./_plugin-vue_export-helper-BwBpWJRZ.js";
+import "./truncate-ChhkhKTf.js";
+import { N as useWorkflowsStore } from "./builder.store-DHv6ZDDC.js";
+import "./empty-BUjCyq3U.js";
+import "./sanitize-html-BkT1y0bJ.js";
+import "./CalendarDate-zWqgZMlk.js";
+import "./constants-BWmvyWNX.js";
+import "./merge-DNcu4DUa.js";
+import "./_baseOrderBy-WsZyHpfJ.js";
+import "./dateformat-BlfbK1ki.js";
+import "./useDebounce-BtlMYmOg.js";
+import "./assistant.store-BMbCky26.js";
+import "./chatPanel.store-BYYh0QLO.js";
+import "./retry-B-tGcWte.js";
+import "./executions.store-1b0GDaCm.js";
+import "./useRunWorkflow-DyQXKkWY.js";
+import "./usePinnedData-BRNNp8-8.js";
+import "./nodeCreator.store-DkAXPKH_.js";
+import "./nodeIcon-Cd6oCb29.js";
+import "./useCanvasOperations-B2uBi01L.js";
+import { t as LogsPanel_default } from "./LogsPanel-8ADz26Bn.js";
+import "./folders.store-BAkWlSt3.js";
+import "./NodeIcon-_SP2OCwX.js";
+import "./KeyboardShortcutTooltip-DdJPWIHX.js";
+import "./useClipboard-PEL8zdIr.js";
+import "./RunData-BVMtQs8_.js";
+import "./NDVEmptyState-BZ1wAHlW.js";
+import "./externalSecrets.ee.store-BYHoHBTo.js";
+import "./uniqBy-BVoDPA90.js";
+import "./RunDataHtml-S_j2pLRX.js";
+import "./VueMarkdown-CiOdLvuP.js";
+import "./schemaPreview.store-CggeXdnR.js";
+import "./vue-json-pretty-DF-vJpHf.js";
+import "./dateFormatter-r4x0J87g.js";
+import "./useExecutionHelpers-ClSjOE_w.js";
+import "./useKeybindings-CVfJxjFA.js";
+import "./fileUtils-Bt1vr1SC.js";
+import "./core-BMwklDiH.js";
+import "./ChatFile-B6hcldJk.js";
+import "./xml-DDfXMqo8.js";
+import "./AnimatedSpinner-DBPcagVq.js";
+import "./useLogsTreeExpand-BzqiccfH.js";
+import "./core-DeR-PV8K.js";
+var DemoFooter_default = /* @__PURE__ */ defineComponent({
+	__name: "DemoFooter",
+	setup(__props) {
+		const workflowsStore = useWorkflowsStore();
+		const hasExecutionData = computed(() => workflowsStore.workflowExecutionData);
+		return (_ctx, _cache) => {
+			return hasExecutionData.value ? (openBlock(), createBlock(LogsPanel_default, {
+				key: 0,
+				"is-read-only": true
+			})) : createCommentVNode("", true);
+		};
+	}
+});
+export { DemoFooter_default as default };
