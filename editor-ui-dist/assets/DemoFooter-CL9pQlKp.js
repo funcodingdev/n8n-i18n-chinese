@@ -1,0 +1,53 @@
+import { C as computed, E as createCommentVNode, P as defineComponent, T as createBlock, et as openBlock } from "./vue.runtime.esm-bundler-XtMkEjzB.js";
+import "./_MapCache-DjqvIx7-.js";
+import "./src-DthownRi.js";
+import "./truncate-D14WWKzv.js";
+import { s as useWorkflowsStore } from "./users.store-2whEZH1V.js";
+import "./sanitize-html-DeDnsMgc.js";
+import "./empty-nq5-pHAR.js";
+import "./constants-B0jhRTVr.js";
+import "./merge-CB1wu-ED.js";
+import "./_baseOrderBy-ipqljOZZ.js";
+import "./dateformat-BeHi9sF4.js";
+import "./useDebounce-iSkhUUFT.js";
+import "./useClipboard-D6RNb1h4.js";
+import "./executions.store-iTQ_-mKB.js";
+import "./assistant.store-BG9qAP_f.js";
+import "./chatPanel.store-DR0-L0l8.js";
+import "./RunData-bKqfUAOE.js";
+import "./NDVEmptyState-S7LYe6yE.js";
+import "./externalSecrets.ee.store-CuR5mC04.js";
+import "./usePinnedData-Cj96tlwx.js";
+import "./nodeCreator.store-WIt4ce87.js";
+import "./canvas.utils-D0DeXnn-.js";
+import "./nodeIcon-Bnng4lv5.js";
+import "./useCanvasOperations-CzKzcxf8.js";
+import { t as LogsPanel_default } from "./LogsPanel-CozCB8NW.js";
+import "./folders.store-WBUWkjdZ.js";
+import "./pushConnection.store-DJwqg3GY.js";
+import "./RunDataHtml-BMxc-zRm.js";
+import "./NodeIcon-W_vWSk1w.js";
+import "./useRunWorkflow-D-K1KiKl.js";
+import "./vue-json-pretty-CTqCbq0T.js";
+import "./collaboration.store-BGpDO5Q4.js";
+import "./dateFormatter-7mTK1bl7.js";
+import "./useExecutionHelpers-DoujWMSW.js";
+import "./KeyboardShortcutTooltip-CGQsmqPF.js";
+import "./useKeybindings-BkIgR3s1.js";
+import "./ChatFile-DGN9Z6P_.js";
+import "./AnimatedSpinner-B25lpnvb.js";
+import "./useLogsTreeExpand-Cs2DVdMo.js";
+var DemoFooter_default = /* @__PURE__ */ defineComponent({
+	__name: "DemoFooter",
+	setup(__props) {
+		const workflowsStore = useWorkflowsStore();
+		const hasExecutionData = computed(() => workflowsStore.workflowExecutionData);
+		return (_ctx, _cache) => {
+			return hasExecutionData.value ? (openBlock(), createBlock(LogsPanel_default, {
+				key: 0,
+				"is-read-only": true
+			})) : createCommentVNode("", true);
+		};
+	}
+});
+export { DemoFooter_default as default };
