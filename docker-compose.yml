@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   n8n:
-    image: n8nio/n8n:{version}
+    image: n8nio/n8n:2.7.4
     container_name: n8n-chinese
     ports:
       - "15678:5678"
