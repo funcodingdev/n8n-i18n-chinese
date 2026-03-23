@@ -41,6 +41,7 @@ const constants_1 = require("@n8n/constants");
 const db_1 = require("@n8n/db");
 const di_1 = require("@n8n/di");
 const n8n_core_1 = require("n8n-core");
+const object_store_config_1 = require("n8n-core/dist/binary-data/object-store/object-store.config");
 const n8n_workflow_1 = require("n8n-workflow");
 const constants_2 = require("../constants");
 const CrashJournal = __importStar(require("../crash-journal"));
@@ -48,12 +49,14 @@ const deduplication_1 = require("../deduplication");
 const test_run_cleanup_service_ee_1 = require("../evaluation.ee/test-runner/test-run-cleanup.service.ee");
 const message_event_bus_1 = require("../eventbus/message-event-bus/message-event-bus");
 const telemetry_event_relay_1 = require("../events/relays/telemetry.event-relay");
+const workflow_failure_notification_event_relay_1 = require("../events/relays/workflow-failure-notification.event-relay");
 const external_hooks_1 = require("../external-hooks");
 const license_1 = require("../license");
 const community_packages_config_1 = require("../modules/community-packages/community-packages.config");
 const node_types_1 = require("../node-types");
 const posthog_1 = require("../posthog");
 const shutdown_service_1 = require("../shutdown/shutdown.service");
+const health_endpoint_util_1 = require("../utils/health-endpoint.util");
 const workflow_history_manager_1 = require("../workflows/workflow-history/workflow-history-manager");
 const load_nodes_and_credentials_1 = require("../load-nodes-and-credentials");
 class BaseCommand {
@@ -72,7 +75,7 @@ class BaseCommand {
     async init() {
         this.dbConnection = di_1.Container.get(db_1.DbConnection);
         this.errorReporter = di_1.Container.get(n8n_core_1.ErrorReporter);
-        const { backendDsn, environment, deploymentName } = this.globalConfig.sentry;
+        const { backendDsn, environment, deploymentName, profilesSampleRate, tracesSampleRate, eventLoopBlockThreshold, } = this.globalConfig.sentry;
         await this.errorReporter.init({
             serverType: this.instanceSettings.instanceType,
             dsn: backendDsn,
@@ -81,6 +84,17 @@ class BaseCommand {
             serverName: deploymentName,
             releaseDate: constants_2.N8N_RELEASE_DATE,
             withEventLoopBlockDetection: true,
+            eventLoopBlockThreshold,
+            tracesSampleRate,
+            profilesSampleRate,
+            healthEndpoint: (0, health_endpoint_util_1.resolveHealthEndpointPath)(this.globalConfig),
+            eligibleIntegrations: {
+                Express: true,
+                Http: true,
+                Postgres: this.globalConfig.database.type === 'postgresdb',
+                Redis: this.globalConfig.executions.mode === 'queue' ||
+                    this.globalConfig.cache.backend === 'redis',
+            },
         });
         process.once('SIGTERM', this.onTerminationSignal('SIGTERM'));
         process.once('SIGINT', this.onTerminationSignal('SIGINT'));
@@ -96,7 +110,6 @@ class BaseCommand {
         await this.dbConnection
             .migrate()
             .catch(async (error) => await this.exitWithCrash('There was an error running database migrations', error));
-        await di_1.Container.get(db_1.AuthRolesService).init();
         if (process.env.EXECUTIONS_PROCESS === 'own')
             process.exit(-1);
         if (this.globalConfig.executions.mode === 'queue' &&
@@ -119,6 +132,7 @@ class BaseCommand {
         di_1.Container.get(message_event_bus_1.MessageEventBus);
         await di_1.Container.get(posthog_1.PostHogClient).init();
         await di_1.Container.get(telemetry_event_relay_1.TelemetryEventRelay).init();
+        di_1.Container.get(workflow_failure_notification_event_relay_1.WorkflowFailureNotificationEventRelay).init();
     }
     async stopProcess() {
     }
@@ -157,16 +171,20 @@ class BaseCommand {
                 process.exit(1);
             }
         }
-        try {
-            const objectStoreService = di_1.Container.get(n8n_core_1.ObjectStoreService);
-            await objectStoreService.init();
-            const { ObjectStoreManager } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store.manager')));
-            binaryDataService.setManager('s3', new ObjectStoreManager(objectStoreService));
-        }
-        catch {
-            if (isS3WriteMode) {
-                this.logger.error('Failed to connect to S3 for binary data storage. Please check your S3 configuration.');
-                process.exit(1);
+        const isS3Configured = di_1.Container.get(object_store_config_1.ObjectStoreConfig).bucket.name !== '';
+        if (isS3Configured) {
+            try {
+                const { ObjectStoreService } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store/object-store.service.ee')));
+                const objectStoreService = di_1.Container.get(ObjectStoreService);
+                await objectStoreService.init();
+                const { ObjectStoreManager } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store.manager')));
+                binaryDataService.setManager('s3', new ObjectStoreManager(objectStoreService));
+            }
+            catch {
+                if (isS3WriteMode) {
+                    this.logger.error('Failed to connect to S3 for binary data storage. Please check your S3 configuration.');
+                    process.exit(1);
+                }
             }
         }
         await binaryDataService.init();
@@ -335,6 +353,7 @@ class BaseCommand {
             [
                 'isCustomRolesLicensed',
                 'isDynamicCredentialsLicensed',
+                'isPersonalSpacePolicyLicensed',
                 'isSharingLicensed',
                 'isLogStreamingLicensed',
                 'isLdapLicensed',
