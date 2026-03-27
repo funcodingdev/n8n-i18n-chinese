@@ -2746,6 +2746,7 @@
     "settings.communityNodes.confirmModal.cancel": "取消",
     "settings.mcp": "实例级别的MCP",
     "settings.mcp.description": "让MCP客户端如Claude、Lovable和其他AI工具发现并执行你的n8n工作流。",
+    "settings.mcp.preview.tooltip": "此功能处于预览阶段。预计会随着时间推移进行改进和变更。",
     "settings.mcp.header.toggle.enabled": "已启用",
     "settings.mcp.header.toggle.disabled": "已禁用",
     "settings.mcp.actionBox.heading": "将人工智能助手连接到您的工作流程中",
