@@ -87,7 +87,7 @@ class BaseCommand {
             eventLoopBlockThreshold,
             tracesSampleRate,
             profilesSampleRate,
-            healthEndpoint: (0, health_endpoint_util_1.resolveHealthEndpointPath)(this.globalConfig),
+            healthEndpoint: (0, health_endpoint_util_1.resolveBackendHealthEndpointPath)(this.globalConfig),
             eligibleIntegrations: {
                 Express: true,
                 Http: true,
@@ -116,11 +116,6 @@ class BaseCommand {
             this.globalConfig.database.type === 'sqlite') {
             this.logger.warn('Scaling mode is not officially supported with sqlite. Please use PostgreSQL instead.');
         }
-        const communityPackagesConfig = di_1.Container.get(community_packages_config_1.CommunityPackagesConfig);
-        if (communityPackagesConfig.enabled && this.needsCommunityPackages) {
-            const { CommunityPackagesService } = await Promise.resolve().then(() => __importStar(require('../modules/community-packages/community-packages.service')));
-            await di_1.Container.get(CommunityPackagesService).init();
-        }
         const taskRunnersConfig = this.globalConfig.taskRunners;
         if (this.needsTaskRunner) {
             if (taskRunnersConfig.insecureMode) {
@@ -135,6 +130,13 @@ class BaseCommand {
         di_1.Container.get(workflow_failure_notification_event_relay_1.WorkflowFailureNotificationEventRelay).init();
     }
     async stopProcess() {
+    }
+    async initCommunityPackages() {
+        const communityPackagesConfig = di_1.Container.get(community_packages_config_1.CommunityPackagesConfig);
+        if (communityPackagesConfig.enabled && this.needsCommunityPackages) {
+            const { CommunityPackagesService } = await Promise.resolve().then(() => __importStar(require('../modules/community-packages/community-packages.service')));
+            await di_1.Container.get(CommunityPackagesService).init();
+        }
     }
     async initCrashJournal() {
         await CrashJournal.init();
@@ -273,6 +275,18 @@ class BaseCommand {
                 if (feature === 'planName') {
                     return 'Enterprise';
                 }
+                if (feature === constants_1.LICENSE_QUOTAS.AI_CREDITS) {
+                    return 999999;
+                }
+                if (feature === constants_1.LICENSE_QUOTAS.INSIGHTS_MAX_HISTORY_DAYS) {
+                    return 365;
+                }
+                if (feature === constants_1.LICENSE_QUOTAS.INSIGHTS_RETENTION_MAX_AGE_DAYS) {
+                    return 365;
+                }
+                if (feature === constants_1.LICENSE_QUOTAS.INSIGHTS_RETENTION_PRUNE_INTERVAL_DAYS) {
+                    return 7;
+                }
                 if (Object.values(constants_1.LICENSE_QUOTAS).includes(feature)) {
                     return constants_1.UNLIMITED_LICENSE_QUOTA;
                 }
@@ -282,61 +296,6 @@ class BaseCommand {
                 return originalGetValue(feature);
             };
             const licenseAny = license;
-            [
-                'isAdvancedPermissionsLicensed',
-                'isSharingEnabled',
-                'isLdapEnabled',
-                'isSamlEnabled',
-                'isOidcEnabled',
-                'isMFAEnforcementLicensed',
-                'isSourceControlLicensed',
-                'isVariablesEnabled',
-                'isExternalSecretsEnabled',
-                'isLogStreamingEnabled',
-                'isMultiMainLicensed',
-                'isBinaryDataS3Licensed',
-                'isDebugInEditorLicensed',
-                'isWorkerViewLicensed',
-                'isAiCreditsEnabled',
-                'isAiAssistantEnabled',
-                'isAskAiEnabled',
-                'isAiBuilderEnabled',
-                'isFoldersEnabled',
-                'isProjectRoleAdminLicensed',
-                'isProjectRoleEditorLicensed',
-                'isProjectRoleViewerLicensed',
-                'isCustomNpmRegistryEnabled',
-                'isCustomRolesLicensed',
-                'isWithinUsersLimit',
-                'isApiKeyScopesEnabled',
-                'isAdvancedExecutionFiltersEnabled',
-                'isInsightsSummaryLicensed',
-                'isInsightsDashboardLicensed',
-                'isInsightsHourlyDataLicensed',
-                'isWorkflowDiffsLicensed',
-                'isProvisioningLicensed',
-                'isDynamicCredentialsEnabled',
-            ].forEach((key) => {
-                licenseAny[key] = () => true;
-            });
-            [
-                'getUsersLimit',
-                'getTriggerLimit',
-                'getVariablesLimit',
-                'getWorkflowHistoryPruneLimit',
-                'getTeamProjectLimit',
-                'getMaxUsers',
-                'getMaxActiveWorkflows',
-                'getMaxVariables',
-                'getWorkflowHistoryPruneQuota',
-                'getMaxTeamProjects',
-                'getMaxWorkflowsWithEvaluations',
-                'getInsightsMaxHistory',
-                'getInsightsRetentionMaxAge',
-                'getInsightsRetentionPruneInterval',
-            ].forEach((key) => {
-                licenseAny[key] = () => constants_1.UNLIMITED_LICENSE_QUOTA;
-            });
             licenseAny.isAPIDisabled = () => false;
             licenseAny.getAiCredits = () => 999999;
             licenseAny.getMaxAiCredits = () => 999999;
@@ -350,58 +309,7 @@ class BaseCommand {
             licenseAny.disableAutoRenewals = () => { };
             const licenseState = di_1.Container.get(backend_common_1.LicenseState);
             const licenseStateAny = licenseState;
-            [
-                'isCustomRolesLicensed',
-                'isDynamicCredentialsLicensed',
-                'isPersonalSpacePolicyLicensed',
-                'isSharingLicensed',
-                'isLogStreamingLicensed',
-                'isLdapLicensed',
-                'isSamlLicensed',
-                'isOidcLicensed',
-                'isMFAEnforcementLicensed',
-                'isApiKeyScopesLicensed',
-                'isAiAssistantLicensed',
-                'isAskAiLicensed',
-                'isAiCreditsLicensed',
-                'isAdvancedExecutionFiltersLicensed',
-                'isAdvancedPermissionsLicensed',
-                'isDebugInEditorLicensed',
-                'isBinaryDataS3Licensed',
-                'isMultiMainLicensed',
-                'isVariablesLicensed',
-                'isSourceControlLicensed',
-                'isExternalSecretsLicensed',
-                'isAPIDisabled',
-                'isWorkerViewLicensed',
-                'isProjectRoleAdminLicensed',
-                'isProjectRoleEditorLicensed',
-                'isProjectRoleViewerLicensed',
-                'isCustomNpmRegistryLicensed',
-                'isFoldersLicensed',
-                'isInsightsSummaryLicensed',
-                'isInsightsDashboardLicensed',
-                'isInsightsHourlyDataLicensed',
-                'isWorkflowDiffsLicensed',
-                'isProvisioningLicensed',
-            ].forEach((key) => {
-                licenseStateAny[key] = () => true;
-            });
             licenseStateAny.isAPIDisabled = () => false;
-            [
-                'getMaxUsers',
-                'getMaxActiveWorkflows',
-                'getMaxVariables',
-                'getMaxAiCredits',
-                'getWorkflowHistoryPruneQuota',
-                'getInsightsMaxHistory',
-                'getInsightsRetentionMaxAge',
-                'getInsightsRetentionPruneInterval',
-                'getMaxTeamProjects',
-                'getMaxWorkflowsWithEvaluations',
-            ].forEach((key) => {
-                licenseStateAny[key] = () => constants_1.UNLIMITED_LICENSE_QUOTA;
-            });
             licenseStateAny.getMaxAiCredits = () => 999999;
             licenseStateAny.getInsightsMaxHistory = () => 365;
             licenseStateAny.getInsightsRetentionMaxAge = () => 365;
