@@ -128,6 +128,14 @@ class BaseCommand {
         await di_1.Container.get(posthog_1.PostHogClient).init();
         await di_1.Container.get(telemetry_event_relay_1.TelemetryEventRelay).init();
         di_1.Container.get(workflow_failure_notification_event_relay_1.WorkflowFailureNotificationEventRelay).init();
+        const { engine, poolSize, maxCodeCacheSize, bridgeTimeout, bridgeMemoryLimit } = this.globalConfig.expressionEngine;
+        await n8n_workflow_1.Expression.initExpressionEngine({
+            engine,
+            poolSize,
+            maxCodeCacheSize,
+            bridgeTimeout,
+            bridgeMemoryLimit,
+        });
     }
     async stopProcess() {
     }
@@ -143,7 +151,11 @@ class BaseCommand {
     }
     async exitSuccessFully() {
         try {
-            await Promise.all([CrashJournal.cleanup(), this.dbConnection.close()]);
+            await Promise.all([
+                CrashJournal.cleanup(),
+                this.dbConnection.close(),
+                n8n_workflow_1.Expression.disposeExpressionEngine(),
+            ]);
         }
         finally {
             process.exit();
