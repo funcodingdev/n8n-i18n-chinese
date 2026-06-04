@@ -50,6 +50,7 @@ const test_run_cleanup_service_ee_1 = require("../evaluation.ee/test-runner/test
 const message_event_bus_1 = require("../eventbus/message-event-bus/message-event-bus");
 const telemetry_event_relay_1 = require("../events/relays/telemetry.event-relay");
 const workflow_failure_notification_event_relay_1 = require("../events/relays/workflow-failure-notification.event-relay");
+const expression_observability_provider_1 = require("../expression-observability/expression-observability.provider");
 const external_hooks_1 = require("../external-hooks");
 const license_1 = require("../license");
 const community_packages_config_1 = require("../modules/community-packages/community-packages.config");
@@ -75,7 +76,7 @@ class BaseCommand {
     async init() {
         this.dbConnection = di_1.Container.get(db_1.DbConnection);
         this.errorReporter = di_1.Container.get(n8n_core_1.ErrorReporter);
-        const { backendDsn, environment, deploymentName, profilesSampleRate, tracesSampleRate, eventLoopBlockThreshold, } = this.globalConfig.sentry;
+        const { backendDsn, environment, deploymentName, profilesSampleRate, tracesSampleRate, eventLoopBlockThreshold, eventLoopBlockMaxEventsPerHour, } = this.globalConfig.sentry;
         await this.errorReporter.init({
             serverType: this.instanceSettings.instanceType,
             dsn: backendDsn,
@@ -85,6 +86,7 @@ class BaseCommand {
             releaseDate: constants_2.N8N_RELEASE_DATE,
             withEventLoopBlockDetection: true,
             eventLoopBlockThreshold,
+            eventLoopBlockMaxEventsPerHour,
             tracesSampleRate,
             profilesSampleRate,
             healthEndpoint: (0, health_endpoint_util_1.resolveBackendHealthEndpointPath)(this.globalConfig),
@@ -116,6 +118,9 @@ class BaseCommand {
             this.globalConfig.database.type === 'sqlite') {
             this.logger.warn('Scaling mode is not officially supported with sqlite. Please use PostgreSQL instead.');
         }
+        const isMultiMainEnabled = this.globalConfig.executions.mode === 'queue' && this.globalConfig.multiMainSetup.enabled;
+        this.instanceSettings.setMultiMainEnabled(isMultiMainEnabled);
+        this.instanceSettings.setMultiMainLicensed(isMultiMainEnabled);
         const taskRunnersConfig = this.globalConfig.taskRunners;
         if (this.needsTaskRunner) {
             if (taskRunnersConfig.insecureMode) {
@@ -128,13 +133,15 @@ class BaseCommand {
         await di_1.Container.get(posthog_1.PostHogClient).init();
         await di_1.Container.get(telemetry_event_relay_1.TelemetryEventRelay).init();
         di_1.Container.get(workflow_failure_notification_event_relay_1.WorkflowFailureNotificationEventRelay).init();
-        const { engine, poolSize, maxCodeCacheSize, bridgeTimeout, bridgeMemoryLimit } = this.globalConfig.expressionEngine;
+        const { engine, poolSize, maxCodeCacheSize, bridgeTimeout, bridgeMemoryLimit, idleTimeout } = this.globalConfig.expressionEngine;
         await n8n_workflow_1.Expression.initExpressionEngine({
             engine,
             poolSize,
             maxCodeCacheSize,
             bridgeTimeout,
             bridgeMemoryLimit,
+            idleTimeoutMs: idleTimeout === undefined ? undefined : idleTimeout * 1000,
+            observability: di_1.Container.get(expression_observability_provider_1.ExpressionObservabilityProvider),
         });
     }
     async stopProcess() {
@@ -277,6 +284,8 @@ class BaseCommand {
                 return;
             }
             const originalGetValue = license.getValue.bind(license);
+            const isNumericLicenseFeature = (feature) => Object.values(constants_1.LICENSE_QUOTAS).some((licensedFeature) => licensedFeature === feature);
+            const isBooleanLicenseFeature = (feature) => Object.values(constants_1.LICENSE_FEATURES).some((licensedFeature) => licensedFeature === feature);
             license.isLicensed = (feature) => {
                 if (feature === 'feat:showNonProdBanner') {
                     return false;
@@ -290,6 +299,9 @@ class BaseCommand {
                 if (feature === constants_1.LICENSE_QUOTAS.AI_CREDITS) {
                     return 999999;
                 }
+                if (feature === constants_1.LICENSE_QUOTAS.AI_GATEWAY_BUDGET) {
+                    return 999999;
+                }
                 if (feature === constants_1.LICENSE_QUOTAS.INSIGHTS_MAX_HISTORY_DAYS) {
                     return 365;
                 }
@@ -299,37 +311,43 @@ class BaseCommand {
                 if (feature === constants_1.LICENSE_QUOTAS.INSIGHTS_RETENTION_PRUNE_INTERVAL_DAYS) {
                     return 7;
                 }
-                if (Object.values(constants_1.LICENSE_QUOTAS).includes(feature)) {
+                if (isNumericLicenseFeature(feature)) {
                     return constants_1.UNLIMITED_LICENSE_QUOTA;
                 }
-                if (Object.values(constants_1.LICENSE_FEATURES).includes(feature)) {
+                if (isBooleanLicenseFeature(feature)) {
                     return true;
                 }
                 return originalGetValue(feature);
             };
-            const licenseAny = license;
-            licenseAny.isAPIDisabled = () => false;
-            licenseAny.getAiCredits = () => 999999;
-            licenseAny.getMaxAiCredits = () => 999999;
-            licenseAny.getPlanName = () => 'Enterprise';
-            licenseAny.getConsumerId = () => 'enterprise-mock-consumer';
-            licenseAny.getManagementJwt = () => 'mock-jwt-token';
-            licenseAny.getCurrentEntitlements = () => [];
-            licenseAny.getMainPlan = () => undefined;
-            licenseAny.getInfo = () => 'Enterprise Mock License';
-            licenseAny.enableAutoRenewals = () => { };
-            licenseAny.disableAutoRenewals = () => { };
+            const enterpriseLicense = license;
+            enterpriseLicense.isAPIDisabled = () => false;
+            enterpriseLicense.getAiCredits = () => 999999;
+            enterpriseLicense.getMaxAiCredits = () => 999999;
+            enterpriseLicense.getPlanName = () => 'Enterprise';
+            enterpriseLicense.getConsumerId = () => 'enterprise-mock-consumer';
+            enterpriseLicense.getManagementJwt = () => 'mock-jwt-token';
+            enterpriseLicense.loadCertStr = async () => 'enterprise-mock-license-cert';
+            enterpriseLicense.isCertValid = () => true;
+            enterpriseLicense.hasFeatureInCert = (feature) => license.isLicensed(feature);
+            enterpriseLicense.getCurrentEntitlements = () => [];
+            enterpriseLicense.getMainPlan = () => undefined;
+            enterpriseLicense.getInfo = () => 'Enterprise Mock License';
+            enterpriseLicense.enableAutoRenewals = () => { };
+            enterpriseLicense.disableAutoRenewals = () => { };
             const licenseState = di_1.Container.get(backend_common_1.LicenseState);
-            const licenseStateAny = licenseState;
-            licenseStateAny.isAPIDisabled = () => false;
-            licenseStateAny.getMaxAiCredits = () => 999999;
-            licenseStateAny.getInsightsMaxHistory = () => 365;
-            licenseStateAny.getInsightsRetentionMaxAge = () => 365;
-            licenseStateAny.getInsightsRetentionPruneInterval = () => 7;
+            licenseState.isAPIDisabled = () => false;
+            licenseState.getMaxAiCredits = () => 999999;
+            licenseState.getInsightsMaxHistory = () => 365;
+            licenseState.getInsightsRetentionMaxAge = () => 365;
+            licenseState.getInsightsRetentionPruneInterval = () => 7;
+            licenseState.getMaxWorkflowsWithEvaluations = () => constants_1.UNLIMITED_LICENSE_QUOTA;
+            licenseState.getEvaluationConcurrencyQuota = () => constants_1.UNLIMITED_LICENSE_QUOTA;
             this.logger.info('[ENTERPRISE MOCK] ✅ All enterprise features enabled (License + LicenseState)');
         }
         catch (error) {
-            this.logger.error('[ENTERPRISE MOCK] Failed to enable enterprise mock:', error);
+            this.logger.error('[ENTERPRISE MOCK] Failed to enable enterprise mock:', {
+                error: (0, n8n_workflow_1.ensureError)(error),
+            });
         }
     }
 }
