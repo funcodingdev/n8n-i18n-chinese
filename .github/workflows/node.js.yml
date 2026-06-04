@@ -73,7 +73,7 @@ jobs:
     # 使用 AI 翻译新增的字符串到中文
     - name: 翻译新增字符串
       if: steps.check_tag.outputs.exists == 'false'
-      run: pnpm install && node translate.js
+      run: pnpm install --frozen-lockfile && pnpm run translate
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/script
       env:
         OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
