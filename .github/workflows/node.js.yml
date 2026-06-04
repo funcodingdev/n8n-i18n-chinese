@@ -12,6 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: test
+    permissions:
+      actions: write
+      contents: write
     strategy:
       matrix:
         node-version: [22.x]
@@ -218,4 +221,11 @@ jobs:
         prerelease: false
         files: ${{ steps.editorui_dir.outputs.dir }}/editor-ui.tar.gz
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
+
+    # 只有实际发布了新版本后，才触发 Docker 镜像发布
+    - name: 触发 Docker 镜像发布
+      if: steps.check_tag.outputs.exists == 'false'
+      run: gh workflow run image.yml --ref main -f tag="${{ steps.latest_release.outputs.latest }}"
+      env:
+        GH_TOKEN: ${{ github.token }}

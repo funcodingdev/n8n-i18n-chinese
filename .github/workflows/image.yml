@@ -2,10 +2,7 @@
 name: 发布 Docker 镜像
 
 on:
-  # 当创建新的 Release 时自动触发
-  release:
-    types: [published]
-  # 支持手动触发，需要提供标签名称
+  # 由“打包编辑器界面语言包”在创建新 Release 后触发，也支持手动触发
   workflow_dispatch:
     inputs:
       tag:
@@ -21,7 +18,7 @@ jobs:
       - name: 检出标签代码
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref }}
+          ref: ${{ github.event.inputs.tag }}
           fetch-depth: 0
 
       # 设置 Docker Buildx 以支持多架构构建
@@ -35,26 +32,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 提取版本号：优先使用手动输入，其次使用 GITHUB_REF，最后获取最新标签
+      # 提取版本号
       - name: 提取版本号
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            # 手动触发：使用输入的标签
-            RAW_TAG="${{ github.event.inputs.tag }}"
-          elif [ "${{ github.event_name }}" = "release" ]; then
-            # Release 触发：使用 GITHUB_REF
-            RAW_TAG=${GITHUB_REF##*/}
-          else
-            # 其他情况：获取 git 仓库中最新的标签
-            RAW_TAG=$(git tag --sort=-version:refname | head -n 1)
-            if [ -z "$RAW_TAG" ]; then
-              echo "❌ 错误：无法获取标签"
-              exit 1
-            fi
-          fi
+          RAW_TAG="${{ github.event.inputs.tag }}"
           VERSION=${RAW_TAG#n8n@}
           echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "✅ 版本号: $VERSION (来源: ${{ github.event_name }})"
+          echo "✅ 版本号: $VERSION"
 
       # 构建并推送多架构 Docker 镜像（支持 AMD64 和 ARM64）
       - name: 构建并推送 Docker 镜像
