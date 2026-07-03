@@ -3075,8 +3075,6 @@
     "settings.provisioningConfirmDialog.button.downloadInstanceRolesCsv": "现有实例角色设置 CSV",
     "settings.provisioningInstanceRolesHandledBySsoProvider.description": "用户管理和实例角色由您的单点登录（SSO）提供者控制。请联系您的 n8n 实例所有者或管理员以进行修改。",
     "settings.provisioningInstanceRolesHandledByExpressionMapping.description": "实例角色由基于表达式的角色映射规则自动管理。已禁用手动角色更改。",
-    "settings.provisioningProjectRolesHandledBySsoProvider.description": "用户管理和项目角色由您的SSO提供商控制。请联系您的n8n实例所有者或管理员以进行更改。",
-    "settings.provisioningProjectRolesHandledByExpressionMapping.description": "项目角色由基于表达式的角色映射规则自动管理。已禁用手动更改角色。",
     "settings.externalSecrets.title": "外部密钥",
     "settings.externalSecrets.info": "连接外部密钥工具，用于跨环境集中凭据管理，并增强系统安全性。",
     "settings.externalSecrets.info.link": "更多信息",
