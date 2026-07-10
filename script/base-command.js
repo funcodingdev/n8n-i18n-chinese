@@ -42,10 +42,12 @@ const db_1 = require("@n8n/db");
 const di_1 = require("@n8n/di");
 const n8n_core_1 = require("n8n-core");
 const object_store_config_1 = require("n8n-core/dist/binary-data/object-store/object-store.config");
+const azure_blob_config_1 = require("n8n-core/dist/binary-data/azure-blob/azure-blob.config");
 const n8n_workflow_1 = require("n8n-workflow");
 const constants_2 = require("../constants");
 const CrashJournal = __importStar(require("../crash-journal"));
 const deduplication_1 = require("../deduplication");
+const execution_persistence_1 = require("../executions/execution-persistence");
 const test_run_cleanup_service_ee_1 = require("../evaluation.ee/test-runner/test-run-cleanup.service.ee");
 const message_event_bus_1 = require("../eventbus/message-event-bus/message-event-bus");
 const telemetry_event_relay_1 = require("../events/relays/telemetry.event-relay");
@@ -53,13 +55,13 @@ const workflow_failure_notification_event_relay_1 = require("../events/relays/wo
 const expression_observability_provider_1 = require("../expression-observability/expression-observability.provider");
 const external_hooks_1 = require("../external-hooks");
 const license_1 = require("../license");
+const load_nodes_and_credentials_1 = require("../load-nodes-and-credentials");
 const community_packages_config_1 = require("../modules/community-packages/community-packages.config");
 const node_types_1 = require("../node-types");
 const posthog_1 = require("../posthog");
 const shutdown_service_1 = require("../shutdown/shutdown.service");
 const health_endpoint_util_1 = require("../utils/health-endpoint.util");
 const workflow_history_manager_1 = require("../workflows/workflow-history/workflow-history-manager");
-const load_nodes_and_credentials_1 = require("../load-nodes-and-credentials");
 class BaseCommand {
     constructor() {
         this.logger = di_1.Container.get(backend_common_1.Logger);
@@ -76,7 +78,7 @@ class BaseCommand {
     async init() {
         this.dbConnection = di_1.Container.get(db_1.DbConnection);
         this.errorReporter = di_1.Container.get(n8n_core_1.ErrorReporter);
-        const { backendDsn, environment, deploymentName, profilesSampleRate, tracesSampleRate, eventLoopBlockThreshold, eventLoopBlockMaxEventsPerHour, } = this.globalConfig.sentry;
+        const { backendDsn, environment, deploymentName, profilesSampleRate, tracesSampleRate, tracesSlowSpanThresholdMs, webhookTracesSampleRate, eventLoopBlockThreshold, eventLoopBlockMaxEventsPerHour, eventLoopBlockDetectionEnabled, } = this.globalConfig.sentry;
         await this.errorReporter.init({
             serverType: this.instanceSettings.instanceType,
             dsn: backendDsn,
@@ -84,10 +86,13 @@ class BaseCommand {
             release: `n8n@${constants_2.N8N_VERSION}`,
             serverName: deploymentName,
             releaseDate: constants_2.N8N_RELEASE_DATE,
-            withEventLoopBlockDetection: true,
+            withEventLoopBlockDetection: eventLoopBlockDetectionEnabled,
             eventLoopBlockThreshold,
             eventLoopBlockMaxEventsPerHour,
             tracesSampleRate,
+            slowSpanThresholdMs: tracesSlowSpanThresholdMs,
+            webhookEndpoint: this.globalConfig.endpoints.webhook,
+            webhookTracesSampleRate,
             profilesSampleRate,
             healthEndpoint: (0, health_endpoint_util_1.resolveBackendHealthEndpointPath)(this.globalConfig),
             eligibleIntegrations: {
@@ -102,6 +107,13 @@ class BaseCommand {
         process.once('SIGINT', this.onTerminationSignal('SIGINT'));
         this.nodeTypes = di_1.Container.get(node_types_1.NodeTypes);
         await di_1.Container.get(load_nodes_and_credentials_1.LoadNodesAndCredentials).init();
+        const useRedisForLocking = this.globalConfig.executions.mode === 'queue' ||
+            this.globalConfig.multiMainSetup.enabled ||
+            this.globalConfig.cache.backend === 'redis';
+        if (useRedisForLocking) {
+            const { RedisLockService } = await Promise.resolve().then(() => __importStar(require('../scaling/redis-lock.service')));
+            di_1.Container.get(backend_common_1.LockService).setProvider(di_1.Container.get(RedisLockService));
+        }
         await this.dbConnection
             .init()
             .catch(async (error) => await this.exitWithCrash('There was an error initializing DB', error));
@@ -183,6 +195,7 @@ class BaseCommand {
         const binaryDataConfig = di_1.Container.get(n8n_core_1.BinaryDataConfig);
         const binaryDataService = di_1.Container.get(n8n_core_1.BinaryDataService);
         const isS3WriteMode = binaryDataConfig.mode === 's3';
+        const isAzureWriteMode = binaryDataConfig.mode === 'azure';
         const { DatabaseManager } = await Promise.resolve().then(() => __importStar(require('../binary-data/database.manager')));
         binaryDataService.setManager('database', di_1.Container.get(DatabaseManager));
         if (isS3WriteMode) {
@@ -192,23 +205,91 @@ class BaseCommand {
                 process.exit(1);
             }
         }
+        if (isAzureWriteMode) {
+            const isLicensed = di_1.Container.get(backend_common_1.LicenseState).isBinaryDataAzureLicensed();
+            if (!isLicensed) {
+                this.logger.error('Azure Blob binary data storage requires a valid license. Either set `N8N_DEFAULT_BINARY_DATA_MODE` to something else, or upgrade to a license that supports this feature.');
+                process.exit(1);
+            }
+            if (di_1.Container.get(azure_blob_config_1.AzureBlobConfig).containerName === '') {
+                this.logger.error('Azure Blob binary data storage requires `N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME` to be set.');
+                process.exit(1);
+            }
+        }
+        const executionDataMode = di_1.Container.get(n8n_core_1.StorageConfig).mode;
         const isS3Configured = di_1.Container.get(object_store_config_1.ObjectStoreConfig).bucket.name !== '';
-        if (isS3Configured) {
-            try {
-                const { ObjectStoreService } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store/object-store.service.ee')));
-                const objectStoreService = di_1.Container.get(ObjectStoreService);
-                await objectStoreService.init();
+        const isAzureConfigured = di_1.Container.get(azure_blob_config_1.AzureBlobConfig).containerName !== '';
+        const isExecutionDataS3Mode = executionDataMode === 's3';
+        const isExecutionDataAzureMode = executionDataMode === 'azure';
+        const isExecutionDataS3Licensed = di_1.Container.get(backend_common_1.LicenseState).isExecutionDataS3Licensed();
+        const isExecutionDataAzureLicensed = di_1.Container.get(backend_common_1.LicenseState).isExecutionDataAzureLicensed();
+        if (isExecutionDataS3Mode) {
+            if (!isExecutionDataS3Licensed) {
+                this.logger.error('S3 execution data storage requires a valid license. Either set `N8N_EXECUTION_DATA_STORAGE_MODE` to something else, or upgrade to a license that supports this feature.');
+                process.exit(1);
+            }
+            if (!isS3Configured) {
+                this.logger.error('S3 execution data storage requires `N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME` to be set.');
+                process.exit(1);
+            }
+        }
+        if (isExecutionDataAzureMode) {
+            if (!isExecutionDataAzureLicensed) {
+                this.logger.error('Azure Blob execution data storage requires a valid license. Either set `N8N_EXECUTION_DATA_STORAGE_MODE` to something else, or upgrade to a license that supports this feature.');
+                process.exit(1);
+            }
+            if (!isAzureConfigured) {
+                this.logger.error('Azure Blob execution data storage requires `N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME` to be set.');
+                process.exit(1);
+            }
+        }
+        try {
+            const objectStoreService = await this.initObjectStoreIfConfigured();
+            if (objectStoreService) {
                 const { ObjectStoreManager } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store.manager')));
                 binaryDataService.setManager('s3', new ObjectStoreManager(objectStoreService));
             }
-            catch {
-                if (isS3WriteMode) {
-                    this.logger.error('Failed to connect to S3 for binary data storage. Please check your S3 configuration.');
-                    process.exit(1);
-                }
+        }
+        catch {
+            if (isS3WriteMode || isExecutionDataS3Mode) {
+                this.logger.error('Failed to connect to S3. Please check your S3 configuration.');
+                process.exit(1);
+            }
+        }
+        try {
+            const azureBlobService = await this.initAzureStoreIfConfigured();
+            if (azureBlobService) {
+                const { AzureBlobManager } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/azure-blob.manager')));
+                binaryDataService.setManager('azure', new AzureBlobManager(azureBlobService));
+            }
+        }
+        catch {
+            if (isAzureWriteMode || isExecutionDataAzureMode) {
+                this.logger.error('Failed to connect to Azure Blob storage. Please check your Azure configuration.');
+                process.exit(1);
             }
         }
         await binaryDataService.init();
+    }
+    async initObjectStoreIfConfigured() {
+        if (di_1.Container.get(object_store_config_1.ObjectStoreConfig).bucket.name === '')
+            return undefined;
+        const { ObjectStoreService } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/object-store/object-store.service.ee')));
+        const objectStoreService = di_1.Container.get(ObjectStoreService);
+        await objectStoreService.init();
+        const { S3Store } = await Promise.resolve().then(() => __importStar(require('../executions/execution-data/s3-store.ee')));
+        di_1.Container.get(execution_persistence_1.ExecutionPersistence).setS3Store(di_1.Container.get(S3Store));
+        return objectStoreService;
+    }
+    async initAzureStoreIfConfigured() {
+        if (di_1.Container.get(azure_blob_config_1.AzureBlobConfig).containerName === '')
+            return;
+        const { AzureBlobService } = await Promise.resolve().then(() => __importStar(require('n8n-core/dist/binary-data/azure-blob/azure-blob.service.ee')));
+        const azureBlobService = di_1.Container.get(AzureBlobService);
+        await azureBlobService.init();
+        const { AzureStore } = await Promise.resolve().then(() => __importStar(require('../executions/execution-data/azure-store.ee')));
+        di_1.Container.get(execution_persistence_1.ExecutionPersistence).setAzStore(di_1.Container.get(AzureStore));
+        return azureBlobService;
     }
     async initDataDeduplicationService() {
         const dataDeduplicationService = (0, deduplication_1.getDataDeduplicationService)();
