@@ -2718,7 +2718,6 @@
     "settings.mcp.header.toggle.disabled": "已禁用",
     "settings.mcp.actionBox.heading": "将人工智能助手连接到您的工作流程中",
     "settings.mcp.actionBox.button.label": "启用MCP访问",
-    "settings.mcp.emptyState.docs.part1": "阅读我们的文档以",
     "settings.mcp.tabs.workflows": "工作流程",
     "settings.mcp.tabs.oauth": "连接的客户端",
     "settings.mcp.access.token.notice": "确保复制你的访问令牌，你将无法再次看到它。",
