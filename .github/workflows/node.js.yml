@@ -272,6 +272,6 @@ jobs:
     # 整个打包发布流程成功且实际发布了新版本后，立即触发 Docker 镜像发布
     - name: 打包成功后触发 Docker 镜像发布
       if: ${{ success() && steps.check_tag.outputs.exists == 'false' }}
-      run: gh workflow run image.yml --ref main -f tag="${{ steps.latest_release.outputs.latest }}"
+      run: gh workflow run image.yml --repo "${{ github.repository }}" --ref main -f tag="${{ steps.latest_release.outputs.latest }}"
       env:
         GH_TOKEN: ${{ github.token }}
