@@ -4603,7 +4603,7 @@
     "workflowReviews.publishChoice.publish": "发布",
     "workflowReviews.submitForReview.title": "提交审核",
     "workflowReviews.submitForReview.step": "步骤 {step} 共 {total}",
-    "workflowReviews.submitForReview.ariaDescription": "为工作流版本命名并描述，然后添加审核标题、可选描述和审核人。",
+    "workflowReviews.submitForReview.ariaDescription": "首先命名并描述工作流版本，然后添加审阅标题、审阅人及可选描述。",
     "workflowReviews.submitForReview.reviewTitle.label": "评论标题",
     "workflowReviews.submitForReview.description.label": "描述",
     "workflowReviews.submitForReview.reviewer.label": "审阅者",
