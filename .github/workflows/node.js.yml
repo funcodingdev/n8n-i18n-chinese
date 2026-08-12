@@ -8,6 +8,11 @@ on:
   - cron: "0 * * * *"
   workflow_dispatch:
 
+# 同一时间只运行一个发布任务，避免定时任务和手动任务同时写入 main
+concurrency:
+  group: build-editor-language-pack
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,6 +49,7 @@ jobs:
     - name: 检出本地仓库
       uses: actions/checkout@v4
       with:
+        ref: main
         path: ./n8n-i18n-chinese
 
     # - name: Read version from package.json
@@ -97,7 +103,18 @@ jobs:
           echo "No changes to commit."
         else
           git commit -m "chore: auto translate"
-          git push origin
+          # 若运行期间 main 有新提交，则在最新 main 上重放后重试推送
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "连续 3 次推送失败。"
+              exit 1
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
@@ -185,7 +202,18 @@ jobs:
           echo "国际化补丁没有变化。"
         else
           git commit -m "chore: update i18n patch for ${{ steps.latest_release.outputs.latest }}"
-          git push origin HEAD:main
+          # 构建期间 main 也可能被更新，采用相同的重试策略
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "连续 3 次推送失败。"
+              exit 1
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
