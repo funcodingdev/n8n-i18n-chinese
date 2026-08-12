@@ -148,14 +148,16 @@ jobs:
       if: steps.check_tag.outputs.exists == 'false'
       run:     cp -r /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/languages/* "/home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/@n8n/i18n/src/locales/"
 
-    # 应用中文国际化补丁
-    - name: 应用国际化补丁
+    # 根据当前 N8N 版本源码生成并应用中文国际化补丁
+    - name: 生成并应用国际化补丁
       if: steps.editorui_dir.outputs.flag == 'new' && steps.check_tag.outputs.exists == 'false'
       run: |
-        git apply /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/patches/feat__i18n_zhCn.patch
+        node ./n8n-i18n-chinese/script/update-i18n-patch.js \
+          --n8n-dir ./n8n \
+          --patch-file ./n8n-i18n-chinese/patches/feat__i18n_zhCn.patch \
+          --version "${{ steps.latest_release.outputs.latest }}"
         echo "==== /packages/frontend/@n8n/i18n/src/index.ts 内容 ===="
-        head -n 30 /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n/packages/frontend/@n8n/i18n/src/index.ts
-      working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
+        head -n 30 ./n8n/packages/frontend/@n8n/i18n/src/index.ts
 
     # 构建编辑器界面
     - name: 构建编辑器界面
@@ -170,6 +172,22 @@ jobs:
           exit 1
         fi
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n
+
+    # 构建通过后，将当前 N8N 版本对应的补丁更新到主分支
+    - name: 提交最新版本国际化补丁
+      if: steps.check_tag.outputs.exists == 'false'
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add patches/feat__i18n_zhCn.patch
+
+        if git diff --cached --quiet; then
+          echo "国际化补丁没有变化。"
+        else
+          git commit -m "chore: update i18n patch for ${{ steps.latest_release.outputs.latest }}"
+          git push origin HEAD:main
+        fi
+      working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese
 
     # 压缩构建产物为 tar.gz 归档文件
     - name: 打包构建产物
@@ -223,9 +241,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-    # 只有实际发布了新版本后，才触发 Docker 镜像发布
-    - name: 触发 Docker 镜像发布
-      if: steps.check_tag.outputs.exists == 'false'
+    # 整个打包发布流程成功且实际发布了新版本后，立即触发 Docker 镜像发布
+    - name: 打包成功后触发 Docker 镜像发布
+      if: ${{ success() && steps.check_tag.outputs.exists == 'false' }}
       run: gh workflow run image.yml --ref main -f tag="${{ steps.latest_release.outputs.latest }}"
       env:
         GH_TOKEN: ${{ github.token }}

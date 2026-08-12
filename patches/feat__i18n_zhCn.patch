@@ -1,6 +1,7 @@
-Subject: [PATCH] feat: i18n import zhCn
+Subject: [PATCH] feat: i18n import zhCn for n8n@2.34.4
 ---
 diff --git a/packages/frontend/@n8n/i18n/src/index.ts b/packages/frontend/@n8n/i18n/src/index.ts
+index 8f3dc01..d6bd055 100644
 --- a/packages/frontend/@n8n/i18n/src/index.ts
 +++ b/packages/frontend/@n8n/i18n/src/index.ts
 @@ -5,6 +5,7 @@ import { createI18n } from 'vue-i18n';
@@ -11,7 +12,8 @@ diff --git a/packages/frontend/@n8n/i18n/src/index.ts b/packages/frontend/@n8n/i
  import type { BaseTextKey, LocaleMessages, INodeTranslationHeaders } from './types';
  import {
  	deriveMiddleKey,
-@@ -21,8 +22,8 @@ type LooseSchema = Record<string, unknown>;
+@@ -21,9 +22,9 @@ export type * from './types';
+ type LooseSchema = Record<string, unknown>;
  export const i18nInstance: I18n<LooseSchema, LooseSchema, LooseSchema, string, false> = createI18n({
  	legacy: false,
 -	locale: 'en',
