@@ -1,7 +1,7 @@
 Subject: [PATCH] feat: i18n import zhCn for n8n@2.34.4
 ---
 diff --git a/packages/frontend/@n8n/i18n/src/index.ts b/packages/frontend/@n8n/i18n/src/index.ts
-index 8f3dc01..d6bd055 100644
+index 8f3dc011..d6bd0553 100644
 --- a/packages/frontend/@n8n/i18n/src/index.ts
 +++ b/packages/frontend/@n8n/i18n/src/index.ts
 @@ -5,6 +5,7 @@ import { createI18n } from 'vue-i18n';
