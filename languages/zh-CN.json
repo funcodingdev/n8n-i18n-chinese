@@ -239,6 +239,8 @@
     "auth.setup.setupOwner": "设置所有者帐户",
     "auth.signin": "登录",
     "auth.signin.error": "登录时出现问题",
+    "auth.signin.sessionExpired.title": "会话已过期",
+    "auth.signin.sessionExpired": "您的会话已过期。请重新登录以继续使用n8n。",
     "auth.signout": "注销",
     "auth.signout.error": "无法注销",
     "auth.signup.finishAccountSetup": "完成帐户设置",
