@@ -1,0 +1,520 @@
+import { $ as openBlock, It as ref, N as defineComponent, S as computed, Ut as toValue, X as onMounted, gt as watch, w as createBlock } from "./vue.runtime.esm-bundler-Bs4WIMNP.js";
+import { x as useI18n } from "./_MapCache-B3sL8ZR7.js";
+import { H as filterAndSearchNodes, R as useNodeTypesStore, Z as isNodePreviewKey, _t as stripToolSuffix, tt as removePreviewToken } from "./workflows.store-Ct6L2UO9.js";
+import { t as useRootStore } from "./useRootStore-CDIOxWm8.js";
+import { Xi as v4, ti as NodeConnectionTypes, ui as isCommunityPackageName, z as INCOMPATIBLE_WORKFLOW_TOOL_BODY_NODE_TYPES } from "./src-Vot4VemC.js";
+import { t as useUsersStore } from "./users.store-BI68ysRg.js";
+import { t as useTelemetry } from "./useTelemetry-CZKoOy4G.js";
+import { n as useToast } from "./useToast-CCkQxXZW.js";
+import { Er as AGENT_TOOL_CONFIG_MODAL_KEY } from "./constants-nNF8vqjl.js";
+import { n as TELEMETRY_EVENT } from "./src-BK4W2oeU.js";
+import { s as getWorkflow } from "./workflowsList.store-s9e_R4vj.js";
+import { n as useUIStore } from "./ui.store-R3eNGF28.js";
+import { n as getNodeIconSource } from "./nodeIcon-CBM5aUZs.js";
+import { t as useInstallNode } from "./useInstallNode-8Xz5yjoX.js";
+import { a as getExistingToolNames, i as nodeTypeToNewMcpServer, n as mcpServerToNode, o as nodeTypeToNewToolRef, s as toolRefToNode, t as isMcpRelatedNodeType, u as workflowToNewToolRef } from "./useMcpServerAdapter-BbQ_HOAi.js";
+import { t as ToolsConnectionModal_default } from "./ToolsConnectionModal-4_uhphjn.js";
+import { n as toolCategoryForNodeType, r as useAgentToolCatalog, t as hasInputs } from "./useAgentToolCatalog-D2lml0c7.js";
+//#region src/features/agents/composables/useAgentToolTelemetry.ts
+/** Identifier payload — node_type for node tools, workflow name for workflow tools. */
+function identityProps(ref) {
+	if (ref.type === "node") return { node_type: ref.node?.nodeType };
+	if (ref.type === "workflow") return { workflow: ref.workflow };
+	return { custom_id: ref.id };
+}
+function useAgentToolTelemetry(agentId) {
+	const telemetry = useTelemetry();
+	function agentProps() {
+		const resolvedAgentId = toValue(agentId);
+		return resolvedAgentId ? { agent_id: resolvedAgentId } : {};
+	}
+	/** Fired when the user clicks Connect on an Available row — a new-ref flow begins. */
+	function trackAddStarted(toolType) {
+		telemetry.track(TELEMETRY_EVENT.AGENTS.USER_STARTED_ADDING_AGENT_TOOL, {
+			tool_type: toolType,
+			source: "manual",
+			...agentProps()
+		});
+	}
+	/** Fired when an existing tool's config is saved. */
+	function trackEdited(ref) {
+		telemetry.track(TELEMETRY_EVENT.AGENTS.USER_EDITED_AGENT_TOOL, {
+			tool_type: ref.type,
+			...identityProps(ref),
+			...agentProps()
+		});
+	}
+	return {
+		trackAddStarted,
+		trackEdited
+	};
+}
+//#endregion
+//#region src/features/agents/utils/toolIconSource.ts
+/** Map a node type description to the shared tools-connection icon shape. */
+function toToolIconSource(nodeType) {
+	const source = getNodeIconSource(nodeType, null, null);
+	if (!source) return void 0;
+	const { badge: _badge, ...rest } = source;
+	return rest;
+}
+//#endregion
+//#region src/features/agents/components/AgentToolsConnectionModalWrapper.vue
+var AgentToolsConnectionModalWrapper_default = /* @__PURE__ */ defineComponent({
+	inheritAttrs: false,
+	__name: "AgentToolsConnectionModalWrapper",
+	props: {
+		modalName: {},
+		data: {}
+	},
+	setup(__props) {
+		const CATEGORIES = [
+			"all",
+			"mcp",
+			"n8n",
+			"app-action",
+			"workflows"
+		];
+		const incompatibleWorkflowToolBodyNodeTypes = new Set(INCOMPATIBLE_WORKFLOW_TOOL_BODY_NODE_TYPES);
+		const props = __props;
+		const i18n = useI18n();
+		const nodeTypesStore = useNodeTypesStore();
+		const uiStore = useUIStore();
+		const rootStore = useRootStore();
+		const toast = useToast();
+		const toolTelemetry = useAgentToolTelemetry(props.data.agentId);
+		const { availableToolTypes, availableWorkflows, loadWorkflows, resolveToolNodeType } = useAgentToolCatalog();
+		const { installNode: installCommunityNode } = useInstallNode();
+		const usersStore = useUsersStore();
+		const searchQuery = ref("");
+		const installingToolName = ref(null);
+		function toWorkingToolEntries(tools, existingEntries = []) {
+			return tools.map((ref, index) => ({
+				localId: existingEntries[index]?.localId ?? v4(),
+				ref
+			}));
+		}
+		function toWorkingMcpServerEntries(servers, existingEntries = []) {
+			return servers.map((server, index) => ({
+				localId: existingEntries[index]?.localId ?? v4(),
+				server
+			}));
+		}
+		const workingToolEntries = ref(toWorkingToolEntries(props.data.tools));
+		watch(() => props.data.tools, (tools) => {
+			workingToolEntries.value = toWorkingToolEntries(tools, workingToolEntries.value);
+		});
+		const workingMcpServerEntries = ref(toWorkingMcpServerEntries(props.data.mcpServers ?? []));
+		watch(() => props.data.mcpServers ?? [], (servers) => {
+			workingMcpServerEntries.value = toWorkingMcpServerEntries(servers, workingMcpServerEntries.value);
+		});
+		const workingTools = computed(() => workingToolEntries.value.map(({ ref }) => ref));
+		const workingMcpServers = computed(() => workingMcpServerEntries.value.map(({ server }) => server));
+		const isConfigModalOpen = computed(() => uiStore.modalsById[AGENT_TOOL_CONFIG_MODAL_KEY]?.open === true);
+		/**
+		* The two dialogs are sequential rather than stacked: connecting a tool hands
+		* over to the config modal, and this one steps aside. It stays open in the
+		* store rather than closing, so cancelling the config brings the list back with
+		* its search and scroll position intact.
+		*/
+		const isOpen = computed({
+			get: () => uiStore.modalsById[props.modalName]?.open === true && !isConfigModalOpen.value,
+			set: (value) => {
+				if (!value) uiStore.closeModal(props.modalName);
+			}
+		});
+		function openConfigModal(data) {
+			uiStore.openModalWithData({
+				name: AGENT_TOOL_CONFIG_MODAL_KEY,
+				data
+			});
+		}
+		onMounted(() => {
+			loadWorkflows(props.data.projectId);
+			nodeTypesStore.fetchCommunityNodePreviews();
+		});
+		function hasRequiredCredentials(nodeType) {
+			return (nodeType.credentials ?? []).some((credential) => credential.required !== false);
+		}
+		function isConfigurableParameter(parameter) {
+			return parameter.type !== "notice" && parameter.type !== "hidden";
+		}
+		function needsSetup(nodeType) {
+			return hasRequiredCredentials(nodeType) || (nodeType.properties ?? []).some(isConfigurableParameter);
+		}
+		function makeUniqueName(baseName, existingNames, format) {
+			const defaultFormat = (name, counter) => `${name} (${counter})`;
+			const formatFn = format ?? defaultFormat;
+			if (!existingNames.includes(baseName)) return baseName;
+			let counter = 1;
+			while (existingNames.includes(formatFn(baseName, counter))) counter++;
+			return formatFn(baseName, counter);
+		}
+		function resolveMcpNodeType(server) {
+			const preferredTypeName = server.metadata?.nodeTypeName ?? "@n8n/n8n-nodes-langchain.mcpClientTool";
+			return nodeTypesStore.getNodeType(preferredTypeName) ?? nodeTypesStore.getNodeType("@n8n/n8n-nodes-langchain.mcpClientTool");
+		}
+		function getExistingMcpServerNames(servers, exclude) {
+			return servers.filter((server) => server !== exclude).map((server) => server.name);
+		}
+		function commit() {
+			props.data.onConfirm({
+				tools: workingTools.value,
+				mcpServers: workingMcpServers.value
+			});
+		}
+		function addToolRef(savedRef) {
+			workingToolEntries.value = [...workingToolEntries.value, {
+				localId: v4(),
+				ref: savedRef
+			}];
+			commit();
+			uiStore.closeModal(props.modalName);
+			toast.showMessage({
+				title: i18n.baseText("agents.tools.added"),
+				type: "success"
+			});
+		}
+		function addMcpServer(savedServer) {
+			workingMcpServerEntries.value = [...workingMcpServerEntries.value, {
+				localId: v4(),
+				server: savedServer
+			}];
+			commit();
+			uiStore.closeModal(props.modalName);
+			toast.showMessage({
+				title: i18n.baseText("agents.tools.mcp.added"),
+				type: "success"
+			});
+		}
+		function openConfigForNewRef(newRef) {
+			openConfigModal({
+				toolRef: newRef,
+				projectId: props.data.projectId,
+				agentId: props.data.agentId,
+				supportsToolApproval: props.data.supportsToolApproval,
+				existingToolNames: getExistingToolNames(workingTools.value),
+				onConfirm: (savedRef) => {
+					addToolRef(savedRef);
+				}
+			});
+		}
+		function openConfigForNewMcpServer(server, nodeType) {
+			openConfigModal({
+				kind: "mcpServer",
+				mcpServer: server,
+				initialNode: mcpServerToNode(server, nodeType),
+				projectId: props.data.projectId,
+				agentId: props.data.agentId,
+				supportsToolApproval: props.data.supportsToolApproval,
+				existingToolNames: getExistingMcpServerNames(workingMcpServers.value),
+				onConfirm: (savedServer) => {
+					addMcpServer(savedServer);
+				}
+			});
+		}
+		function handleAddMcpServer(nodeType) {
+			const newServer = nodeTypeToNewMcpServer(nodeType);
+			newServer.name = makeUniqueName(newServer.name, getExistingMcpServerNames(workingMcpServers.value), (name, counter) => `${name}-${counter}`);
+			openConfigForNewMcpServer(newServer, nodeType);
+		}
+		function isCommunityPreviewTool(nodeType) {
+			if (!isNodePreviewKey(nodeType.name)) return false;
+			return !!nodeTypesStore.communityNodeType(stripToolSuffix(nodeType.name));
+		}
+		/** Reviewed and approved by n8n, whether or not it is installed yet. */
+		function isVerifiedCommunityTool(nodeType) {
+			return isCommunityPackageName(nodeType.name) && !!nodeTypesStore.communityNodeType(stripToolSuffix(nodeType.name))?.isOfficialNode;
+		}
+		function communityPackageNameFor(nodeType) {
+			const baseName = stripToolSuffix(nodeType.name);
+			return nodeTypesStore.communityNodeType(baseName)?.packageName ?? removePreviewToken(nodeType.name.split(".")[0] ?? nodeType.name);
+		}
+		async function installAndAddCommunityPreview(nodeType) {
+			installingToolName.value = nodeType.name;
+			try {
+				if (!(await installCommunityNode({
+					type: "verified",
+					packageName: communityPackageNameFor(nodeType),
+					nodeType: stripToolSuffix(nodeType.name),
+					telemetry: {
+						source: "agent builder tools",
+						hasQuickConnect: false
+					}
+				})).success) return;
+				const installedName = removePreviewToken(nodeType.name);
+				const installed = nodeTypesStore.getNodeType(installedName);
+				if (!installed) {
+					toast.showError(new Error(i18n.baseText("agents.tools.install.unresolved.message")), i18n.baseText("agents.tools.install.unresolved.title"));
+					return;
+				}
+				addNodeTool(installed);
+			} finally {
+				installingToolName.value = null;
+			}
+		}
+		async function handleAddTool(nodeType) {
+			if (isMcpRelatedNodeType(nodeType.name)) {
+				handleAddMcpServer(nodeType);
+				return;
+			}
+			if (isCommunityPreviewTool(nodeType)) {
+				await installAndAddCommunityPreview(nodeType);
+				return;
+			}
+			addNodeTool(nodeType);
+		}
+		function addNodeTool(nodeType) {
+			toolTelemetry.trackAddStarted("node");
+			const newRef = nodeTypeToNewToolRef(nodeType);
+			if (needsSetup(nodeType)) {
+				openConfigForNewRef(newRef);
+				return;
+			}
+			if (newRef.type === "node") addToolRef({
+				...newRef,
+				name: makeUniqueName(newRef.name ?? nodeType.displayName, getExistingToolNames(workingTools.value))
+			});
+			else addToolRef({ ...newRef });
+		}
+		async function handleAddWorkflow(workflow) {
+			toolTelemetry.trackAddStarted("workflow");
+			let full;
+			try {
+				full = await getWorkflow(rootStore.restApiContext, workflow.id);
+			} catch (error) {
+				toast.showError(error, i18n.baseText("agents.tools.workflow.fetchFailed.title"), { message: i18n.baseText("agents.tools.workflow.fetchFailed.message") });
+				return;
+			}
+			const incompatible = (full.nodes ?? []).filter((node) => incompatibleWorkflowToolBodyNodeTypes.has(node.type));
+			if (incompatible.length > 0) {
+				const nodeNames = incompatible.map((n) => n.name).join(", ");
+				toast.showError(new Error(i18n.baseText("agents.tools.workflow.incompatible.message", { interpolate: {
+					name: workflow.name,
+					nodes: nodeNames
+				} })), i18n.baseText("agents.tools.workflow.incompatible.title"));
+				return;
+			}
+			openConfigForNewRef(workflowToNewToolRef(workflow));
+		}
+		function openConfigForToolEntry(entry) {
+			const toolRef = entry.ref;
+			openConfigModal({
+				toolRef,
+				projectId: props.data.projectId,
+				agentId: props.data.agentId,
+				supportsToolApproval: props.data.supportsToolApproval,
+				existingToolNames: getExistingToolNames(workingTools.value, toolRef),
+				onConfirm: (updatedRef) => {
+					workingToolEntries.value = workingToolEntries.value.map((e) => e.localId === entry.localId ? {
+						...e,
+						ref: updatedRef
+					} : e);
+					toolTelemetry.trackEdited(updatedRef);
+					commit();
+					uiStore.closeModal(props.modalName);
+				},
+				onRemove: () => {
+					workingToolEntries.value = workingToolEntries.value.filter((e) => e.localId !== entry.localId);
+					commit();
+				}
+			});
+		}
+		function openConfigForMcpEntry(entry) {
+			const nodeType = resolveMcpNodeType(entry.server);
+			if (!nodeType) return;
+			openConfigModal({
+				kind: "mcpServer",
+				mcpServer: entry.server,
+				initialNode: mcpServerToNode(entry.server, nodeType),
+				projectId: props.data.projectId,
+				agentId: props.data.agentId,
+				supportsToolApproval: props.data.supportsToolApproval,
+				existingToolNames: getExistingMcpServerNames(workingMcpServers.value, entry.server),
+				onConfirm: (updatedServer) => {
+					workingMcpServerEntries.value = workingMcpServerEntries.value.map((e) => e.localId === entry.localId ? {
+						...e,
+						server: updatedServer
+					} : e);
+					commit();
+					uiStore.closeModal(props.modalName);
+				},
+				onRemove: () => {
+					workingMcpServerEntries.value = workingMcpServerEntries.value.filter((e) => e.localId !== entry.localId);
+					commit();
+				}
+			});
+		}
+		function credentialsFromNode(node) {
+			return Object.entries(node.credentials ?? {}).flatMap(([authType, cred]) => cred.id ? [{
+				authType,
+				credentialId: cred.id
+			}] : []);
+		}
+		function credentialSubtitle(node) {
+			const creds = node.credentials ?? {};
+			return Object.values(creds)[0]?.name;
+		}
+		function connectedToolItem(entry) {
+			const { localId, ref } = entry;
+			if (ref.type === "workflow") {
+				const workflowRef = ref;
+				return {
+					id: `tool:${localId}`,
+					kind: "workflow",
+					category: "workflows",
+					workflowId: workflowRef.workflowId ?? workflowRef.workflow,
+					title: workflowRef.name ?? workflowRef.workflow,
+					description: workflowRef.description,
+					isConnected: true,
+					credentials: []
+				};
+			}
+			if (ref.type !== "node") return null;
+			const node = toolRefToNode(ref);
+			if (!node) return null;
+			const nodeType = nodeTypesStore.getNodeType(node.type, node.typeVersion);
+			if (!nodeType) return null;
+			return {
+				id: `tool:${localId}`,
+				kind: "node",
+				category: toolCategoryForNodeType(nodeType),
+				nodeTypeName: nodeType.name,
+				title: node.name,
+				description: credentialSubtitle(node) ?? nodeType.description,
+				longDescription: nodeType.description,
+				isConnected: true,
+				iconSource: toToolIconSource(nodeType),
+				credentials: credentialsFromNode(node),
+				verified: isVerifiedCommunityTool(nodeType)
+			};
+		}
+		function connectedMcpItem(entry) {
+			const nodeType = resolveMcpNodeType(entry.server);
+			if (!nodeType) return null;
+			const node = mcpServerToNode(entry.server, nodeType);
+			return {
+				id: `mcp:${entry.localId}`,
+				kind: "node",
+				category: "mcp",
+				nodeTypeName: nodeType.name,
+				title: entry.server.name,
+				description: credentialSubtitle(node) ?? nodeType.description,
+				longDescription: nodeType.description,
+				isConnected: true,
+				iconSource: toToolIconSource(nodeType),
+				credentials: credentialsFromNode(node)
+			};
+		}
+		function availableNodeItem(nodeType) {
+			const communityPreview = isCommunityPreviewTool(nodeType);
+			return {
+				id: `nodeType:${nodeType.name}`,
+				kind: "node",
+				category: toolCategoryForNodeType(nodeType),
+				nodeTypeName: nodeType.name,
+				title: nodeType.displayName.replace(/ Tool$/, ""),
+				description: nodeType.description,
+				longDescription: nodeType.description,
+				isConnected: false,
+				iconSource: toToolIconSource(nodeType),
+				credentials: [],
+				verified: isVerifiedCommunityTool(nodeType),
+				communityPreview,
+				installing: installingToolName.value === nodeType.name,
+				installDisabled: communityPreview && !usersStore.isAdminOrOwner
+			};
+		}
+		function availableWorkflowItem(workflow) {
+			return {
+				id: `workflow:${workflow.id}`,
+				kind: "workflow",
+				category: "workflows",
+				workflowId: workflow.id,
+				title: workflow.name,
+				description: workflow.description ?? void 0,
+				isConnected: false,
+				credentials: []
+			};
+		}
+		/**
+		* Canvas parity: unofficial verified community tools are not in the AiTool name
+		* index, so they surface only while searching, via the same path NodesMode uses
+		* for "More from community".
+		*/
+		const communitySearchToolTypes = computed(() => {
+			if (!searchQuery.value) return [];
+			const hits = filterAndSearchNodes(nodeTypesStore.communityNodesAndActions.mergedNodes, searchQuery.value, {
+				isAiSubcategory: true,
+				aiConnectionType: NodeConnectionTypes.AiTool
+			});
+			const seen = new Set(availableToolTypes.value.map((nodeType) => nodeType.name));
+			const previews = [];
+			for (const hit of hits) {
+				if (hit.type !== "node") continue;
+				const resolved = resolveToolNodeType(hit.key) ?? resolveToolNodeType(hit.properties.name);
+				if (!resolved || seen.has(resolved.name) || resolved.hidden || hasInputs(resolved)) continue;
+				seen.add(resolved.name);
+				previews.push(resolved);
+			}
+			return previews;
+		});
+		const items = computed(() => {
+			const out = [];
+			for (const entry of workingMcpServerEntries.value) {
+				const item = connectedMcpItem(entry);
+				if (item) out.push(item);
+			}
+			for (const entry of workingToolEntries.value) {
+				const item = connectedToolItem(entry);
+				if (item) out.push(item);
+			}
+			for (const nodeType of availableToolTypes.value) out.push(availableNodeItem(nodeType));
+			for (const nodeType of communitySearchToolTypes.value) out.push(availableNodeItem(nodeType));
+			for (const workflow of availableWorkflows.value) out.push(availableWorkflowItem(workflow));
+			return out;
+		});
+		function handleRowActivate(item) {
+			if (item.isConnected) {
+				if (item.id.startsWith("mcp:")) {
+					const localId = item.id.slice(4);
+					const entry = workingMcpServerEntries.value.find((e) => e.localId === localId);
+					if (entry) openConfigForMcpEntry(entry);
+					return;
+				}
+				if (item.id.startsWith("tool:")) {
+					const localId = item.id.slice(5);
+					const entry = workingToolEntries.value.find((e) => e.localId === localId);
+					if (entry) openConfigForToolEntry(entry);
+				}
+				return;
+			}
+			if (item.installDisabled || item.installing) return;
+			if (item.kind === "workflow" && item.id.startsWith("workflow:")) {
+				const workflowId = item.id.slice(9);
+				const workflow = availableWorkflows.value.find((wf) => wf.id === workflowId);
+				if (workflow) handleAddWorkflow(workflow);
+				return;
+			}
+			if (item.kind === "node" && item.id.startsWith("nodeType:")) {
+				const nodeTypeName = item.id.slice(9);
+				const nodeType = [...availableToolTypes.value, ...communitySearchToolTypes.value].find((nt) => nt.name === nodeTypeName);
+				if (nodeType) handleAddTool(nodeType);
+			}
+		}
+		return (_ctx, _cache) => {
+			return openBlock(), createBlock(ToolsConnectionModal_default, {
+				open: isOpen.value,
+				"onUpdate:open": _cache[0] || (_cache[0] = ($event) => isOpen.value = $event),
+				items: items.value,
+				categories: CATEGORIES,
+				"detail-item": null,
+				"onUpdate:searchQuery": _cache[1] || (_cache[1] = ($event) => searchQuery.value = $event),
+				onConnect: handleRowActivate,
+				onOpenDetail: handleRowActivate
+			}, null, 8, ["open", "items"]);
+		};
+	}
+});
+//#endregion
+export { AgentToolsConnectionModalWrapper_default as default };

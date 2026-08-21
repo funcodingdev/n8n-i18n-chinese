@@ -1,0 +1,266 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+/* Option and checkbox labels render at 12px here, one step below the body copy. */
+._selector_ctq9l_126 {
+  --radio-group-item--label--font-size: var(--font-size--2xs);
+  --checkbox--label--font-size: var(--font-size--2xs);
+}
+._modes_ctq9l_131 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing--2xs);
+  margin-top: var(--spacing--xs);
+}
+._modeCard_ctq9l_138 {
+  padding: var(--spacing--2xs) var(--spacing--xs) var(--spacing--xs);
+  border: var(--border);
+  border-radius: var(--radius--lg);
+  cursor: pointer;
+}
+._modeCardActive_ctq9l_145 {
+  background: var(--color--background--light-2);
+  border-color: var(--color--primary);
+}
+._customSection_ctq9l_150 {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing--xs);
+}
+
+/* Spacing lives inside the animated wrapper (as padding, not flex gap on the
+   parent), so the collapse animates all the way to zero height with no jump. */
+._treeBody_ctq9l_158 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+  padding-top: var(--spacing--2xs);
+}
+._treeHeader_ctq9l_165 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color--text);
+  font-size: var(--font-size--xs);
+  font-weight: var(--font-weight--medium);
+  text-align: left;
+}
+._treeHeader_ctq9l_165:focus-visible {
+  outline: var(--border--width--medium) solid var(--color--primary);
+  outline-offset: 2px;
+}
+._groups_ctq9l_183 {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* Compact rows (~24px pitch): the ghost toggle is the tallest thing in the row,
+   so cap it instead of padding the whole row. */
+._groupHeader_ctq9l_192 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+  min-height: var(--spacing--lg);
+}
+._groupHeader_ctq9l_192 > button:first-child {
+  --button--height: var(--spacing--lg);
+  width: var(--spacing--lg);
+}
+._tools-tag_ctq9l_203 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  margin-left: var(--spacing--2xs);
+  padding: var(--spacing--5xs) var(--spacing--2xs);
+  border-radius: var(--radius--full);
+  border: var(--border);
+  background-color: var(--color--background--light-2);
+  color: var(--color--text--tint-1);
+  font-size: var(--font-size--3xs);
+  font-weight: var(--font-weight--medium);
+  cursor: default;
+  transition: color 150ms ease-out, border-color 150ms ease-out;
+}
+._tools-tag_ctq9l_203:hover, ._tools-tag_ctq9l_203:focus-visible {
+  border-color: var(--color--primary);
+  color: var(--color--text--shade-1);
+}
+
+/* the shared tooltip caps content at 180px and centers it; tool identifiers need more room */
+.n8n-tooltip._tools-tooltip_ctq9l_224 {
+  max-width: 320px;
+  align-items: flex-start;
+}
+._tools-popover_ctq9l_229 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+  width: max-content;
+  max-width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--spacing--4xs);
+}
+._tools-popover-header_ctq9l_240 {
+  font-size: var(--font-size--3xs);
+  font-weight: var(--font-weight--bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color--text--tint-1);
+  margin-bottom: var(--spacing--4xs);
+}
+._tool-row_ctq9l_249 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+}
+._tool-row_ctq9l_249 ._tool-icon_ctq9l_254 {
+  color: var(--color--primary);
+}
+._tool-row-disabled_ctq9l_258 ._tool-icon_ctq9l_254,
+._tool-row-disabled_ctq9l_258 ._tool-name_ctq9l_259 {
+  color: var(--color--text--tint-1);
+}
+._tool-name_ctq9l_259 {
+  font-family: var(--font-family--monospace);
+  font-size: var(--font-size--3xs);
+}
+._scopeList_ctq9l_268 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+  padding: var(--spacing--3xs) 0 var(--spacing--2xs) var(--spacing--2xl);
+}
+._scopeRow_ctq9l_275 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing--2xs);
+}
