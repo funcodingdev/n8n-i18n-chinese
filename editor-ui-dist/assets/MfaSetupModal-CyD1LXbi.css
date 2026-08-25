@@ -1,0 +1,205 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._container_13wpk_125 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+._container_13wpk_125 > * {
+  overflow: visible;
+  margin-bottom: var(--spacing--sm);
+}
+._container_13wpk_125 > *:last-child {
+  margin-bottom: 0;
+}
+._textContainer_13wpk_139 {
+  text-align: left;
+  margin: 0;
+  margin-bottom: 5px;
+}
+._formContainer_13wpk_145 {
+  padding-bottom: var(--spacing--xl);
+}
+._qrContainer_13wpk_149 {
+  text-align: center;
+}
+._qrContainer_13wpk_149 canvas {
+  border: 4px solid var(--qr-code--border-color);
+}
+._headerContainer_13wpk_156 {
+  text-align: center;
+}
+._recoveryCodesContainer_13wpk_160 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--mfa--recovery-code--color--background);
+  text-align: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: normal;
+  align-content: normal;
+  padding-top: var(--spacing--xs);
+  padding-bottom: var(--spacing--xs);
+  gap: var(--spacing--xs);
+  margin-bottom: var(--spacing--2xs);
+  overflow-y: auto;
+}
+._recoveryCodesContainer_13wpk_160 span {
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--regular);
+  line-height: var(--spacing--md);
+  color: var(--mfa--recovery-code--color);
+}
+._form_13wpk_145:first-child span {
+  color: var(--color--text);
+  font-weight: var(--font-weight--regular);
+  font-size: var(--font-size--sm);
+}
+._form_13wpk_145 input {
+  width: 50%;
+  height: 30px;
+}
+._secret_13wpk_194 {
+  color: var(--color--primary);
+  font-weight: var(--font-weight--bold);
+}
+._loseAccessText_13wpk_199 {
+  color: var(--mfa--lose-access--color--text);
+}
+._error_13wpk_203 input {
+  border-color: var(--color--danger);
+}
+._error_13wpk_203 > div > span {
+  color: var(--color--danger);
+  font-size: var(--font-size--2xs);
+}
+._modalFooter_13wpk_212 {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+._notice_13wpk_218 {
+  margin: 0;
+}

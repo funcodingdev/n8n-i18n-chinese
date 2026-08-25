@@ -1,0 +1,139 @@
+
+._switch_13wop_2 {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	gap: var(--spacing--2xs);
+	cursor: pointer;
+&[data-disabled] {
+		cursor: not-allowed;
+		opacity: 0.6;
+}
+}
+._switchRoot_13wop_15 {
+	position: relative;
+	-webkit-box-sizing: content-box;
+	        box-sizing: content-box;
+	padding: 0;
+	margin: 0;
+	background-color: var(--switch--color--background);
+	border: 1px solid var(--switch--border-color);
+	cursor: inherit;
+	-ms-flex-negative: 0;
+	    flex-shrink: 0;
+	-webkit-transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease;
+&[data-state='checked'] {
+		background-color: var(--switch--color--background--active);
+		border-color: var(--switch--color--background--active);
+}
+&:focus-visible {
+		-webkit-box-shadow: 0 0 0 2px var(--color--secondary);
+		        box-shadow: 0 0 0 2px var(--color--secondary);
+		outline: none;
+		z-index: 1;
+}
+}
+._switchThumb_13wop_40 {
+	position: absolute;
+	top: 50%;
+	left: 2px;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+	display: block;
+	background-color: var(--switch--toggle--color);
+	-webkit-transition:
+		left var(--duration--snappy) var(--easing--ease-out),
+		width var(--duration--snappy) var(--easing--ease-out);
+	transition:
+		left var(--duration--snappy) var(--easing--ease-out),
+		width var(--duration--snappy) var(--easing--ease-out);
+	will-change: left, width;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/*
+ * Hover/press stretch: the thumb elongates by 2px along the track. Unchecked is anchored
+ * left (grows inward to the right), checked is anchored right (left shifts in sync so it
+ * grows inward to the left). Disabled switches don't stretch.
+ */
+._label_13wop_60 {
+	-webkit-box-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+	font-size: var(--font-size--sm);
+	line-height: 1.25;
+	color: var(--color--text--shade-1);
+	cursor: inherit;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+&[data-disabled] {
+		color: var(--color--text--tint-1);
+}
+}
+
+/* Size: Small (for parameters panel) */
+._small_13wop_76 ._switchRoot_13wop_15 {
+	width: 32px;
+	height: 16px;
+	border-radius: 48px;
+}
+._small_13wop_76 ._switchThumb_13wop_40 {
+	width: 12px;
+	height: 12px;
+
+	/* Fixed half-height radius (not 50%) so the thumb reads as a pill while stretched. */
+	border-radius: var(--radius--2xs);
+}
+._small_13wop_76 ._switchRoot_13wop_15[data-state='checked'] ._switchThumb_13wop_40 {
+	left: calc(100% - 14px);
+}
+._small_13wop_76 ._switchRoot_13wop_15:not([data-disabled]):hover ._switchThumb_13wop_40,
+._small_13wop_76 ._switchRoot_13wop_15:not([data-disabled]):active ._switchThumb_13wop_40 {
+	width: 14px;
+}
+._small_13wop_76 ._switchRoot_13wop_15[data-state='checked']:not([data-disabled]):hover ._switchThumb_13wop_40,
+._small_13wop_76 ._switchRoot_13wop_15[data-state='checked']:not([data-disabled]):active ._switchThumb_13wop_40 {
+	left: calc(100% - 16px);
+}
+._small_13wop_76 ._label_13wop_60 {
+	font-size: var(--font-size--2xs);
+}
+
+/* Size: Large (for settings) */
+._large_13wop_109 ._switchRoot_13wop_15 {
+	width: 40px;
+	height: 20px;
+	border-radius: 48px;
+}
+._large_13wop_109 ._switchThumb_13wop_40 {
+	width: 16px;
+	height: 16px;
+
+	/* Fixed half-height radius (not 50%) so the thumb reads as a pill while stretched. */
+	border-radius: var(--radius--xs);
+}
+._large_13wop_109 ._switchRoot_13wop_15[data-state='checked'] ._switchThumb_13wop_40 {
+	left: calc(100% - 18px);
+}
+._large_13wop_109 ._switchRoot_13wop_15:not([data-disabled]):hover ._switchThumb_13wop_40,
+._large_13wop_109 ._switchRoot_13wop_15:not([data-disabled]):active ._switchThumb_13wop_40 {
+	width: 18px;
+}
+._large_13wop_109 ._switchRoot_13wop_15[data-state='checked']:not([data-disabled]):hover ._switchThumb_13wop_40,
+._large_13wop_109 ._switchRoot_13wop_15[data-state='checked']:not([data-disabled]):active ._switchThumb_13wop_40 {
+	left: calc(100% - 20px);
+}

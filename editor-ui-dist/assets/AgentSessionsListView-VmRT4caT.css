@@ -1,0 +1,237 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._wrapper_1pnkl_125 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+  padding: var(--spacing--lg);
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+._embedded_1pnkl_137 {
+  height: auto;
+  padding: 0;
+  overflow-y: visible;
+}
+._tableContainer_1pnkl_143 {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+._titleCell_1pnkl_150 {
+  width: 46%;
+  min-width: var(--spacing--3xl);
+  max-width: 0;
+}
+._sessionTitle_1pnkl_156 {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--text-color);
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._sessionOpen_1pnkl_167:focus-visible {
+  outline: var(--focus--border-width) solid var(--focus--border-color);
+  outline-offset: var(--spacing--5xs);
+}
+._sessionOpen_1pnkl_167 {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  appearance: none;
+  cursor: pointer;
+}
+._originCell_1pnkl_184,
+._dateCell_1pnkl_185,
+._tokenCell_1pnkl_186,
+._durationCell_1pnkl_187 {
+  width: 1%;
+  white-space: nowrap;
+}
+._originPill_1pnkl_192 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  padding: var(--spacing--5xs) var(--spacing--xs);
+  border: var(--border);
+  border-radius: var(--radius--xl);
+  color: var(--text-color);
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--medium);
+  line-height: var(--line-height--sm);
+  white-space: nowrap;
+}
+._dateCell_1pnkl_185,
+._tokenCell_1pnkl_186,
+._durationCell_1pnkl_187 {
+  color: var(--text-color--subtler);
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--medium);
+}
+._actionCell_1pnkl_214 {
+  width: 1%;
+  min-width: var(--spacing--2xl);
+  color: var(--text-color--subtler);
+  white-space: nowrap;
+}
+._actionGroup_1pnkl_221 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing--4xs);
+}
+._clickableRow_1pnkl_228 {
+  cursor: pointer;
+}
+._clickableRow_1pnkl_228 td {
+  color: var(--text-color--subtler);
+}
+._clickableRow_1pnkl_228 ._actionCell_1pnkl_214 {
+  text-align: right;
+}
+._clickableRow_1pnkl_228:hover {
+  background-color: var(--background--hover);
+}
+._lastRow_1pnkl_241 td {
+  text-align: center;
+}
+._lastRow_1pnkl_241 td button {
+  margin: 0 auto;
+}
+._lastRow_1pnkl_241:hover {
+  background-color: var(--background--surface) !important;
+}
