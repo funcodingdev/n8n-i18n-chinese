@@ -1,0 +1,285 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._markdown_mnp5t_125 {
+  color: var(--color--text);
+}
+._markdown_mnp5t_125 * {
+  font-size: var(--font-size--md);
+  line-height: var(--line-height--xl);
+}
+._markdown_mnp5t_125 h1,
+._markdown_mnp5t_125 h2,
+._markdown_mnp5t_125 h3,
+._markdown_mnp5t_125 h4 {
+  margin-bottom: var(--spacing--sm);
+  font-size: var(--font-size--md);
+  font-weight: var(--font-weight--bold);
+}
+._markdown_mnp5t_125 h3,
+._markdown_mnp5t_125 h4 {
+  font-weight: var(--font-weight--bold);
+}
+._markdown_mnp5t_125 p,
+._markdown_mnp5t_125 span {
+  margin-bottom: var(--spacing--sm);
+}
+._markdown_mnp5t_125 ul,
+._markdown_mnp5t_125 ol {
+  margin-bottom: var(--spacing--sm);
+  padding-left: var(--spacing--md);
+}
+._markdown_mnp5t_125 ul li,
+._markdown_mnp5t_125 ol li {
+  margin-top: 0.25em;
+}
+._markdown_mnp5t_125 pre > code {
+  background-color: var(--color--background);
+  color: var(--color--text--shade-1);
+}
+._markdown_mnp5t_125 li > code,
+._markdown_mnp5t_125 p > code {
+  padding: 0 var(--spacing--4xs);
+  color: var(--color--text--shade-1);
+  background-color: var(--color--background);
+}
+._markdown_mnp5t_125 ._label_mnp5t_167 {
+  color: var(--color--text);
+}
+._markdown_mnp5t_125 img {
+  max-width: 100%;
+  border-radius: var(--radius--lg);
+}
+._markdown_mnp5t_125 blockquote {
+  padding-left: 10px;
+  font-style: italic;
+  border-left: var(--border-color) 2px solid;
+}
+input[type=checkbox] {
+  accent-color: var(--color--primary);
+}
+input[type=checkbox] + label {
+  cursor: pointer;
+}
+._sticky_mnp5t_188 {
+  color: var(--sticky--color--text);
+  overflow-wrap: break-word;
+}
+._sticky_mnp5t_188 > :first-child {
+  margin-top: 0;
+}
+._sticky_mnp5t_188 h1,
+._sticky_mnp5t_188 h2,
+._sticky_mnp5t_188 h3,
+._sticky_mnp5t_188 h4,
+._sticky_mnp5t_188 h5,
+._sticky_mnp5t_188 h6 {
+  color: var(--sticky--color--text);
+}
+._sticky_mnp5t_188 h1,
+._sticky_mnp5t_188 h2,
+._sticky_mnp5t_188 h3,
+._sticky_mnp5t_188 h4 {
+  margin-bottom: var(--spacing--2xs);
+  font-weight: var(--font-weight--bold);
+  line-height: var(--line-height--lg);
+}
+._sticky_mnp5t_188 h1 {
+  font-size: 36px;
+}
+._sticky_mnp5t_188 h2 {
+  font-size: 24px;
+}
+._sticky_mnp5t_188 h3,
+._sticky_mnp5t_188 h4,
+._sticky_mnp5t_188 h5,
+._sticky_mnp5t_188 h6 {
+  font-size: var(--font-size--md);
+}
+._sticky_mnp5t_188 p {
+  margin-bottom: var(--spacing--2xs);
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--regular);
+  line-height: var(--line-height--lg);
+}
+._sticky_mnp5t_188 ul,
+._sticky_mnp5t_188 ol {
+  margin-bottom: var(--spacing--2xs);
+  padding-left: var(--spacing--md);
+}
+._sticky_mnp5t_188 ul li,
+._sticky_mnp5t_188 ol li {
+  margin-top: 0.25em;
+  font-size: var(--font-size--sm);
+  font-weight: var(--font-weight--regular);
+  line-height: var(--line-height--md);
+}
+._sticky_mnp5t_188 ul:has(input[type=checkbox]),
+._sticky_mnp5t_188 ol:has(input[type=checkbox]) {
+  list-style-type: none;
+  padding-left: var(--spacing--5xs);
+}
+._sticky_mnp5t_188 pre > code {
+  background-color: var(--sticky--code--color--background);
+  color: var(--sticky--code--color--text);
+}
+._sticky_mnp5t_188 pre > code,
+._sticky_mnp5t_188 li > code,
+._sticky_mnp5t_188 p > code {
+  color: var(--sticky--code--color--text);
+}
+._sticky_mnp5t_188 a:hover {
+  text-decoration: underline;
+}
+._sticky_mnp5t_188 img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-top: var(--spacing--xs);
+  margin-bottom: var(--spacing--2xs);
+}
+._sticky_mnp5t_188 img[src*="#full-width"] {
+  width: 100%;
+}
+._sticky_mnp5t_188 pre,
+._markdown_mnp5t_125 pre {
+  margin-bottom: var(--spacing--sm);
+  display: grid;
+}
+._sticky_mnp5t_188 pre > code,
+._markdown_mnp5t_125 pre > code {
+  display: block;
+  padding: var(--spacing--sm);
+  overflow-x: auto;
+}
+._sticky_mnp5t_188 iframe,
+._markdown_mnp5t_125 iframe {
+  aspect-ratio: 16/9 auto;
+}
+._sticky_mnp5t_188 summary,
+._markdown_mnp5t_125 summary {
+  cursor: pointer;
+}
+._spacer_mnp5t_287 {
+  margin: var(--spacing--2xl);
+}

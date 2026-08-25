@@ -1,0 +1,647 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._triggerButton_1tapy_125 {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+._triggerCircle_1tapy_129 {
+  display: block;
+  width: var(--spacing--sm);
+  height: var(--spacing--sm);
+  border-radius: 50%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+._colorGrid_1tapy_137 {
+  display: grid;
+  grid-template-columns: repeat(5, var(--spacing--lg));
+  gap: var(--spacing--4xs);
+  padding: var(--spacing--2xs);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+._swatch_1tapy_145 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: var(--spacing--lg);
+  height: var(--spacing--lg);
+  padding: 0;
+  border: var(--border-width) solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  -webkit-transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease;
+}
+._swatch_1tapy_145:hover {
+  border-color: var(--color--foreground--shade-1);
+}
+._swatch_1tapy_145._active_1tapy_161 {
+  border-color: var(--color--primary);
+}
+._swatchInner_1tapy_165 {
+  display: block;
+  width: var(--spacing--sm);
+  height: var(--spacing--sm);
+  border-radius: 50%;
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._triggerButton_1n54k_125 {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+._triggerEmoji_1n54k_129 {
+  font-size: var(--font-size--lg);
+  line-height: 1;
+  font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Android Emoji", sans-serif;
+}
+._toneRow_1n54k_135 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: var(--spacing--4xs);
+  padding: var(--spacing--2xs);
+}
+._toneSwatch_1n54k_142 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: var(--icon-picker--skin-tone-swatch--size, 34px);
+  height: var(--icon-picker--skin-tone-swatch--size, 34px);
+  padding: 0;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius--sm);
+  cursor: pointer;
+  background: none;
+  -webkit-transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+._toneSwatch_1n54k_142:hover {
+  background-color: var(--color--background--shade-1);
+}
+._toneSwatch_1n54k_142._active_1n54k_158 {
+  border-color: var(--color--primary);
+}
+._toneEmoji_1n54k_162 {
+  font-size: var(--font-size--xl);
+  line-height: 1;
+  font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Android Emoji", sans-serif;
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._container_1almw_125 {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+._isReadOnly_1almw_130 ._icon-button_1almw_130,
+._isReadOnly_1almw_130 ._emoji-button_1almw_131 {
+  pointer-events: none;
+  background-color: var(--input--color--background--disabled);
+}
+._icon-button_1almw_130 svg {
+  width: var(--spacing--md);
+  height: var(--spacing--md);
+  stroke-width: 1.5;
+}
+._xlarge_1almw_141 ._icon-button_1almw_130 svg {
+  width: 24px;
+  height: 24px;
+}
+._xxlarge_1almw_145 ._icon-button_1almw_130 svg {
+  width: 32px;
+  height: 32px;
+}
+._emoji-button_1almw_131 {
+  padding: 0;
+  font-size: 24px;
+}
+._small_1almw_154 ._emoji-button_1almw_131 {
+  font-size: 18px;
+}
+._xlarge_1almw_141 ._emoji-button_1almw_131 {
+  font-size: 32px;
+}
+._xxlarge_1almw_145 ._emoji-button_1almw_131 {
+  font-size: 40px;
+}
+._popup_1almw_164 {
+  position: absolute;
+  z-index: 9999;
+  width: 296px;
+  max-height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: var(--spacing--4xs);
+  background-color: var(--color--background--light-3);
+  border-radius: var(--radius);
+  border: var(--border);
+  border-color: var(--color--foreground--shade-1);
+}
+._popup_1almw_164 ._tabs_1almw_177 {
+  padding: var(--spacing--2xs);
+  padding-bottom: var(--spacing--2xs);
+}
+._popup_1almw_164 ._searchRow_1almw_181 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: var(--spacing--4xs);
+  padding: 0 var(--spacing--2xs) var(--spacing--2xs);
+}
+._popup_1almw_164 ._searchRow_1almw_181 > :first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 0;
+}
+._popup_1almw_164._iconsOnly_1almw_191 ._searchRow_1almw_181 {
+  padding-top: var(--spacing--2xs);
+}
+._popup_1almw_164 ._content_1almw_194 {
+  height: 280px;
+  padding: 0 var(--spacing--2xs) var(--spacing--2xs);
+}
+._popup_1almw_164 ._sectionHeaderRow_1almw_198 {
+  padding-top: var(--spacing--2xs);
+}
+._popup_1almw_164 ._iconGridRow_1almw_201,
+._popup_1almw_164 ._emojiGridRow_1almw_202 {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+._popup_1almw_164 ._iconButton_1almw_206,
+._popup_1almw_164 ._emojiButton_1almw_207 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: var(--spacing--4xs);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius--sm);
+  cursor: pointer;
+}
+._popup_1almw_164 ._iconButton_1almw_206:hover,
+._popup_1almw_164 ._emojiButton_1almw_207:hover {
+  background-color: var(--color--background--shade-1);
+}
+._popup_1almw_164 ._iconButton_1almw_206 {
+  color: var(--color--text--tint-1);
+}
+._popup_1almw_164 ._iconButton_1almw_206:hover {
+  color: var(--color--text--shade-1);
+}
+._popup_1almw_164 ._icon_1almw_130 {
+  display: block;
+  stroke-width: 1.5;
+}
+._popup_1almw_164 ._emojiButton_1almw_207 {
+  width: var(--icon-picker--emoji-cell--size, 28px);
+  height: var(--icon-picker--emoji-cell--size, 28px);
+}
+._popup_1almw_164 ._emoji_1almw_131 {
+  font-size: var(--font-size--xl);
+  line-height: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Android Emoji", sans-serif;
+}
+._popup_1almw_164 ._sectionHeader_1almw_198 {
+  padding: var(--spacing--4xs) 0;
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--bold);
+  color: var(--color--text--tint-1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color--background--light-3);
+}
+._popup_1almw_164 ._shuffleButton_1almw_253 {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+._popup_1almw_164 ._shuffleIcon_1almw_256 {
+  width: var(--spacing--sm);
+  height: var(--spacing--sm);
+  color: var(--color--text--tint-1);
+  stroke-width: 1.5;
+}
+._popup_1almw_164 ._loadingState_1almw_262,
+._popup_1almw_164 ._emptyState_1almw_263 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: var(--spacing--xl);
+  color: var(--color--text--tint-2);
+  font-size: var(--font-size--sm);
+}

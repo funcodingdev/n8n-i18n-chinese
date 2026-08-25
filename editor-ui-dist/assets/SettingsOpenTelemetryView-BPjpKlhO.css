@@ -1,0 +1,949 @@
+@charset "UTF-8";
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+/*
+ * Reuse the expandable settings row's reveal motion (no DS token equals 350ms and the curve
+ * has no token either, so they live here as local constants, mirroring N8nSettingsRow).
+ */
+._bar_1289c_130 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: var(--spacing--sm);
+  /*
+   * Bar width = the settings content column (its container) + side padding and border on each
+   * side (Figma 5991:7910: 720px column + 2*12px padding). Sizing off the container instead of
+   * a fixed token means the CONTENT box always equals the column exactly: the status icon's
+   * left edge sits on the settings rows' left edge and the Save button's right edge on their
+   * right edge, while the bar surface overhangs the column by its own padding (+1px border,
+   * so the inner edges land precisely under border-box sizing). The negative inline margins
+   * cancel the overhang in layout, keeping the bar centered on the column with no host wiring.
+   * Render the bar inside the settings content column (e.g. as the last child of
+   * N8nSettingsLayout's content) — on narrower viewports it shrinks with the column.
+   *
+   * `!important` so a higher-specificity host `margin` reset can't defeat the overhang: e.g.
+   * Storybook's `#storybook-root > * { margin: ... }` (specificity 1,1,1) would otherwise beat
+   * this class (0,1,0) and re-align the bar flush with the column.
+   */
+  --n8n-settings-save-bar--padding-inline: var(--spacing--xs);
+  --n8n-settings-save-bar--overhang: calc(
+  	var(--n8n-settings-save-bar--padding-inline) + var(--border-width, 1px)
+  );
+  width: calc(100% + 2 * var(--n8n-settings-save-bar--overhang));
+  margin-inline: calc(-1 * var(--n8n-settings-save-bar--overhang)) !important;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: var(--spacing--xs) var(--n8n-settings-save-bar--padding-inline);
+  background: var(--background--surface);
+  border: var(--border-width, 1px) solid var(--border-color--subtle);
+  /*
+   * Gently rounded rectangle, not a pill: radius--sm (12px) in the DS3 scale, per design
+   * feedback. Hardcoded because the legacy compat layer (_tokens.legacy.scss) still overrides
+   * --radius--sm to 2px at :root for old --border-radius-small consumers, so the token can't be
+   * used directly yet. Switch to var(--radius--sm) once that legacy override is removed.
+   */
+  border-radius: 0.75rem; /* 12px */
+  -webkit-box-shadow: var(--shadow--xl);
+          box-shadow: var(--shadow--xl);
+  /*
+   * Chrome fade + padding tuck between the stuck (overlay) and docked (part-of-the-page)
+   * states. Colors and shadow fade on the DS's standard snappy + ease-out pair; the padding
+   * tuck is a positional settle, so it rides the spring easing (small single overshoot) —
+   * color fades must not overshoot (values clamp and band), hence the split.
+   */
+  -webkit-transition: background-color var(--duration--snappy) var(--easing--ease-out), border-color var(--duration--snappy) var(--easing--ease-out), padding var(--duration--snappy) var(--easing--spring), -webkit-box-shadow var(--duration--snappy) var(--easing--ease-out);
+  transition: background-color var(--duration--snappy) var(--easing--ease-out), border-color var(--duration--snappy) var(--easing--ease-out), padding var(--duration--snappy) var(--easing--spring), -webkit-box-shadow var(--duration--snappy) var(--easing--ease-out);
+  transition: background-color var(--duration--snappy) var(--easing--ease-out), border-color var(--duration--snappy) var(--easing--ease-out), box-shadow var(--duration--snappy) var(--easing--ease-out), padding var(--duration--snappy) var(--easing--spring);
+  transition: background-color var(--duration--snappy) var(--easing--ease-out), border-color var(--duration--snappy) var(--easing--ease-out), box-shadow var(--duration--snappy) var(--easing--ease-out), padding var(--duration--snappy) var(--easing--spring), -webkit-box-shadow var(--duration--snappy) var(--easing--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+._bar_1289c_130 {
+    /* Keep the color/shadow fades (not motion), drop the padding movement. */
+    -webkit-transition: background-color var(--duration--snappy) linear, border-color var(--duration--snappy) linear, -webkit-box-shadow var(--duration--snappy) linear;
+    transition: background-color var(--duration--snappy) linear, border-color var(--duration--snappy) linear, -webkit-box-shadow var(--duration--snappy) linear;
+    transition: background-color var(--duration--snappy) linear, border-color var(--duration--snappy) linear, box-shadow var(--duration--snappy) linear;
+    transition: background-color var(--duration--snappy) linear, border-color var(--duration--snappy) linear, box-shadow var(--duration--snappy) linear, -webkit-box-shadow var(--duration--snappy) linear;
+}
+}
+
+/*
+ * Docked: the floating bar resting in its natural in-flow position at the end of the page.
+ * It is not overlaying any content there, so the overlay chrome would be a lie — the surface,
+ * border, and shadow dissolve and the bar reads as the page's own closing row. The content
+ * tucks in to sit exactly on the settings rows' CONTENT line: rows inset their content by the
+ * group's border + the row's --spacing--sm side padding, and the bar's own border cancels the
+ * group's, so overhang + --spacing--sm lands the status icon's left edge on the row text and
+ * the Save button's right edge on the row actions. Only the padding is overridden, not the
+ * derived overhang, so the invisible surface box stays put and just the content moves.
+ */
+._docked_1289c_194 {
+  background: transparent;
+  border-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding-inline: calc(var(--n8n-settings-save-bar--overhang) + var(--spacing--sm));
+}
+._floating_1289c_201 {
+  position: sticky;
+  bottom: var(--spacing--lg);
+  z-index: 2;
+  /*
+   * Native sticky mechanics carry the positional behavior (see the `floating` prop docs):
+   * while the bar's natural position is below the fold it floats 24px above the scrollport
+   * bottom, and when the user scrolls to the end of the page — or the page is shorter than
+   * the scrollport — it docks into flow after the last settings row. No own top margin:
+   * docked, the bar is spaced by the settings column's gap, like any other child of the page.
+   *
+   * Hosting contract for docking to work: the page's bottom padding must live on the content
+   * INSIDE the scroll container (>= this 24px inset; N8nSettingsLayout's 2xl qualifies), not
+   * on the scroll container itself. Chrome pins sticky insets inside the scroller's own
+   * padding, so scroller bottom padding pushes the pin line above the bar's flow position
+   * and the bar would hover forever instead of settling at the end of the page.
+   */
+}
+
+/*
+ * Status left, actions right — the primary Save sits on the far right, matching the dialog
+ * convention (confirm on the right, back/destructive further left). DOM order follows the
+ * visual order, so Tab reaches Discard first and Save last.
+ */
+._actions_1289c_225 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: var(--spacing--2xs);
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+._status_1289c_233 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: var(--spacing--3xs);
+  min-width: 0;
+}
+._statusIcon_1289c_241 {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: var(--icon-color);
+}
+
+/* The bar is always one line tall: the status message never wraps, it truncates. */
+._statusMessage_1289c_249 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Slide-up + fade-in on appear, slide-down + fade-out on disappear. */
+.n8n-settings-save-bar-enter-active,
+.n8n-settings-save-bar-leave-active {
+  -webkit-transition: opacity 350ms cubic-bezier(0.32, 0.72, 0, 1), -webkit-transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition: opacity 350ms cubic-bezier(0.32, 0.72, 0, 1), -webkit-transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition: opacity 350ms cubic-bezier(0.32, 0.72, 0, 1), transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition: opacity 350ms cubic-bezier(0.32, 0.72, 0, 1), transform 350ms cubic-bezier(0.32, 0.72, 0, 1), -webkit-transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+.n8n-settings-save-bar-enter-active,
+  .n8n-settings-save-bar-leave-active {
+    -webkit-transition: opacity 350ms linear;
+    transition: opacity 350ms linear;
+    will-change: auto;
+}
+}
+.n8n-settings-save-bar-enter-from,
+.n8n-settings-save-bar-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(var(--spacing--xl, 2rem));
+          transform: translateY(var(--spacing--xl, 2rem));
+}
+@media (prefers-reduced-motion: reduce) {
+.n8n-settings-save-bar-enter-from,
+  .n8n-settings-save-bar-leave-to {
+    -webkit-transform: none;
+            transform: none;
+}
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._info_1svef_125 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--4xs);
+  min-width: 0;
+}
+._title_1svef_132 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+}
+._envInfo_1svef_138 {
+  display: inline-flex;
+  align-items: center;
+  color: var(--icon-color);
+  border-radius: var(--radius--4xs);
+}
+._envInfo_1svef_138:hover, ._envInfo_1svef_138:focus-visible {
+  color: var(--icon-color--strong);
+}
+._envInfo_1svef_138:focus-visible {
+  outline: var(--border-width) solid var(--border-color--strong);
+  outline-offset: var(--spacing--4xs);
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+/*
+ * No status-dot primitive exists in the design system (N8nPulse is a fixed-size
+ * hero element), so this stays a tokens-only local component. Green + pulse only:
+ * the disabled state renders a plain "Enable" action button with no dot at all.
+ */
+._dot_616g0_130 {
+  display: inline-block;
+  width: var(--spacing--2xs);
+  height: var(--spacing--2xs);
+  flex-shrink: 0;
+  border-radius: var(--radius--full);
+  background-color: var(--color--success);
+  animation: _status-dot-pulse_616g0_1 calc(var(--duration--slow) * 2) var(--easing--ease-out) infinite;
+}
+@keyframes _status-dot-pulse_616g0_1 {
+from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color--success) 55%, transparent);
+}
+to {
+    box-shadow: 0 0 0 var(--spacing--3xs) color-mix(in srgb, var(--color--success) 0%, transparent);
+}
+}
+@media (prefers-reduced-motion: reduce) {
+._dot_616g0_130 {
+    animation: none;
+}
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+/*
+ * Destructive menu item: native at rest and on hover (standard hover surface),
+ * except the label and icon turn the design system's danger colors.
+ */
+._dangerItem_lxwz8_129:not([data-disabled]):hover span, ._dangerItem_lxwz8_129:not([data-disabled])[data-highlighted] span, ._dangerItem_lxwz8_129:not([data-disabled])[aria-selected=true] span {
+  color: var(--color--text--danger);
+}
+._dangerItem_lxwz8_129:not([data-disabled]):hover svg, ._dangerItem_lxwz8_129:not([data-disabled])[data-highlighted] svg, ._dangerItem_lxwz8_129:not([data-disabled])[aria-selected=true] svg {
+  color: var(--color--text--danger) !important;
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._layout_1yqe3_125 {
+  padding-top: 0;
+}
+._settingsContent_1yqe3_129 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+._saveBar_1yqe3_135 {
+  /*
+   * Same separation sections keep between each other (32px), so the bar reads as a
+   * page-level action rather than part of the preceding Tracing section.
+   */
+  margin-block-start: var(--spacing--xl);
+}
+._loading_1yqe3_143 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing--2xl);
+  color: var(--icon-color--subtle);
+}
+._control_1yqe3_151 {
+  width: 100%;
+}
+._headersBlock_1yqe3_155 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing--2xs);
+  width: 100%;
+}
+._headerRow_1yqe3_163 {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing--2xs);
+  width: 100%;
+}
+._headerRow_1yqe3_163 > div {
+  flex: 1;
+  min-width: 0;
+}
+._headerRemove_1yqe3_174 {
+  display: flex;
+  flex: 0 0 auto !important;
+  align-items: center;
+  justify-content: center;
+  height: var(--height--lg);
+}
+._addHeaderButton_1yqe3_182 {
+  margin-top: var(--spacing--4xs);
+}
+._inputWithSlug_1yqe3_186 {
+  display: flex;
+  align-items: stretch;
+}
+._inputWithSlug_1yqe3_186 > :first-child {
+  --input--radius--top-right: 0;
+  --input--radius--bottom-right: 0;
+  width: var(--spacing--4xl);
+  min-width: 0;
+}
+._slug_1yqe3_197 {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--spacing--2xs);
+  border: var(--border-width) solid var(--border-color);
+  border-left: none;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  background: var(--background--hover);
+  color: var(--text-color--subtle);
+  font-size: var(--font-size--xs);
+  white-space: nowrap;
+}

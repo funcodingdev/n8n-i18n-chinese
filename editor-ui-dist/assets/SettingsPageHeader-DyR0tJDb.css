@@ -1,0 +1,184 @@
+@charset "UTF-8";
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._header_1e1yz_126 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: var(--spacing--2xs);
+  width: 100%;
+  /* The header column stays capped even when the layout content is full-width. */
+  max-width: var(--settings-content--max-width, 45rem);
+  /*
+   * The 48px gap to the content below is owned and enforced by N8nSettingsLayout
+   * (`.content > header + *`), not by an external margin here, so it stays deterministic
+   * and never relies on margin-collapsing.
+   */
+}
+._title_1e1yz_140 {
+  letter-spacing: var(--letter-spacing--tight);
+}
+._titleRow_1e1yz_144 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: var(--spacing--2xs);
+}
+._description_1e1yz_150 {
+  margin: 0;
+  display: inline;
+  /* Intentionally the standard body line-height (lg). */
+  line-height: var(--line-height--lg);
+}
+
+/* The inline N8nText pieces already use the body line-height (lg); keep them consistent. */
+._description_1e1yz_150 .n8n-text {
+  line-height: var(--line-height--lg);
+}
+
+/* Keeps "leading copy + link + arrow" together so the docs sentence wraps as a single unit. */
+._docsPhrase_1e1yz_163 {
+  white-space: nowrap;
+}
+._docsLink_1e1yz_167 {
+  /* Reads as part of the description: same base text color, no link/primary color. */
+  color: var(--text-color--subtle);
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--lg);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Only the link word is underlined; the ↗ indicator (plain span) stays bare. */
+._docsLabel_1e1yz_177 {
+  text-decoration: underline;
+}
