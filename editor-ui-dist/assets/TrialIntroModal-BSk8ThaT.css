@@ -1,0 +1,319 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._content_1qyuc_125 {
+  display: flex;
+  flex-direction: column;
+}
+._modalHeader_1qyuc_130 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: var(--height--sm);
+}
+._headerActions_1qyuc_138 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  margin-left: auto;
+}
+._headerIconButton_1qyuc_145 {
+  --button--color: var(--color--info);
+  --button--color--background-hover: transparent;
+  --button--color--background-active: transparent;
+}
+._headerIconButton_1qyuc_145:hover, ._headerIconButton_1qyuc_145:active {
+  --button--color: var(--color--primary);
+}
+._welcomeLabel_1qyuc_154 {
+  margin-bottom: var(--spacing--2xs);
+  font-weight: var(--font-weight--medium);
+}
+._countdownPill_1qyuc_159 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  padding: var(--spacing--5xs) var(--spacing--2xs);
+  border: var(--border-width) var(--border-style) var(--color--orange-alpha-300);
+  border-radius: var(--radius--full);
+  background: var(--color--orange-alpha-100);
+  color: var(--color--primary);
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--bold);
+  font-variant-numeric: tabular-nums;
+}
+._headerLogo_1qyuc_173 {
+  display: flex;
+  align-items: center;
+}
+._trialLead_1qyuc_178 {
+  margin: 0;
+}
+._titleHighlight_1qyuc_182 {
+  color: var(--color--primary);
+}
+._subtitle_1qyuc_186 {
+  margin-top: var(--spacing--2xs);
+  margin-bottom: var(--spacing--md);
+}
+._statCards_1qyuc_191 {
+  display: flex;
+  gap: var(--spacing--2xs);
+  margin-bottom: var(--spacing--md);
+}
+._statCard_1qyuc_191 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--3xs);
+  padding: var(--spacing--md) var(--spacing--xs);
+  border-radius: var(--radius--sm);
+  background: var(--background--subtle);
+  text-align: center;
+}
+._statIconTile_1qyuc_209 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing--xl);
+  height: var(--spacing--xl);
+  margin: 0 auto var(--spacing--4xs);
+  border-radius: var(--radius--xs);
+  border: var(--border-width) var(--border-style) var(--border-color--subtle);
+  background: var(--background--surface);
+  color: var(--icon-color);
+}
+._blurredOverlay_1qyuc_222 {
+  backdrop-filter: blur(4px);
+}
+._calloutTitle_1qyuc_226 {
+  display: block;
+  font-weight: var(--font-weight--bold);
+}
+._calloutBody_1qyuc_231 {
+  display: block;
+}
+._comparisonRows_1qyuc_235 {
+  margin-bottom: var(--spacing--md);
+  border: var(--border);
+  border-radius: var(--radius--sm);
+  overflow: hidden;
+}
+._comparisonRow_1qyuc_235 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  padding: var(--spacing--xs) var(--spacing--sm);
+  font-size: var(--font-size--sm);
+  color: var(--text-color);
+}
+._comparisonRow_1qyuc_235 + ._comparisonRow_1qyuc_235 {
+  border-top: var(--border);
+}
+._rowIcon_1qyuc_254 {
+  color: var(--icon-color);
+}
+._rowLabel_1qyuc_258 {
+  flex: 1;
+}
+._rowOldValue_1qyuc_262 {
+  color: var(--text-color--subtler);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+._rowArrow_1qyuc_268 {
+  color: var(--icon-color--subtle);
+}
+._rowNewValue_1qyuc_272 {
+  font-weight: var(--font-weight--bold);
+  font-variant-numeric: tabular-nums;
+}
+._rowPerMonth_1qyuc_277 {
+  color: var(--text-color--subtler);
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--regular);
+}
+._periodCards_1qyuc_283 {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--spacing--2xs);
+}
+._periodCard_1qyuc_283 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--sm);
+  border: var(--border-width) var(--border-style) var(--border-color--subtle);
+  border-radius: var(--radius--sm);
+  background: var(--background--surface);
+  cursor: pointer;
+  transition: border-color var(--duration--snappy) var(--easing--ease-out), background-color var(--duration--snappy) var(--easing--ease-out);
+}
+._periodCard_1qyuc_283:hover {
+  border-color: var(--border-color--strong);
+}
+._periodCardSelected_1qyuc_304 {
+  border-color: var(--color--primary);
+  box-shadow: inset 0 0 0 var(--border-width, 1px) var(--color--primary);
+  background: var(--color--orange-alpha-100);
+}
+._periodCardSelected_1qyuc_304:hover {
+  border-color: var(--color--primary);
+}
+._periodCardSelected_1qyuc_304 ._radioDot_1qyuc_312 {
+  border-color: var(--color--primary);
+}
+._periodCardSelected_1qyuc_304 ._radioDot_1qyuc_312::after {
+  content: "";
+  position: absolute;
+  inset: var(--spacing--5xs);
+  border-radius: var(--radius--full);
+  background: var(--color--primary);
+}
+._radioDot_1qyuc_312 {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--spacing--sm);
+  height: var(--spacing--sm);
+  border: var(--border-width) var(--border-style) var(--border-color--strong);
+  border-radius: var(--radius--full);
+}
+._priceBlock_1qyuc_332 {
+  margin-left: auto;
+  text-align: right;
+}
+._savingsBadge_1qyuc_337 {
+  padding: var(--spacing--4xs) var(--spacing--2xs);
+  border-radius: var(--radius--full);
+}
+._footer_1qyuc_342 {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing--2xs);
+}
+._ctaButton_1qyuc_348 {
+  width: 100%;
+}

@@ -1,0 +1,191 @@
+@charset "UTF-8";
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._layout_dt33d_126 {
+  /* The single component-scoped width token; 45rem === 720px at a 16px root. */
+  --settings-content--max-width: 45rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: var(--spacing--lg);
+  width: 100%;
+  /* top | inline | bottom — bottom uses the larger 2xl token. */
+  padding: var(--spacing--lg) var(--spacing--lg) var(--spacing--2xl);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+._backRow_dt33d_138 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+._backButton_dt33d_143 {
+  /* Pull the ghost button's inner padding so the arrow aligns to the page's 24px inset. */
+  -webkit-margin-start: calc(-1 * var(--spacing--xs));
+          margin-inline-start: calc(-1 * var(--spacing--xs));
+}
+._content_dt33d_148 {
+  width: 100%;
+  max-width: var(--settings-content--max-width);
+  margin-inline: auto;
+  /*
+   * Center each child within its own cap. The page header caps itself at
+   * --settings-content--max-width, so it stays centered on the page even when the
+   * content region goes full-width; full-width children (width: 100%) are unaffected.
+   */
+}
+._content_dt33d_148 > * {
+  margin-inline: auto;
+}
+._content_dt33d_148 {
+  /*
+   * Vertical rhythm is owned solely by the FOLLOWING child's margin-block-start, so two
+   * adjacent margins never meet and the spacing never depends on margin-collapsing.
+   * Default rhythm for non-section direct children:
+   */
+}
+._content_dt33d_148 > * + * {
+  -webkit-margin-before: var(--spacing--lg);
+          margin-block-start: var(--spacing--lg); /* 24px */
+}
+._content_dt33d_148 {
+  /*
+   * Enforced page-header → content gap (48px). The page header renders a semantic <header>,
+   * so the element that follows it owns the larger gap. Kept here (not on the header's own
+   * margin) so it is deterministic, can't be overridden, and never relies on collapse.
+   */
+}
+._content_dt33d_148 > header + * {
+  -webkit-margin-before: var(--spacing--2xl);
+          margin-block-start: var(--spacing--2xl); /* 48px */
+}
+._fullWidth_dt33d_182 {
+  max-width: none;
+}

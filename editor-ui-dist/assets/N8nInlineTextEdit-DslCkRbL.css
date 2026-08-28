@@ -1,0 +1,182 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._inlineRenameArea_4c4cv_125 {
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+}
+._inlineRenameArea_4c4cv_125::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--spacing--4xs) * -1);
+  left: calc(var(--spacing--3xs) * -1);
+  width: calc(100% + var(--spacing--xs));
+  height: calc(100% + var(--spacing--2xs));
+  border-radius: var(--radius);
+  background-color: light-dark(var(--color--neutral-white), var(--color--neutral-950));
+  opacity: 0;
+  z-index: 0;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+._inlineRenameArea_4c4cv_125[data-focused]::after, ._inlineRenameArea_4c4cv_125:hover::after {
+  border: 1px solid var(--color--foreground);
+  opacity: 1;
+}
+._inlineRenameArea_4c4cv_125[data-focused] {
+  cursor: text;
+}
+._inlineRenameArea_4c4cv_125[data-focused]::after {
+  border: 1px solid var(--color--secondary);
+}
+._inlineRenameArea_4c4cv_125[data-readonly] {
+  pointer-events: none;
+}
+._inlineRenameArea_4c4cv_125[data-readonly]::after {
+  content: none;
+}
+._inlineRenamePreview_4c4cv_161 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-transform: translateY(1.5px);
+          transform: translateY(1.5px);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
+}
+._measureSpan_4c4cv_170 {
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  white-space: pre;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
