@@ -1,0 +1,326 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+.n8n-data-table-server[data-v-b30332e4] {
+  height: 100%;
+  font-size: var(--font-size--sm);
+}
+.n8n-data-table-server table[data-v-b30332e4] {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  white-space: nowrap;
+}
+.n8n-data-table-server table > thead[data-v-b30332e4] {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.n8n-data-table-server th[data-v-b30332e4] {
+  position: relative;
+  color: var(--color--text);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 0 8px;
+  height: 36px;
+  white-space: nowrap;
+}
+.n8n-data-table-server th[data-v-b30332e4]:first-child {
+  padding-left: 16px;
+}
+.n8n-data-table-server th[data-v-b30332e4]:last-child {
+  padding-right: 16px;
+}
+.n8n-data-table-server thead[data-v-b30332e4] {
+  background-color: var(--color--background--light-1);
+  border-bottom: 1px solid var(--color--foreground);
+}
+.n8n-data-table-server tbody > tr[data-v-b30332e4]:hover {
+  background-color: var(--color--background--light-2);
+}
+.n8n-data-table-server tbody > tr:last-child > td[data-v-b30332e4] {
+  border-bottom: 0;
+}
+.n8n-data-table-server tbody tr[data-v-b30332e4] {
+  background-color: var(--color--background--light-3);
+  border-bottom: 1px solid var(--color--foreground);
+}
+.n8n-data-table-server tbody tr[data-v-b30332e4]:last-child {
+  border-color: transparent;
+}
+.n8n-data-table-server td[data-v-b30332e4] {
+  color: var(--color--text--shade-1);
+  padding: 0 8px;
+  height: 48px;
+}
+.n8n-data-table-server td[data-v-b30332e4]:first-child {
+  padding-left: 16px;
+}
+.n8n-data-table-server td[data-v-b30332e4]:last-child {
+  padding-right: 16px;
+}
+.n8n-data-table-server td.cover[data-v-b30332e4] {
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+}
+.n8n-data-table-server-wrapper[data-v-b30332e4] {
+  border-radius: 8px;
+  border: 1px solid var(--color--foreground);
+  overflow: hidden;
+}
+.table-scroll[data-v-b30332e4] {
+  max-height: 100%;
+  overflow: auto;
+  position: relative;
+}
+th.loading-row[data-v-b30332e4] {
+  background-color: transparent;
+  padding: 0 !important;
+  border: 0 !important;
+  height: 0;
+  position: relative;
+}
+.progress-bar[data-v-b30332e4] {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  overflow: hidden;
+}
+.progress-bar-value[data-v-b30332e4] {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color--primary);
+  -webkit-animation: indeterminateAnimation-b30332e4 1s infinite linear;
+          animation: indeterminateAnimation-b30332e4 1s infinite linear;
+  -webkit-transform-origin: 0% 50%;
+          transform-origin: 0% 50%;
+  position: absolute;
+}
+@-webkit-keyframes indeterminateAnimation-b30332e4 {
+0% {
+    -webkit-transform: translateX(0) scaleX(0);
+            transform: translateX(0) scaleX(0);
+}
+40% {
+    -webkit-transform: translateX(0) scaleX(0.4);
+            transform: translateX(0) scaleX(0.4);
+}
+100% {
+    -webkit-transform: translateX(100%) scaleX(0.5);
+            transform: translateX(100%) scaleX(0.5);
+}
+}
+@keyframes indeterminateAnimation-b30332e4 {
+0% {
+    -webkit-transform: translateX(0) scaleX(0);
+            transform: translateX(0) scaleX(0);
+}
+40% {
+    -webkit-transform: translateX(0) scaleX(0.4);
+            transform: translateX(0) scaleX(0.4);
+}
+100% {
+    -webkit-transform: translateX(100%) scaleX(0.5);
+            transform: translateX(100%) scaleX(0.5);
+}
+}
+.table--loading td[data-v-b30332e4] {
+  opacity: 0.38;
+}
+.table-pagination[data-v-b30332e4] {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.table-pagination__sizes[data-v-b30332e4] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.table-pagination__sizes__label[data-v-b30332e4] {
+  color: var(--color--text);
+  background-color: var(--color--background--light-2);
+  border: 1px solid var(--color--foreground);
+  border-right: 0;
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 8px;
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+.table-pagination__sizes__select[data-v-b30332e4] {
+  --input--radius--top-left: 0;
+  --input--radius--bottom-left: 0;
+  width: 70px;
+}
+.resizer[data-v-b30332e4] {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--color--primary);
+  cursor: col-resize;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -ms-touch-action: none;
+      touch-action: none;
+  right: -2px;
+  display: none;
+  z-index: 1;
+}
+.resizer[data-v-b30332e4]:hover {
+  display: block;
+}
+.resizer.is-resizing[data-v-b30332e4] {
+  display: block;
+}
+th:hover:not(:last-child) > .resizer[data-v-b30332e4] {
+  display: block;
+}
+.cell-align--start[data-v-b30332e4] {
+  text-align: start;
+}
+.cell-align--end[data-v-b30332e4] {
+  text-align: end;
+}
+.cell-align--center[data-v-b30332e4] {
+  text-align: center;
+}

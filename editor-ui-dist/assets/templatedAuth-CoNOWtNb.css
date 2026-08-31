@@ -1,0 +1,228 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Pagination
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+._rating_1osvg_125 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: var(--spacing--2xs);
+  margin-top: var(--spacing--2xs);
+  width: 100%;
+}
+._buttons_1osvg_133 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: var(--spacing--2xs);
+}
+._feedbackContainer_1osvg_138 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: var(--spacing--2xs);
+}
+._feedbackInput_1osvg_144 textarea {
+  resize: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size--sm);
+}
+._feedbackInput_1osvg_144 textarea::-webkit-input-placeholder {
+  font-size: var(--font-size--sm);
+}
+._feedbackInput_1osvg_144 textarea::-moz-placeholder {
+  font-size: var(--font-size--sm);
+}
+._feedbackInput_1osvg_144 textarea:-ms-input-placeholder {
+  font-size: var(--font-size--sm);
+}
+._feedbackInput_1osvg_144 textarea::-ms-input-placeholder {
+  font-size: var(--font-size--sm);
+}
+._feedbackInput_1osvg_144 textarea::placeholder {
+  font-size: var(--font-size--sm);
+}
+._feedbackActions_1osvg_153 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: var(--spacing--2xs);
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+._success_1osvg_159 {
+  color: var(--color--text);
+  font-size: var(--font-size--2xs);
+  margin: 0;
+}
+
+/* Minimal style specific */
+._minimal_1osvg_166 {
+  margin-top: 0;
+  gap: 0;
+}
+._minimal_1osvg_166 ._buttons_1osvg_133 {
+  gap: var(--spacing--5xs);
+  border: var(--border);
+  border-radius: var(--radius--lg);
+  padding: var(--spacing--4xs);
+  background-color: var(--color--background--light-2);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+._minimal_1osvg_166 ._ratingButton_1osvg_178 {
+  --button--color--background--hover: var(--color--foreground--tint-1);
+  --button--color--text--hover: var(--color--text);
+  --button--color--text: var(--color--text);
+}
+._minimal_1osvg_166 ._feedbackContainer_1osvg_138 {
+  gap: var(--spacing--3xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea {
+  font-size: var(--font-size--2xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea::-webkit-input-placeholder {
+  font-size: var(--font-size--2xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea::-moz-placeholder {
+  font-size: var(--font-size--2xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea:-ms-input-placeholder {
+  font-size: var(--font-size--2xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea::-ms-input-placeholder {
+  font-size: var(--font-size--2xs);
+}
+._minimal_1osvg_166 ._feedbackInput_1osvg_144 textarea::placeholder {
+  font-size: var(--font-size--2xs);
+}
