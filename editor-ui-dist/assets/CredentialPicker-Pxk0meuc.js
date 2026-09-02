@@ -1,0 +1,283 @@
+import { $ as openBlock, E as createElementBlock, Gt as unref, It as ref, N as defineComponent, S as computed, T as createCommentVNode, bt as withCtx, gt as watch, j as createVNode, vn as normalizeClass, w as createBlock } from "./vue.runtime.esm-bundler-DYHsQBZB.js";
+import { s as useI18n } from "./src-95uC3wI4.js";
+import { t as _plugin_vue_export_helper_default } from "./_plugin-vue_export-helper-D-F0WtqU.js";
+import { t as N8nButton_default } from "./N8nButton-IeUuYO4Y.js";
+import { t as N8nIconButton_default } from "./N8nIconButton-A99ePGGs.js";
+import { t as N8nTooltip_default } from "./N8nTooltip-D8UozEO5.js";
+import { t as useMessage } from "./useMessage-CVBZspiQ.js";
+import { Ct as listenForCredentialChanges, vn as useProjectsStore, wt as useCredentialsStore } from "./workflows.store-QD0eo9S6.js";
+import { va as getResourcePermissions } from "./src-DAIlllTg.js";
+import { t as assert } from "./assert-BgZvUjbv.js";
+import { n as useToast } from "./useToast-B-bdF7at.js";
+import "./constants-DxozP3cY.js";
+import { n as useUIStore, t as listenForModalChanges } from "./ui.store-Bnte4owf.js";
+import { t as CredentialsDropdown_default } from "./CredentialsDropdown-C1agzlTV.js";
+//#region src/features/credentials/components/CredentialPicker/CredentialPicker.vue?vue&type=script&setup=true&lang.ts
+var CredentialPicker_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "CredentialPicker",
+	props: {
+		appName: {},
+		credentialType: {},
+		selectedCredentialId: {},
+		personalOnly: { type: Boolean },
+		showDelete: { type: Boolean },
+		hideCreateNew: { type: Boolean },
+		createButtonVariant: {},
+		projectId: {},
+		suggestedCredentialName: {},
+		teleported: { type: Boolean },
+		credentialModalAppendToBody: { type: Boolean },
+		size: {},
+		buttonSize: {}
+	},
+	emits: [
+		"credentialSelected",
+		"credentialDeselected",
+		"credentialModalOpened",
+		"credentialDeleted"
+	],
+	setup(__props, { emit: __emit }) {
+		const props = __props;
+		const emit = __emit;
+		const uiStore = useUIStore();
+		const credentialsStore = useCredentialsStore();
+		const projectsStore = useProjectsStore();
+		const i18n = useI18n();
+		const toast = useToast();
+		const message = useMessage();
+		const wasModalOpenedFromHere = ref(false);
+		const currentCredential = ref(null);
+		const availableCredentials = computed(() => {
+			const credByType = credentialsStore.getCredentialsByType(props.credentialType);
+			if (props.personalOnly) return credByType.filter((credential) => credential.homeProject?.type === "personal" || credential.isGlobal);
+			return credByType;
+		});
+		const credentialOptions = computed(() => {
+			return availableCredentials.value.map((credential) => ({
+				id: credential.id,
+				name: credential.name,
+				typeDisplayName: credentialsStore.getCredentialTypeByName(credential.type)?.displayName,
+				homeProject: credential.homeProject
+			}));
+		});
+		async function loadCurrentCredential() {
+			if (!props.selectedCredentialId) return;
+			try {
+				const currentCredentials = await credentialsStore.getCredentialData({ id: props.selectedCredentialId });
+				if (!currentCredentials) throw new Error(i18n.baseText("credentialEdit.credentialEdit.couldNotFindCredentialWithId") + ":" + props.selectedCredentialId);
+				currentCredential.value = currentCredentials;
+			} catch (error) {
+				toast.showError(error, i18n.baseText("credentialEdit.credentialEdit.showError.loadCredential.title"));
+				return;
+			}
+		}
+		const homeProject = computed(() => {
+			const { currentProject, personalProject } = projectsStore;
+			return currentProject ?? personalProject;
+		});
+		const credentialPermissions = computed(() => {
+			return getResourcePermissions(currentCredential.value?.scopes ?? homeProject.value?.scopes).credential;
+		});
+		const onCredentialSelected = (credentialId) => {
+			emit("credentialSelected", credentialId);
+		};
+		const createNewCredential = () => {
+			uiStore.openNewCredential(props.credentialType, true, false, props.projectId, props.suggestedCredentialName, void 0, void 0, {
+				closeOnSave: true,
+				...props.credentialModalAppendToBody ? { appendToBody: true } : {}
+			});
+			wasModalOpenedFromHere.value = true;
+			emit("credentialModalOpened", void 0);
+		};
+		const editCredential = () => {
+			assert(props.selectedCredentialId);
+			if (props.credentialModalAppendToBody) uiStore.openExistingCredential(props.selectedCredentialId, { appendToBody: true });
+			else uiStore.openExistingCredential(props.selectedCredentialId);
+			wasModalOpenedFromHere.value = true;
+			emit("credentialModalOpened", props.selectedCredentialId);
+		};
+		const deleteCredential = async () => {
+			assert(props.selectedCredentialId);
+			const credentialIdToDelete = props.selectedCredentialId;
+			if (await message.confirm(i18n.baseText("credentialEdit.credentialEdit.confirmMessage.deleteCredential.message", { interpolate: { savedCredentialName: currentCredential.value?.name ?? props.selectedCredentialId } }), i18n.baseText("credentialEdit.credentialEdit.confirmMessage.deleteCredential.headline"), { confirmButtonText: i18n.baseText("credentialEdit.credentialEdit.confirmMessage.deleteCredential.confirmButtonText") }) !== "confirm") return;
+			try {
+				await credentialsStore.deleteCredential({ id: credentialIdToDelete });
+				currentCredential.value = null;
+				emit("credentialDeleted", credentialIdToDelete);
+			} catch (error) {
+				toast.showError(error, i18n.baseText("credentialEdit.credentialEdit.showError.deleteCredential.title"));
+			}
+		};
+		listenForCredentialChanges({
+			store: credentialsStore,
+			onCredentialCreated: (credential) => {
+				if (!wasModalOpenedFromHere.value) return;
+				emit("credentialSelected", credential.id);
+			},
+			onCredentialDeleted: (deletedCredentialId) => {
+				if (!wasModalOpenedFromHere.value) return;
+				if (deletedCredentialId !== props.selectedCredentialId) return;
+				const optionsWoDeleted = credentialOptions.value.map((credential) => credential.id).filter((id) => id !== deletedCredentialId);
+				if (optionsWoDeleted.length > 0) emit("credentialSelected", optionsWoDeleted[0]);
+				else emit("credentialDeselected");
+			}
+		});
+		listenForModalChanges({
+			store: uiStore,
+			onModalClosed(modalName) {
+				if (modalName === "editCredential" && wasModalOpenedFromHere.value) {
+					wasModalOpenedFromHere.value = false;
+					if (props.selectedCredentialId) emit("credentialSelected", props.selectedCredentialId);
+				}
+			}
+		});
+		watch(() => props.selectedCredentialId, () => {
+			loadCurrentCredential();
+		}, { immediate: true });
+		return (_ctx, _cache) => {
+			return openBlock(), createElementBlock("div", null, [credentialOptions.value.length > 0 || props.hideCreateNew ? (openBlock(), createElementBlock("div", {
+				key: 0,
+				class: normalizeClass(_ctx.$style.dropdown)
+			}, [
+				createVNode(CredentialsDropdown_default, {
+					"credential-type": props.credentialType,
+					"credential-options": credentialOptions.value,
+					"selected-credential-id": props.selectedCredentialId,
+					size: props.size,
+					"data-test-id": "credential-dropdown",
+					permissions: credentialPermissions.value,
+					teleported: props.teleported,
+					onCredentialSelected,
+					onNewCredential: createNewCredential
+				}, null, 8, [
+					"credential-type",
+					"credential-options",
+					"selected-credential-id",
+					"size",
+					"permissions",
+					"teleported"
+				]),
+				props.selectedCredentialId ? (openBlock(), createBlock(unref(N8nTooltip_default), {
+					key: 0,
+					disabled: credentialPermissions.value.update,
+					content: unref(i18n).baseText("nodeCredentials.updateCredential.permissionDenied"),
+					placement: "top"
+				}, {
+					default: withCtx(() => [createVNode(unref(N8nIconButton_default), {
+						variant: "subtle",
+						size: props.buttonSize ?? void 0,
+						icon: "pen",
+						class: normalizeClass({ [_ctx.$style.edit]: true }),
+						title: unref(i18n).baseText("nodeCredentials.updateCredential"),
+						"data-test-id": "credential-edit-button",
+						disabled: !credentialPermissions.value.update,
+						onClick: _cache[0] || (_cache[0] = ($event) => editCredential())
+					}, null, 8, [
+						"size",
+						"class",
+						"title",
+						"disabled"
+					])]),
+					_: 1
+				}, 8, ["disabled", "content"])) : createCommentVNode("", true),
+				props.showDelete && props.selectedCredentialId ? (openBlock(), createBlock(unref(N8nTooltip_default), {
+					key: 1,
+					disabled: credentialPermissions.value.update,
+					content: unref(i18n).baseText("nodeCredentials.deleteCredential.permissionDenied"),
+					placement: "top"
+				}, {
+					default: withCtx(() => [props.showDelete && props.selectedCredentialId ? (openBlock(), createBlock(unref(N8nIconButton_default), {
+						key: 0,
+						"native-type": "button",
+						title: unref(i18n).baseText("nodeCredentials.deleteCredential"),
+						icon: "trash-2",
+						"icon-size": "large",
+						variant: "outline",
+						disabled: !credentialPermissions.value.delete,
+						onClick: _cache[1] || (_cache[1] = ($event) => deleteCredential())
+					}, null, 8, ["title", "disabled"])) : createCommentVNode("", true)]),
+					_: 1
+				}, 8, ["disabled", "content"])) : createCommentVNode("", true)
+			], 2)) : !props.hideCreateNew ? (openBlock(), createBlock(unref(N8nButton_default), {
+				key: 1,
+				label: `Create new ${props.appName} credential`,
+				class: normalizeClass(_ctx.$style.createButton),
+				"data-test-id": "create-credential",
+				variant: props.createButtonVariant || "solid",
+				disabled: !credentialPermissions.value.create,
+				onClick: createNewCredential
+			}, null, 8, [
+				"label",
+				"class",
+				"variant",
+				"disabled"
+			])) : createCommentVNode("", true)]);
+		};
+	}
+});
+//#endregion
+//#region src/features/credentials/components/CredentialPicker/CredentialPicker.vue?vue&type=style&index=0&lang.module.scss
+var dropdown = "_dropdown_1ibg0_388";
+var edit = "_edit_1ibg0_394";
+var createButton = "_createButton_1ibg0_402";
+var shimmer = "_shimmer_1ibg0_1";
+var spin = "_spin_1ibg0_1";
+var opacityPulse = "_opacityPulse_1ibg0_1";
+var popoverIn = "_popoverIn_1ibg0_1";
+var fadeIn = "_fadeIn_1ibg0_1";
+var collapsibleSlideDown = "_collapsibleSlideDown_1ibg0_1";
+var collapsibleSlideUp = "_collapsibleSlideUp_1ibg0_1";
+var collapsibleSlideDownBlurred = "_collapsibleSlideDownBlurred_1ibg0_1";
+var collapsibleSlideUpBlurred = "_collapsibleSlideUpBlurred_1ibg0_1";
+var blurSwapIn = "_blurSwapIn_1ibg0_1";
+var blurSwapOut = "_blurSwapOut_1ibg0_1";
+var pulseGlow = "_pulseGlow_1ibg0_1";
+var pulseGlowDelayed = "_pulseGlowDelayed_1ibg0_1";
+var fade = "_fade_1ibg0_1";
+var fadeInUp = "_fadeInUp_1ibg0_1";
+var fadeInDown = "_fadeInDown_1ibg0_1";
+var fadeInLeft = "_fadeInLeft_1ibg0_1";
+var fadeInRight = "_fadeInRight_1ibg0_1";
+var fadeOut = "_fadeOut_1ibg0_1";
+var fadeOutDown = "_fadeOutDown_1ibg0_1";
+var fadeOutUp = "_fadeOutUp_1ibg0_1";
+var fadeOutLeft = "_fadeOutLeft_1ibg0_1";
+var fadeOutRight = "_fadeOutRight_1ibg0_1";
+var ping = "_ping_1ibg0_1";
+var blinkBackground = "_blinkBackground_1ibg0_1";
+var typingBlink = "_typingBlink_1ibg0_1";
+var CredentialPicker_vue_vue_type_style_index_0_lang_module_default = {
+	dropdown,
+	edit,
+	createButton,
+	shimmer,
+	spin,
+	"skeleton-pulse": "_skeleton-pulse_1ibg0_1",
+	opacityPulse,
+	popoverIn,
+	fadeIn,
+	collapsibleSlideDown,
+	collapsibleSlideUp,
+	collapsibleSlideDownBlurred,
+	collapsibleSlideUpBlurred,
+	blurSwapIn,
+	blurSwapOut,
+	pulseGlow,
+	pulseGlowDelayed,
+	fade,
+	fadeInUp,
+	fadeInDown,
+	fadeInLeft,
+	fadeInRight,
+	fadeOut,
+	fadeOutDown,
+	fadeOutUp,
+	fadeOutLeft,
+	fadeOutRight,
+	ping,
+	blinkBackground,
+	typingBlink
+};
+var CredentialPicker_default = /* @__PURE__ */ _plugin_vue_export_helper_default(CredentialPicker_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": CredentialPicker_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+export { CredentialPicker_default as t };
