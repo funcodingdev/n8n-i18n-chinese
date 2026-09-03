@@ -1,0 +1,1700 @@
+import { $ as openBlock, A as createTextVNode, C as createBaseVNode, Cn as toDisplayString, E as createElementBlock, Gt as unref, It as ref, K as onBeforeMount, N as defineComponent, S as computed, T as createCommentVNode, Ut as toValue, _ as Fragment, bn as normalizeStyle, bt as withCtx, gt as watch, j as createVNode, n as Transition, pt as useTemplateRef, rt as renderList, vn as normalizeClass, w as createBlock } from "./vue.runtime.esm-bundler-DYHsQBZB.js";
+import { c as I18nT, s as useI18n } from "./src-xmGSq23Y.js";
+import { t as _plugin_vue_export_helper_default } from "./_plugin-vue_export-helper-D-F0WtqU.js";
+import { t as N8nButton_default } from "./N8nButton-IeUuYO4Y.js";
+import { t as N8nIcon_default } from "./N8nIcon-CoHAjoPo.js";
+import { t as N8nIconButton_default } from "./N8nIconButton-A99ePGGs.js";
+import { b as useMediaQuery, h as useEventListener, m as useElementSize, s as useActiveElement, y as useLocalStorage } from "./dist-BKkqSB6h.js";
+import { t as N8nText_default } from "./N8nText-Cyh6n6lU.js";
+import { t as Select_default } from "./Select-Oh0j1SpO.js";
+import { t as N8nTooltip_default } from "./N8nTooltip-D8UozEO5.js";
+import { t as N8nCard_default } from "./N8nCard-W7SwOQs6.js";
+import { t as N8nHeading_default } from "./N8nHeading-DtWWbZpM.js";
+import { c as useRoute, l as useRouter } from "./vue-router-DPnGeMd9.js";
+import { t as N8nLink_default } from "./N8nLink-ldFmybi4.js";
+import { t as N8nResizeWrapper_default } from "./N8nResizeWrapper-C_gNBgTM.js";
+import { kr as shouldIgnoreCanvasShortcut } from "./workflows.store-Bo6ZgF_O.js";
+import { t as N8nSpinner_default } from "./N8nSpinner-Bv5yOPi4.js";
+import { t as N8nScrollArea_default } from "./N8nScrollArea-EbE2ruUr.js";
+import { E as ROLE, P as chatHubConversationModelSchema, j as PROVIDER_CREDENTIAL_TYPE_MAP, oa as v4 } from "./src-C3aqUyDp.js";
+import { t as useRootStore } from "./useRootStore-Bapf3biO.js";
+import { t as useSettingsStore } from "./settings.store-1Fkv1cxl.js";
+import { t as useUsersStore } from "./users.store-DKz7Lfdh.js";
+import { t as useTelemetry } from "./useTelemetry-2P8aHE7m.js";
+import { t as usePageRedirectionHelper } from "./usePageRedirectionHelper-mu-wA-a0.js";
+import { t as VIEWS } from "./views-C9JmlLsL.js";
+import { n as useToast } from "./useToast-CWYKHgJh.js";
+import { Ai as LOCAL_STORAGE_CHAT_HUB_HAD_CONVERSATION_BEFORE, ji as LOCAL_STORAGE_CHAT_HUB_SELECTED_MODEL, no as EnterpriseEditionFeature } from "./constants-DPRLSskW.js";
+import { mt as INVITE_USER_MODAL_KEY, n as useUIStore } from "./ui.store-BhVgRazX.js";
+import { c as hasRole, t as hasPermission } from "./permissions-DkZpSVVu.js";
+import { n as useDocumentTitle } from "./useDocumentTitle-GktmjxG4.js";
+import { t as usePrivateCredentials } from "./usePrivateCredentials-CwL_2m9E.js";
+import { i as waitForOAuthCallback, t as getTrustedOAuthOrigins } from "./oauthCallback-BGHMWUxT.js";
+import { t as CredentialIcon_default } from "./CredentialIcon-T9rabh9H.js";
+import { t as useFreeAiCredits } from "./useFreeAiCredits-CMQgCLXx.js";
+import { c as CHAT_VIEW, d as MOBILE_MEDIA_QUERY, n as CHAT_CONVERSATION_VIEW, t as AGENT_EDITOR_MODAL_KEY } from "./constants-zeVT1Ciq.js";
+import { a as authorizeDynamicCredential, i as collectChatArtifacts, l as fetchWorkflowExecutionStatus, t as useChatStore, u as revokeDynamicCredential } from "./chat.store-DoBcmeo2.js";
+import { T as unflattenModel, _ as isLlmProvider, c as findOneFromModelsResponse, l as flattenModel } from "./chat.utils-CBVJCCaJ.js";
+import { t as useResizablePanel } from "./useResizablePanel-DcnM3lBb.js";
+import { i as useChatSession, n as ChatPrompt_default, r as ChatMessage_default, t as ChatGreetings_default } from "./ChatGreetings-F23ItUnp.js";
+import { n as useFileDrop } from "./ToolsSelector-BBIaELy3.js";
+import { t as ChatMarkdownChunk_default } from "./ChatMarkdownChunk-07aWqAvb.js";
+import { n as useChatCredentials, r as chatHubConversationModelWithCachedDisplayNameSchema, t as ChatLayout_default } from "./ChatLayout-2rvbTHV3.js";
+import { n as ModelSelector_default, t as useCustomAgent } from "./useCustomAgent-8X8t8-SZ.js";
+//#region src/features/ai/chatHub/components/ChatConversationHeader.vue?vue&type=script&setup=true&lang.ts
+var ChatConversationHeader_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "ChatConversationHeader",
+	props: {
+		selectedModel: {},
+		credentials: {},
+		readyToShowModelSelector: { type: Boolean },
+		showArtifactIcon: { type: Boolean },
+		hasDynamicCredentials: { type: Boolean }
+	},
+	emits: [
+		"selectModel",
+		"renameConversation",
+		"editCustomAgent",
+		"createCustomAgent",
+		"selectCredential",
+		"openWorkflow",
+		"reopenArtifact",
+		"toggleDynamicCredentials"
+	],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		const emit = __emit;
+		const modelSelectorRef = useTemplateRef("modelSelectorRef");
+		const i18n = useI18n();
+		const chatStore = useChatStore();
+		const isLoadingAgents = ref(false);
+		const showOpenWorkflow = computed(() => {
+			return __props.selectedModel?.model.provider === "n8n" && __props.selectedModel.metadata.scopes?.includes("workflow:read");
+		});
+		function onOpenWorkflow() {
+			if (__props.selectedModel?.model.provider === "n8n") emit("openWorkflow", __props.selectedModel.model.workflowId);
+		}
+		function onModelChange(selection) {
+			emit("selectModel", selection);
+		}
+		watch(() => __props.credentials, async (creds) => {
+			if (creds) {
+				isLoadingAgents.value = true;
+				try {
+					await chatStore.fetchAgents(creds);
+				} finally {
+					isLoadingAgents.value = false;
+				}
+			}
+		}, { immediate: true });
+		__expose({
+			openModelSelector: () => modelSelectorRef.value?.open(),
+			openCredentialSelector: (provider) => modelSelectorRef.value?.openCredentialSelector(provider)
+		});
+		return (_ctx, _cache) => {
+			return openBlock(), createElementBlock("div", { class: normalizeClass(_ctx.$style.component) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.grow) }, [__props.readyToShowModelSelector ? (openBlock(), createBlock(ModelSelector_default, {
+				key: 0,
+				ref_key: "modelSelectorRef",
+				ref: modelSelectorRef,
+				"selected-agent": __props.selectedModel,
+				credentials: __props.credentials,
+				"show-border": false,
+				agents: unref(chatStore).agents,
+				"is-loading": isLoadingAgents.value,
+				onChange: onModelChange,
+				onCreateCustomAgent: _cache[0] || (_cache[0] = ($event) => emit("createCustomAgent")),
+				onSelectCredential: _cache[1] || (_cache[1] = (provider, credentialId) => emit("selectCredential", provider, credentialId))
+			}, null, 8, [
+				"selected-agent",
+				"credentials",
+				"agents",
+				"is-loading"
+			])) : createCommentVNode("", true)], 2), createBaseVNode("div", { class: normalizeClass(_ctx.$style.buttons) }, [
+				__props.selectedModel?.model.provider === "custom-agent" ? (openBlock(), createBlock(unref(N8nButton_default), {
+					key: 0,
+					variant: "subtle",
+					size: "small",
+					icon: "settings",
+					label: unref(i18n).baseText("chatHub.chat.header.button.editAgent"),
+					onClick: _cache[2] || (_cache[2] = ($event) => emit("editCustomAgent", __props.selectedModel.model.agentId))
+				}, null, 8, ["label"])) : createCommentVNode("", true),
+				__props.showArtifactIcon ? (openBlock(), createBlock(unref(N8nIconButton_default), {
+					key: 1,
+					variant: "subtle",
+					size: "small",
+					icon: "panel-right",
+					onClick: _cache[3] || (_cache[3] = ($event) => emit("reopenArtifact"))
+				})) : createCommentVNode("", true),
+				__props.hasDynamicCredentials ? (openBlock(), createBlock(unref(N8nIconButton_default), {
+					key: 2,
+					variant: "subtle",
+					size: "small",
+					icon: "key-round",
+					title: unref(i18n).baseText("chatHub.chat.header.button.manageConnections"),
+					"aria-label": unref(i18n).baseText("chatHub.chat.header.button.manageConnections"),
+					"data-testid": "manage-dynamic-credentials-button",
+					onClick: _cache[4] || (_cache[4] = ($event) => emit("toggleDynamicCredentials"))
+				}, null, 8, ["title", "aria-label"])) : createCommentVNode("", true),
+				showOpenWorkflow.value ? (openBlock(), createBlock(unref(N8nButton_default), {
+					key: 3,
+					variant: "subtle",
+					size: "small",
+					icon: "settings",
+					label: unref(i18n).baseText("chatHub.chat.header.button.openWorkflow"),
+					onClick: onOpenWorkflow
+				}, null, 8, ["label"])) : createCommentVNode("", true)
+			], 2)], 2);
+		};
+	}
+});
+//#endregion
+//#region src/features/ai/chatHub/components/ChatConversationHeader.vue?vue&type=style&index=0&lang.module.scss
+var component = "_component_1tddc_388";
+var menuButton = "_menuButton_1tddc_399";
+var grow = "_grow_1tddc_403";
+var title$1 = "_title_1tddc_410";
+var buttons = "_buttons_1tddc_414";
+var shimmer$4 = "_shimmer_1tddc_1";
+var spin$4 = "_spin_1tddc_1";
+var opacityPulse$4 = "_opacityPulse_1tddc_1";
+var popoverIn$4 = "_popoverIn_1tddc_1";
+var fadeIn$4 = "_fadeIn_1tddc_1";
+var collapsibleSlideDown$4 = "_collapsibleSlideDown_1tddc_1";
+var collapsibleSlideUp$4 = "_collapsibleSlideUp_1tddc_1";
+var collapsibleSlideDownBlurred$4 = "_collapsibleSlideDownBlurred_1tddc_1";
+var collapsibleSlideUpBlurred$4 = "_collapsibleSlideUpBlurred_1tddc_1";
+var blurSwapIn$4 = "_blurSwapIn_1tddc_1";
+var blurSwapOut$4 = "_blurSwapOut_1tddc_1";
+var pulseGlow$4 = "_pulseGlow_1tddc_1";
+var pulseGlowDelayed$4 = "_pulseGlowDelayed_1tddc_1";
+var fade$4 = "_fade_1tddc_1";
+var fadeInUp$4 = "_fadeInUp_1tddc_1";
+var fadeInDown$4 = "_fadeInDown_1tddc_1";
+var fadeInLeft$4 = "_fadeInLeft_1tddc_1";
+var fadeInRight$4 = "_fadeInRight_1tddc_1";
+var fadeOut$4 = "_fadeOut_1tddc_1";
+var fadeOutDown$4 = "_fadeOutDown_1tddc_1";
+var fadeOutUp$4 = "_fadeOutUp_1tddc_1";
+var fadeOutLeft$4 = "_fadeOutLeft_1tddc_1";
+var fadeOutRight$4 = "_fadeOutRight_1tddc_1";
+var ping$4 = "_ping_1tddc_1";
+var blinkBackground$4 = "_blinkBackground_1tddc_1";
+var typingBlink$4 = "_typingBlink_1tddc_1";
+var ChatConversationHeader_vue_vue_type_style_index_0_lang_module_default = {
+	component,
+	menuButton,
+	grow,
+	title: title$1,
+	buttons,
+	shimmer: shimmer$4,
+	spin: spin$4,
+	"skeleton-pulse": "_skeleton-pulse_1tddc_1",
+	opacityPulse: opacityPulse$4,
+	popoverIn: popoverIn$4,
+	fadeIn: fadeIn$4,
+	collapsibleSlideDown: collapsibleSlideDown$4,
+	collapsibleSlideUp: collapsibleSlideUp$4,
+	collapsibleSlideDownBlurred: collapsibleSlideDownBlurred$4,
+	collapsibleSlideUpBlurred: collapsibleSlideUpBlurred$4,
+	blurSwapIn: blurSwapIn$4,
+	blurSwapOut: blurSwapOut$4,
+	pulseGlow: pulseGlow$4,
+	pulseGlowDelayed: pulseGlowDelayed$4,
+	fade: fade$4,
+	fadeInUp: fadeInUp$4,
+	fadeInDown: fadeInDown$4,
+	fadeInLeft: fadeInLeft$4,
+	fadeInRight: fadeInRight$4,
+	fadeOut: fadeOut$4,
+	fadeOutDown: fadeOutDown$4,
+	fadeOutUp: fadeOutUp$4,
+	fadeOutLeft: fadeOutLeft$4,
+	fadeOutRight: fadeOutRight$4,
+	ping: ping$4,
+	blinkBackground: blinkBackground$4,
+	typingBlink: typingBlink$4
+};
+var ChatConversationHeader_default = /* @__PURE__ */ _plugin_vue_export_helper_default(ChatConversationHeader_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": ChatConversationHeader_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+//#region src/features/ai/chatHub/components/ChatStarter.vue?vue&type=script&setup=true&lang.ts
+var CHAT_USERS_DOCS_URL = "https://docs.n8n.io/advanced-ai/chat-hub/#chat-user-role";
+var ChatStarter_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "ChatStarter",
+	props: { showWelcomeScreen: { type: Boolean } },
+	emits: ["startNewChat"],
+	setup(__props, { emit: __emit }) {
+		const emit = __emit;
+		const uiStore = useUIStore();
+		const settingsStore = useSettingsStore();
+		const i18n = useI18n();
+		const { goToUpgrade } = usePageRedirectionHelper();
+		const isAdvancedPermissionsEnabled = computed(() => settingsStore.isEnterpriseFeatureEnabled[EnterpriseEditionFeature.AdvancedPermissions]);
+		const hasInvitePermission = computed(() => hasPermission(["rbac"], { rbac: { scope: "user:create" } }));
+		const showInviteButton = computed(() => hasInvitePermission.value);
+		const isInviteDisabled = computed(() => !isAdvancedPermissionsEnabled.value);
+		function handleStartNewChat() {
+			emit("startNewChat");
+		}
+		function handleInviteUsers() {
+			uiStore.openModalWithData({
+				name: INVITE_USER_MODAL_KEY,
+				data: { initialRole: ROLE.ChatUser }
+			});
+		}
+		function handleUpgradeClick() {
+			goToUpgrade("chat-hub", "upgrade-advanced-permissions");
+		}
+		return (_ctx, _cache) => {
+			return openBlock(), createBlock(Transition, {
+				name: "welcome-fade",
+				mode: "out-in"
+			}, {
+				default: withCtx(() => [__props.showWelcomeScreen ? (openBlock(), createElementBlock("div", {
+					key: "welcome",
+					class: normalizeClass(_ctx.$style.welcomeContent)
+				}, [
+					createBaseVNode("div", { class: normalizeClass(_ctx.$style.header) }, [createVNode(unref(N8nHeading_default), {
+						tag: "h2",
+						bold: "",
+						size: "xlarge"
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.header")), 1)]),
+						_: 1
+					}), createVNode(unref(N8nText_default), {
+						size: "large",
+						color: "text-light"
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.subtitle")), 1)]),
+						_: 1
+					})], 2),
+					createBaseVNode("div", { class: normalizeClass(_ctx.$style.cardGrid) }, [
+						createBaseVNode("div", {
+							"data-test-id": "welcome-card-workflow-agents",
+							class: normalizeClass([_ctx.$style.cardWrapper, _ctx.$style.cardFirst])
+						}, [createVNode(unref(N8nCard_default), { class: normalizeClass(_ctx.$style.card) }, {
+							default: withCtx(() => [createBaseVNode("div", { class: normalizeClass(_ctx.$style.cardHeader) }, [createVNode(unref(N8nIcon_default), {
+								icon: "robot",
+								size: "large",
+								color: "text-dark"
+							}), createVNode(unref(N8nText_default), { bold: "" }, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.workflowAgents.title")), 1)]),
+								_: 1
+							})], 2), createVNode(unref(N8nText_default), {
+								size: "small",
+								color: "text-light"
+							}, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.workflowAgents.description")), 1)]),
+								_: 1
+							})]),
+							_: 1
+						}, 8, ["class"])], 2),
+						createBaseVNode("div", {
+							class: normalizeClass([_ctx.$style.cardWrapper, _ctx.$style.cardMiddle]),
+							"data-test-id": "welcome-card-personal-agents"
+						}, [createVNode(unref(N8nCard_default), { class: normalizeClass(_ctx.$style.card) }, {
+							default: withCtx(() => [createBaseVNode("div", { class: normalizeClass(_ctx.$style.cardHeader) }, [createVNode(unref(N8nIcon_default), {
+								icon: "message-square",
+								size: "large",
+								color: "text-dark"
+							}), createVNode(unref(N8nText_default), { bold: "" }, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.personalAgents.title")), 1)]),
+								_: 1
+							})], 2), createVNode(unref(N8nText_default), {
+								size: "small",
+								color: "text-light"
+							}, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.personalAgents.description")), 1)]),
+								_: 1
+							})]),
+							_: 1
+						}, 8, ["class"])], 2),
+						createBaseVNode("div", {
+							class: normalizeClass([_ctx.$style.cardWrapper, _ctx.$style.cardLast]),
+							"data-test-id": "welcome-card-base-models"
+						}, [createVNode(unref(N8nCard_default), { class: normalizeClass(_ctx.$style.card) }, {
+							default: withCtx(() => [createBaseVNode("div", { class: normalizeClass(_ctx.$style.cardHeader) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.providerIcons) }, [
+								createVNode(CredentialIcon_default, {
+									"credential-type-name": "openAiApi",
+									size: 20
+								}),
+								createVNode(CredentialIcon_default, {
+									"credential-type-name": "anthropicApi",
+									size: 20
+								}),
+								createVNode(CredentialIcon_default, {
+									"credential-type-name": "googlePalmApi",
+									size: 20
+								})
+							], 2), createVNode(unref(N8nText_default), { bold: "" }, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.baseModels.title")), 1)]),
+								_: 1
+							})], 2), createVNode(unref(N8nText_default), {
+								size: "small",
+								color: "text-light"
+							}, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.card.baseModels.description")), 1)]),
+								_: 1
+							})]),
+							_: 1
+						}, 8, ["class"])], 2)
+					], 2),
+					createBaseVNode("div", { class: normalizeClass(_ctx.$style.buttonGroup) }, [createVNode(unref(N8nButton_default), {
+						variant: "solid",
+						size: "medium",
+						icon: "plus",
+						"data-test-id": "welcome-start-new-chat",
+						onClick: handleStartNewChat
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.button.startNewChat")), 1)]),
+						_: 1
+					}), showInviteButton.value ? (openBlock(), createBlock(unref(N8nTooltip_default), {
+						key: 0,
+						disabled: !isInviteDisabled.value
+					}, {
+						content: withCtx(() => [createVNode(unref(I18nT), {
+							keypath: "chatHub.welcome.inviteUpgrade.tooltip",
+							scope: "global"
+						}, {
+							link: withCtx(() => [createVNode(unref(N8nLink_default), {
+								size: "small",
+								onClick: handleUpgradeClick
+							}, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("generic.upgrade")), 1)]),
+								_: 1
+							})]),
+							docsLink: withCtx(() => [createVNode(unref(N8nLink_default), {
+								size: "small",
+								href: CHAT_USERS_DOCS_URL,
+								target: "_blank",
+								rel: "noopener"
+							}, {
+								default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.inviteUpgrade.here")), 1)]),
+								_: 1
+							})]),
+							_: 1
+						})]),
+						default: withCtx(() => [createVNode(unref(N8nButton_default), {
+							variant: "subtle",
+							size: "medium",
+							icon: "users",
+							disabled: isInviteDisabled.value,
+							"data-test-id": "welcome-invite-chat-users",
+							onClick: handleInviteUsers
+						}, {
+							default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.welcome.button.inviteChatUsers")), 1)]),
+							_: 1
+						}, 8, ["disabled"])]),
+						_: 1
+					}, 8, ["disabled"])) : createCommentVNode("", true)], 2)
+				], 2)) : createCommentVNode("", true)]),
+				_: 1
+			});
+		};
+	}
+});
+//#endregion
+//#region src/features/ai/chatHub/components/ChatStarter.vue?vue&type=style&index=0&lang.module.scss
+var header$3 = "_header_1y5hi_388";
+var cardGrid = "_cardGrid_1y5hi_396";
+var cardWrapper = "_cardWrapper_1y5hi_406";
+var card = "_card_1y5hi_396";
+var cardFirst = "_cardFirst_1y5hi_429";
+var cardMiddle = "_cardMiddle_1y5hi_438";
+var cardLast = "_cardLast_1y5hi_442";
+var cardHeader = "_cardHeader_1y5hi_451";
+var providerIcons = "_providerIcons_1y5hi_459";
+var buttonGroup = "_buttonGroup_1y5hi_464";
+var welcomeContent = "_welcomeContent_1y5hi_470";
+var shimmer$3 = "_shimmer_1y5hi_1";
+var spin$3 = "_spin_1y5hi_1";
+var opacityPulse$3 = "_opacityPulse_1y5hi_1";
+var popoverIn$3 = "_popoverIn_1y5hi_1";
+var fadeIn$3 = "_fadeIn_1y5hi_1";
+var collapsibleSlideDown$3 = "_collapsibleSlideDown_1y5hi_1";
+var collapsibleSlideUp$3 = "_collapsibleSlideUp_1y5hi_1";
+var collapsibleSlideDownBlurred$3 = "_collapsibleSlideDownBlurred_1y5hi_1";
+var collapsibleSlideUpBlurred$3 = "_collapsibleSlideUpBlurred_1y5hi_1";
+var blurSwapIn$3 = "_blurSwapIn_1y5hi_1";
+var blurSwapOut$3 = "_blurSwapOut_1y5hi_1";
+var pulseGlow$3 = "_pulseGlow_1y5hi_1";
+var pulseGlowDelayed$3 = "_pulseGlowDelayed_1y5hi_1";
+var fade$3 = "_fade_1y5hi_1";
+var fadeInUp$3 = "_fadeInUp_1y5hi_1";
+var fadeInDown$3 = "_fadeInDown_1y5hi_1";
+var fadeInLeft$3 = "_fadeInLeft_1y5hi_1";
+var fadeInRight$3 = "_fadeInRight_1y5hi_1";
+var fadeOut$3 = "_fadeOut_1y5hi_1";
+var fadeOutDown$3 = "_fadeOutDown_1y5hi_1";
+var fadeOutUp$3 = "_fadeOutUp_1y5hi_1";
+var fadeOutLeft$3 = "_fadeOutLeft_1y5hi_1";
+var fadeOutRight$3 = "_fadeOutRight_1y5hi_1";
+var ping$3 = "_ping_1y5hi_1";
+var blinkBackground$3 = "_blinkBackground_1y5hi_1";
+var typingBlink$3 = "_typingBlink_1y5hi_1";
+var ChatStarter_vue_vue_type_style_index_0_lang_module_default = {
+	header: header$3,
+	cardGrid,
+	cardWrapper,
+	card,
+	cardFirst,
+	cardMiddle,
+	cardLast,
+	cardHeader,
+	providerIcons,
+	buttonGroup,
+	welcomeContent,
+	shimmer: shimmer$3,
+	spin: spin$3,
+	"skeleton-pulse": "_skeleton-pulse_1y5hi_1",
+	opacityPulse: opacityPulse$3,
+	popoverIn: popoverIn$3,
+	fadeIn: fadeIn$3,
+	collapsibleSlideDown: collapsibleSlideDown$3,
+	collapsibleSlideUp: collapsibleSlideUp$3,
+	collapsibleSlideDownBlurred: collapsibleSlideDownBlurred$3,
+	collapsibleSlideUpBlurred: collapsibleSlideUpBlurred$3,
+	blurSwapIn: blurSwapIn$3,
+	blurSwapOut: blurSwapOut$3,
+	pulseGlow: pulseGlow$3,
+	pulseGlowDelayed: pulseGlowDelayed$3,
+	fade: fade$3,
+	fadeInUp: fadeInUp$3,
+	fadeInDown: fadeInDown$3,
+	fadeInLeft: fadeInLeft$3,
+	fadeInRight: fadeInRight$3,
+	fadeOut: fadeOut$3,
+	fadeOutDown: fadeOutDown$3,
+	fadeOutUp: fadeOutUp$3,
+	fadeOutLeft: fadeOutLeft$3,
+	fadeOutRight: fadeOutRight$3,
+	ping: ping$3,
+	blinkBackground: blinkBackground$3,
+	typingBlink: typingBlink$3
+};
+var ChatStarter_default = /* @__PURE__ */ _plugin_vue_export_helper_default(ChatStarter_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": ChatStarter_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+//#region src/features/ai/chatHub/components/ChatArtifactViewer.vue?vue&type=script&setup=true&lang.ts
+var _hoisted_1 = ["srcdoc", "title"];
+var ChatArtifactViewer_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "ChatArtifactViewer",
+	props: {
+		artifacts: {},
+		selectedIndex: {}
+	},
+	emits: [
+		"close",
+		"selectArtifact",
+		"download"
+	],
+	setup(__props, { emit: __emit }) {
+		const props = __props;
+		const emit = __emit;
+		const selectedArtifact = computed(() => props.artifacts[props.selectedIndex] ?? props.artifacts[0]);
+		const options = computed(() => props.artifacts.map((artifact, index) => ({
+			value: index,
+			label: artifact.title
+		})));
+		const isHtml = computed(() => selectedArtifact.value?.type === "html");
+		const isMarkdown = computed(() => selectedArtifact.value?.type === "md");
+		const markdownContent = computed(() => ({
+			type: "text",
+			content: isMarkdown.value ? selectedArtifact.value?.content : `\`\`\`${selectedArtifact.value?.type}\n${selectedArtifact.value?.content}\n\`\`\``
+		}));
+		return (_ctx, _cache) => {
+			return openBlock(), createElementBlock("div", { class: normalizeClass(_ctx.$style.container) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.viewer) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.header) }, [(openBlock(), createBlock(unref(Select_default), {
+				key: selectedArtifact.value?.title ?? "",
+				"model-value": __props.selectedIndex,
+				size: "medium",
+				variant: "ghost",
+				items: options.value,
+				class: normalizeClass(_ctx.$style.title),
+				"onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => emit("selectArtifact", $event))
+			}, null, 8, [
+				"model-value",
+				"items",
+				"class"
+			])), createBaseVNode("div", { class: normalizeClass(_ctx.$style.headerActions) }, [createVNode(unref(N8nIconButton_default), {
+				variant: "ghost",
+				text: "",
+				icon: "download",
+				onClick: _cache[1] || (_cache[1] = ($event) => emit("download"))
+			}), createVNode(unref(N8nIconButton_default), {
+				variant: "ghost",
+				text: "",
+				icon: "x",
+				onClick: _cache[2] || (_cache[2] = ($event) => emit("close"))
+			})], 2)], 2), createBaseVNode("div", { class: normalizeClass(_ctx.$style.content) }, [isHtml.value ? (openBlock(), createElementBlock("iframe", {
+				key: 0,
+				srcdoc: selectedArtifact.value?.content,
+				class: normalizeClass(_ctx.$style.iframe),
+				sandbox: "",
+				title: selectedArtifact.value?.title
+			}, null, 10, _hoisted_1)) : markdownContent.value ? (openBlock(), createBlock(ChatMarkdownChunk_default, {
+				key: 1,
+				ref: "markdownChunk",
+				class: normalizeClass(isMarkdown.value ? _ctx.$style.markdown : ""),
+				"single-pre": !isMarkdown.value,
+				source: markdownContent.value,
+				"footnote-style": "normal"
+			}, null, 8, [
+				"class",
+				"single-pre",
+				"source"
+			])) : createCommentVNode("", true)], 2)], 2)], 2);
+		};
+	}
+});
+//#endregion
+//#region src/features/ai/chatHub/components/ChatArtifactViewer.vue?vue&type=style&index=0&lang.module.scss
+var container$1 = "_container_z49mn_388";
+var viewer = "_viewer_z49mn_398";
+var header$2 = "_header_z49mn_405";
+var markdown = "_markdown_z49mn_419";
+var title = "_title_z49mn_423";
+var headerActions = "_headerActions_z49mn_432";
+var type = "_type_z49mn_439";
+var content = "_content_z49mn_444";
+var iframe = "_iframe_z49mn_452";
+var shimmer$2 = "_shimmer_z49mn_1";
+var spin$2 = "_spin_z49mn_1";
+var opacityPulse$2 = "_opacityPulse_z49mn_1";
+var popoverIn$2 = "_popoverIn_z49mn_1";
+var fadeIn$2 = "_fadeIn_z49mn_1";
+var collapsibleSlideDown$2 = "_collapsibleSlideDown_z49mn_1";
+var collapsibleSlideUp$2 = "_collapsibleSlideUp_z49mn_1";
+var collapsibleSlideDownBlurred$2 = "_collapsibleSlideDownBlurred_z49mn_1";
+var collapsibleSlideUpBlurred$2 = "_collapsibleSlideUpBlurred_z49mn_1";
+var blurSwapIn$2 = "_blurSwapIn_z49mn_1";
+var blurSwapOut$2 = "_blurSwapOut_z49mn_1";
+var pulseGlow$2 = "_pulseGlow_z49mn_1";
+var pulseGlowDelayed$2 = "_pulseGlowDelayed_z49mn_1";
+var fade$2 = "_fade_z49mn_1";
+var fadeInUp$2 = "_fadeInUp_z49mn_1";
+var fadeInDown$2 = "_fadeInDown_z49mn_1";
+var fadeInLeft$2 = "_fadeInLeft_z49mn_1";
+var fadeInRight$2 = "_fadeInRight_z49mn_1";
+var fadeOut$2 = "_fadeOut_z49mn_1";
+var fadeOutDown$2 = "_fadeOutDown_z49mn_1";
+var fadeOutUp$2 = "_fadeOutUp_z49mn_1";
+var fadeOutLeft$2 = "_fadeOutLeft_z49mn_1";
+var fadeOutRight$2 = "_fadeOutRight_z49mn_1";
+var ping$2 = "_ping_z49mn_1";
+var blinkBackground$2 = "_blinkBackground_z49mn_1";
+var typingBlink$2 = "_typingBlink_z49mn_1";
+var ChatArtifactViewer_vue_vue_type_style_index_0_lang_module_default = {
+	container: container$1,
+	viewer,
+	header: header$2,
+	markdown,
+	title,
+	headerActions,
+	type,
+	content,
+	iframe,
+	shimmer: shimmer$2,
+	spin: spin$2,
+	"skeleton-pulse": "_skeleton-pulse_z49mn_1",
+	opacityPulse: opacityPulse$2,
+	popoverIn: popoverIn$2,
+	fadeIn: fadeIn$2,
+	collapsibleSlideDown: collapsibleSlideDown$2,
+	collapsibleSlideUp: collapsibleSlideUp$2,
+	collapsibleSlideDownBlurred: collapsibleSlideDownBlurred$2,
+	collapsibleSlideUpBlurred: collapsibleSlideUpBlurred$2,
+	blurSwapIn: blurSwapIn$2,
+	blurSwapOut: blurSwapOut$2,
+	pulseGlow: pulseGlow$2,
+	pulseGlowDelayed: pulseGlowDelayed$2,
+	fade: fade$2,
+	fadeInUp: fadeInUp$2,
+	fadeInDown: fadeInDown$2,
+	fadeInLeft: fadeInLeft$2,
+	fadeInRight: fadeInRight$2,
+	fadeOut: fadeOut$2,
+	fadeOutDown: fadeOutDown$2,
+	fadeOutUp: fadeOutUp$2,
+	fadeOutLeft: fadeOutLeft$2,
+	fadeOutRight: fadeOutRight$2,
+	ping: ping$2,
+	blinkBackground: blinkBackground$2,
+	typingBlink: typingBlink$2
+};
+var ChatArtifactViewer_default = /* @__PURE__ */ _plugin_vue_export_helper_default(ChatArtifactViewer_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": ChatArtifactViewer_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+//#region src/features/ai/chatHub/components/DynamicCredentialsDrawer.vue?vue&type=script&setup=true&lang.ts
+var DynamicCredentialsDrawer_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "DynamicCredentialsDrawer",
+	props: {
+		credentials: {},
+		connectedCount: {},
+		totalCount: {}
+	},
+	emits: [
+		"close",
+		"authorize",
+		"revoke"
+	],
+	setup(__props, { emit: __emit }) {
+		const emit = __emit;
+		const i18n = useI18n();
+		return (_ctx, _cache) => {
+			return openBlock(), createElementBlock("div", { class: normalizeClass(_ctx.$style.container) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.panel) }, [
+				createBaseVNode("div", { class: normalizeClass(_ctx.$style.header) }, [createVNode(unref(N8nText_default), {
+					bold: "",
+					size: "large"
+				}, {
+					default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.title")), 1)]),
+					_: 1
+				}), createVNode(unref(N8nIconButton_default), {
+					type: "tertiary",
+					text: "",
+					icon: "x",
+					"data-testid": "dynamic-credentials-drawer-close",
+					onClick: _cache[0] || (_cache[0] = ($event) => emit("close"))
+				})], 2),
+				createBaseVNode("div", { class: normalizeClass(_ctx.$style.body) }, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.subtitle) }, [createVNode(unref(N8nText_default), { bold: "" }, {
+					default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.subtitle")), 1)]),
+					_: 1
+				}), createVNode(unref(N8nText_default), {
+					size: "small",
+					color: "text-light"
+				}, {
+					default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.description")), 1)]),
+					_: 1
+				})], 2), createBaseVNode("ul", { class: normalizeClass(_ctx.$style.credentialList) }, [(openBlock(true), createElementBlock(Fragment, null, renderList(__props.credentials, (cred) => {
+					return openBlock(), createElementBlock("li", {
+						key: cred.credentialId,
+						class: normalizeClass(_ctx.$style.credentialRow),
+						"data-testid": "dynamic-credential-row"
+					}, [createBaseVNode("div", { class: normalizeClass(_ctx.$style.credentialInfo) }, [
+						createVNode(unref(N8nText_default), { bold: "" }, {
+							default: withCtx(() => [createTextVNode(toDisplayString(cred.credentialName), 1)]),
+							_: 2
+						}, 1024),
+						cred.credentialStatus === "configured" ? (openBlock(), createBlock(unref(N8nText_default), {
+							key: 0,
+							size: "small",
+							color: "text-light"
+						}, {
+							default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.status.connected")), 1)]),
+							_: 1
+						})) : (openBlock(), createBlock(unref(N8nText_default), {
+							key: 1,
+							size: "small",
+							color: "text-light"
+						}, {
+							default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.status.notConnected")), 1)]),
+							_: 1
+						})),
+						cred.error ? (openBlock(), createBlock(unref(N8nText_default), {
+							key: 2,
+							size: "small",
+							color: "danger"
+						}, {
+							default: withCtx(() => [createTextVNode(toDisplayString(cred.error), 1)]),
+							_: 2
+						}, 1024)) : createCommentVNode("", true)
+					], 2), createBaseVNode("div", { class: normalizeClass(_ctx.$style.credentialAction) }, [cred.isConnecting ? (openBlock(), createBlock(unref(N8nSpinner_default), {
+						key: 0,
+						size: "small"
+					})) : cred.credentialStatus === "configured" ? (openBlock(), createBlock(unref(N8nButton_default), {
+						key: 1,
+						size: "small",
+						"data-testid": "dynamic-credential-disconnect",
+						onClick: ($event) => emit("revoke", cred.credentialId)
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.disconnect")), 1)]),
+						_: 1
+					}, 8, ["onClick"])) : (openBlock(), createBlock(unref(N8nButton_default), {
+						key: 2,
+						size: "small",
+						"data-testid": "dynamic-credential-connect",
+						onClick: ($event) => emit("authorize", cred.credentialId)
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.connect")), 1)]),
+						_: 1
+					}, 8, ["onClick"]))], 2)], 2);
+				}), 128))], 2)], 2),
+				createBaseVNode("div", { class: normalizeClass(_ctx.$style.footer) }, [createVNode(unref(N8nText_default), {
+					size: "small",
+					color: "text-light"
+				}, {
+					default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.dynamicCredentials.drawer.footer", { interpolate: {
+						connected: String(__props.connectedCount),
+						total: String(__props.totalCount)
+					} })), 1)]),
+					_: 1
+				})], 2)
+			], 2)], 2);
+		};
+	}
+});
+//#endregion
+//#region src/features/ai/chatHub/components/DynamicCredentialsDrawer.vue?vue&type=style&index=0&lang.module.scss
+var container = "_container_1qfih_388";
+var panel = "_panel_1qfih_398";
+var header$1 = "_header_1qfih_405";
+var body = "_body_1qfih_416";
+var subtitle = "_subtitle_1qfih_422";
+var credentialList = "_credentialList_1qfih_429";
+var credentialRow = "_credentialRow_1qfih_438";
+var credentialInfo = "_credentialInfo_1qfih_448";
+var credentialAction = "_credentialAction_1qfih_456";
+var footer = "_footer_1qfih_462";
+var shimmer$1 = "_shimmer_1qfih_1";
+var spin$1 = "_spin_1qfih_1";
+var opacityPulse$1 = "_opacityPulse_1qfih_1";
+var popoverIn$1 = "_popoverIn_1qfih_1";
+var fadeIn$1 = "_fadeIn_1qfih_1";
+var collapsibleSlideDown$1 = "_collapsibleSlideDown_1qfih_1";
+var collapsibleSlideUp$1 = "_collapsibleSlideUp_1qfih_1";
+var collapsibleSlideDownBlurred$1 = "_collapsibleSlideDownBlurred_1qfih_1";
+var collapsibleSlideUpBlurred$1 = "_collapsibleSlideUpBlurred_1qfih_1";
+var blurSwapIn$1 = "_blurSwapIn_1qfih_1";
+var blurSwapOut$1 = "_blurSwapOut_1qfih_1";
+var pulseGlow$1 = "_pulseGlow_1qfih_1";
+var pulseGlowDelayed$1 = "_pulseGlowDelayed_1qfih_1";
+var fade$1 = "_fade_1qfih_1";
+var fadeInUp$1 = "_fadeInUp_1qfih_1";
+var fadeInDown$1 = "_fadeInDown_1qfih_1";
+var fadeInLeft$1 = "_fadeInLeft_1qfih_1";
+var fadeInRight$1 = "_fadeInRight_1qfih_1";
+var fadeOut$1 = "_fadeOut_1qfih_1";
+var fadeOutDown$1 = "_fadeOutDown_1qfih_1";
+var fadeOutUp$1 = "_fadeOutUp_1qfih_1";
+var fadeOutLeft$1 = "_fadeOutLeft_1qfih_1";
+var fadeOutRight$1 = "_fadeOutRight_1qfih_1";
+var ping$1 = "_ping_1qfih_1";
+var blinkBackground$1 = "_blinkBackground_1qfih_1";
+var typingBlink$1 = "_typingBlink_1qfih_1";
+var DynamicCredentialsDrawer_vue_vue_type_style_index_0_lang_module_default = {
+	container,
+	panel,
+	header: header$1,
+	body,
+	subtitle,
+	credentialList,
+	credentialRow,
+	credentialInfo,
+	credentialAction,
+	footer,
+	shimmer: shimmer$1,
+	spin: spin$1,
+	"skeleton-pulse": "_skeleton-pulse_1qfih_1",
+	opacityPulse: opacityPulse$1,
+	popoverIn: popoverIn$1,
+	fadeIn: fadeIn$1,
+	collapsibleSlideDown: collapsibleSlideDown$1,
+	collapsibleSlideUp: collapsibleSlideUp$1,
+	collapsibleSlideDownBlurred: collapsibleSlideDownBlurred$1,
+	collapsibleSlideUpBlurred: collapsibleSlideUpBlurred$1,
+	blurSwapIn: blurSwapIn$1,
+	blurSwapOut: blurSwapOut$1,
+	pulseGlow: pulseGlow$1,
+	pulseGlowDelayed: pulseGlowDelayed$1,
+	fade: fade$1,
+	fadeInUp: fadeInUp$1,
+	fadeInDown: fadeInDown$1,
+	fadeInLeft: fadeInLeft$1,
+	fadeInRight: fadeInRight$1,
+	fadeOut: fadeOut$1,
+	fadeOutDown: fadeOutDown$1,
+	fadeOutUp: fadeOutUp$1,
+	fadeOutLeft: fadeOutLeft$1,
+	fadeOutRight: fadeOutRight$1,
+	ping: ping$1,
+	blinkBackground: blinkBackground$1,
+	typingBlink: typingBlink$1
+};
+var DynamicCredentialsDrawer_default = /* @__PURE__ */ _plugin_vue_export_helper_default(DynamicCredentialsDrawer_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": DynamicCredentialsDrawer_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+//#region src/features/ai/chatHub/composables/useChatArtifacts.ts
+function useChatArtifacts(container, chatMessages) {
+	const isViewerCollapsed = ref(false);
+	const selectedIndex = ref(0);
+	const allArtifacts = computed(() => collectChatArtifacts(chatMessages.value.flatMap((message) => message.content)));
+	const selectedArtifact = computed(() => {
+		const artifacts = allArtifacts.value;
+		if (artifacts.length === 0) return null;
+		return artifacts[Math.min(selectedIndex.value, artifacts.length - 1)];
+	});
+	const isViewerVisible = computed(() => allArtifacts.value.length > 0 && !isViewerCollapsed.value);
+	const panelResizer = useResizablePanel("N8N_CHAT_ARTIFACT_VIEWER_WIDTH", {
+		container,
+		defaultSize: (size) => size * .6,
+		minSize: 300,
+		maxSize: (size) => size - 300,
+		allowFullSize: true
+	});
+	watch(allArtifacts, (newArtifacts, oldArtifacts) => {
+		if (newArtifacts.length > 0 && newArtifacts.length !== oldArtifacts?.length) {
+			isViewerCollapsed.value = false;
+			selectedIndex.value = newArtifacts.length - 1;
+		}
+	});
+	function handleViewerResizeEnd() {
+		if (panelResizer.isFullSize.value) isViewerCollapsed.value = true;
+		panelResizer.onResizeEnd();
+	}
+	function handleCloseViewer() {
+		isViewerCollapsed.value = true;
+	}
+	function handleSelect(index) {
+		selectedIndex.value = index;
+	}
+	function handleOpenViewer(title) {
+		if (title) selectedIndex.value = allArtifacts.value.findIndex((d) => d.title === title);
+		isViewerCollapsed.value = false;
+	}
+	function handleDownload() {
+		const artifact = selectedArtifact.value;
+		if (!artifact) return;
+		const blob = new Blob([artifact.content], { type: "text/plain" });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = `${artifact.title}.${artifact.type}`;
+		a.click();
+		URL.revokeObjectURL(url);
+	}
+	return {
+		selectedIndex,
+		allArtifacts,
+		isViewerVisible,
+		isViewerCollapsed,
+		viewerSize: computed(() => panelResizer.size.value),
+		isViewerResizing: computed(() => panelResizer.isResizing.value),
+		handleOpenViewer,
+		handleViewerResize: panelResizer.onResize,
+		handleViewerResizeEnd,
+		handleCloseViewer,
+		handleDownload,
+		handleSelect
+	};
+}
+//#endregion
+//#region src/features/ai/chatHub/composables/useChatInputFocus.ts
+function useChatInputFocus(inputRef, options) {
+	const uiStore = useUIStore();
+	const activeElement = useActiveElement();
+	const isDisabled = computed(() => toValue(options?.disabled) ?? false);
+	const shouldIgnoreKeypress = computed(() => {
+		if (isDisabled.value) return true;
+		if (uiStore.isAnyModalOpen) return true;
+		if (activeElement.value && shouldIgnoreCanvasShortcut(activeElement.value)) return true;
+		return false;
+	});
+	const RESERVED_SHORTCUT_KEYS = ["["];
+	const isPrintableKey = (event) => {
+		return event.key.length === 1;
+	};
+	const isReservedShortcut = (event) => {
+		return RESERVED_SHORTCUT_KEYS.includes(event.key);
+	};
+	const hasModifierKey = (event) => {
+		return event.ctrlKey || event.metaKey || event.altKey;
+	};
+	const onKeyDown = (event) => {
+		if (shouldIgnoreKeypress.value) return;
+		if (event.isComposing) return;
+		if (event.repeat) return;
+		if (hasModifierKey(event)) return;
+		if (!isPrintableKey(event)) return;
+		if (isReservedShortcut(event)) return;
+		const input = inputRef.value;
+		if (!input) return;
+		event.preventDefault();
+		input.appendText(event.key);
+		input.focus();
+	};
+	useEventListener(document, "keydown", onKeyDown);
+}
+//#endregion
+//#region src/features/ai/chatHub/composables/useDynamicCredentialsStatus.ts
+function parseResolverId(authorizationUrl) {
+	if (!authorizationUrl) return "";
+	try {
+		return new URL(authorizationUrl).searchParams.get("resolverId") ?? "";
+	} catch {
+		return "";
+	}
+}
+function useDynamicCredentialsStatus(workflowId) {
+	const rootStore = useRootStore();
+	const credentials = ref([]);
+	const isLoading = ref(false);
+	const hasDynamicCredentials = computed(() => credentials.value.length > 0);
+	const allAuthenticated = computed(() => hasDynamicCredentials.value && credentials.value.every((c) => c.credentialStatus === "configured"));
+	const connectedCount = computed(() => credentials.value.filter((c) => c.credentialStatus === "configured").length);
+	const totalCount = computed(() => credentials.value.length);
+	async function fetchStatus() {
+		const id = workflowId.value;
+		if (!id) {
+			credentials.value = [];
+			return;
+		}
+		isLoading.value = true;
+		try {
+			const status = await fetchWorkflowExecutionStatus(rootStore.restApiContext, id);
+			const connecting = new Set(credentials.value.filter((c) => c.isConnecting).map((c) => c.credentialId));
+			credentials.value = (status.credentials ?? []).map((c) => ({
+				credentialId: c.credentialId,
+				credentialName: c.credentialName,
+				credentialType: c.credentialType,
+				credentialStatus: c.credentialStatus,
+				resolverId: parseResolverId(c.authorizationUrl),
+				isConnecting: connecting.has(c.credentialId),
+				error: null
+			}));
+		} catch {
+			credentials.value = [];
+		} finally {
+			isLoading.value = false;
+		}
+	}
+	function updateCredentialState(credentialId, update) {
+		const cred = credentials.value.find((c) => c.credentialId === credentialId);
+		if (cred) Object.assign(cred, update);
+	}
+	async function pollUntilConfigured(credentialId, maxAttempts = 10, intervalMs = 1e3) {
+		for (let i = 0; i < maxAttempts; i++) {
+			await fetchStatus();
+			if (credentials.value.find((c) => c.credentialId === credentialId)?.credentialStatus === "configured") return;
+			await new Promise((resolve) => setTimeout(resolve, intervalMs));
+		}
+	}
+	async function authorize(credentialId) {
+		const cred = credentials.value.find((c) => c.credentialId === credentialId);
+		if (!cred || cred.isConnecting) return;
+		updateCredentialState(credentialId, {
+			isConnecting: true,
+			error: null
+		});
+		try {
+			const oauthUrl = await authorizeDynamicCredential(rootStore.restApiContext, credentialId, cred.resolverId);
+			const allowedProtocols = ["http:", "https:"];
+			try {
+				const parsedUrl = new URL(oauthUrl);
+				if (!allowedProtocols.includes(parsedUrl.protocol)) {
+					updateCredentialState(credentialId, {
+						error: "Invalid authorization URL",
+						isConnecting: false
+					});
+					return;
+				}
+			} catch {
+				updateCredentialState(credentialId, {
+					error: "Invalid authorization URL",
+					isConnecting: false
+				});
+				return;
+			}
+			const oauthPopup = window.open(oauthUrl, "OAuth Authorization", "scrollbars=no,resizable=yes,status=no,titlebar=no,location=no,toolbar=no,menubar=no,width=500,height=700");
+			if (!oauthPopup) {
+				updateCredentialState(credentialId, {
+					error: "Failed to start authorization",
+					isConnecting: false
+				});
+				return;
+			}
+			const outcome = await waitForOAuthCallback({
+				popup: oauthPopup,
+				trustedOrigins: getTrustedOAuthOrigins(rootStore.urlBaseEditor),
+				verifyConnected: async () => {
+					await fetchStatus();
+					return credentials.value.find((c) => c.credentialId === credentialId)?.credentialStatus === "configured";
+				}
+			});
+			oauthPopup.close();
+			if (outcome === "success") await pollUntilConfigured(credentialId);
+			else await fetchStatus();
+			updateCredentialState(credentialId, { isConnecting: false });
+		} catch {
+			updateCredentialState(credentialId, {
+				error: "Failed to start authorization",
+				isConnecting: false
+			});
+		}
+	}
+	async function revoke(credentialId) {
+		const cred = credentials.value.find((c) => c.credentialId === credentialId);
+		if (!cred || cred.isConnecting) return;
+		updateCredentialState(credentialId, {
+			isConnecting: true,
+			error: null
+		});
+		try {
+			await revokeDynamicCredential(rootStore.restApiContext, credentialId, cred.resolverId);
+			await fetchStatus();
+		} catch {
+			updateCredentialState(credentialId, { error: "Failed to disconnect credential" });
+		} finally {
+			updateCredentialState(credentialId, { isConnecting: false });
+		}
+	}
+	watch(workflowId, (newId) => {
+		if (newId) fetchStatus();
+		else credentials.value = [];
+	}, { immediate: true });
+	return {
+		credentials,
+		hasDynamicCredentials,
+		allAuthenticated,
+		connectedCount,
+		totalCount,
+		isLoading,
+		fetchStatus,
+		authorize,
+		revoke
+	};
+}
+//#endregion
+//#region src/features/ai/chatHub/ChatView.vue?vue&type=script&setup=true&lang.ts
+var ChatView_vue_vue_type_script_setup_true_lang_default = /* @__PURE__ */ defineComponent({
+	__name: "ChatView",
+	setup(__props) {
+		const router = useRouter();
+		const route = useRoute();
+		const usersStore = useUsersStore();
+		const chatStore = useChatStore();
+		const settingsStore = useSettingsStore();
+		const toast = useToast();
+		const isMobileDevice = useMediaQuery(MOBILE_MEDIA_QUERY);
+		const documentTitle = useDocumentTitle();
+		const uiStore = useUIStore();
+		const i18n = useI18n();
+		const telemetry = useTelemetry();
+		onBeforeMount(async () => {
+			await chatStore.fetchConfiguredTools();
+		});
+		const headerRef = useTemplateRef("headerRef");
+		const inputRef = useTemplateRef("inputRef");
+		const scrollableRef = useTemplateRef("scrollable");
+		const chatLayoutRef = useTemplateRef("chatLayout");
+		const chatLayoutElement = computed(() => chatLayoutRef.value?.$el);
+		const welcomeScreenDismissed = ref(false);
+		const showCreditsClaimedCallout = ref(false);
+		const hasAttemptedAutoClaim = ref(false);
+		const { userCanClaimOpenAiCredits, aiCreditsQuota, claimCredits } = useFreeAiCredits();
+		const sessionId = computed(() => typeof route.params.id === "string" ? route.params.id : v4());
+		const isNewSessionOverride = computed(() => sessionId.value !== route.params.id);
+		const shouldSkipNextScrollTrigger = ref(false);
+		const currentConversation = computed(() => sessionId.value ? chatStore.sessions.byId[sessionId.value] : void 0);
+		const currentConversationTitle = computed(() => currentConversation.value?.title);
+		const canSelectTools = computed(() => !!selectedModel.value?.metadata.capabilities.functionCalling);
+		const hadConversationBefore = useLocalStorage(LOCAL_STORAGE_CHAT_HUB_HAD_CONVERSATION_BEFORE(usersStore.currentUserId ?? "anonymous"), false);
+		const hasSession = computed(() => (chatStore.sessions.ids?.length ?? 0) > 0);
+		const showWelcomeScreen = computed(() => {
+			if (hadConversationBefore.value || welcomeScreenDismissed.value) return false;
+			if (route.query.workflowId || route.query.agentId) return false;
+			if (!chatStore.sessionsReady) return;
+			return !hasSession.value && (!settingsStore.isChatFeatureEnabled || !hasRole(["global:chatUser"]));
+		});
+		const defaultModel = useLocalStorage(LOCAL_STORAGE_CHAT_HUB_SELECTED_MODEL(usersStore.currentUserId ?? "anonymous"), null, {
+			writeDefaults: false,
+			shallow: true,
+			serializer: {
+				read: (value) => {
+					try {
+						return chatHubConversationModelWithCachedDisplayNameSchema.parse(JSON.parse(value));
+					} catch (error) {
+						return null;
+					}
+				},
+				write: (value) => JSON.stringify(value)
+			}
+		});
+		const defaultAgent = computed(() => defaultModel.value ? chatStore.getAgent(defaultModel.value) : void 0);
+		const modelFromQuery = computed(() => {
+			const agentId = route.query.agentId;
+			const workflowId = route.query.workflowId;
+			const provider = route.query.provider;
+			const model = route.query.model;
+			if (!isNewSessionOverride.value) return null;
+			if (typeof agentId === "string") return chatStore.getAgent({
+				provider: "custom-agent",
+				agentId
+			});
+			if (typeof workflowId === "string") return chatStore.getAgent({
+				provider: "n8n",
+				workflowId
+			});
+			if (typeof provider === "string" && typeof model === "string") {
+				const parsedModel = chatHubConversationModelSchema.safeParse({
+					provider,
+					model
+				});
+				if (parsedModel.success) return chatStore.getAgent(parsedModel.data);
+			}
+			return null;
+		});
+		const selectedModel = computed(() => {
+			if (!isNewSessionOverride.value) {
+				const model = currentConversation.value ? unflattenModel(currentConversation.value) : null;
+				if (!model) return null;
+				return chatStore.getAgent(model, {
+					name: currentConversation.value?.agentName || currentConversation.value?.model,
+					icon: currentConversation.value?.agentIcon
+				});
+			}
+			if (modelFromQuery.value) return modelFromQuery.value;
+			if (chatStore.streaming?.sessionId === sessionId.value) return chatStore.streaming.agent;
+			if (!defaultModel.value) return null;
+			return chatStore.getAgent(defaultModel.value, {
+				name: defaultModel.value.cachedDisplayName,
+				icon: defaultModel.value.cachedIcon
+			});
+		});
+		const isAgentModel = computed(() => !!selectedModel.value && !isLlmProvider(selectedModel.value.model.provider));
+		const customAgentId = computed(() => selectedModel.value?.model.provider === "custom-agent" ? selectedModel.value.model.agentId : void 0);
+		const { customAgent } = useCustomAgent(customAgentId);
+		const checkedToolIds = computed(() => {
+			if (customAgent.value) return customAgent.value.toolIds;
+			if (currentConversation.value?.toolIds) return currentConversation.value.toolIds;
+			return modelFromQuery.value ? [] : chatStore.configuredTools.filter((t) => t.enabled).map((t) => t.definition.id);
+		});
+		const { credentialsByProvider, selectCredential } = useChatCredentials(usersStore.currentUserId ?? "anonymous");
+		const { isEnabled: privateCredentialsEnabled } = usePrivateCredentials();
+		const dynamicCreds = useDynamicCredentialsStatus(computed(() => selectedModel.value?.model.provider === "n8n" && privateCredentialsEnabled.value ? selectedModel.value.model.workflowId : null));
+		const isDynamicCredentialsDrawerOpen = ref(false);
+		const showDynamicCredentialsMissingCallout = computed(() => messagingState.value === "missingDynamicCredentials");
+		watch(() => dynamicCreds.allAuthenticated.value, (allConnected) => {
+			if (allConnected && isDynamicCredentialsDrawerOpen.value) isDynamicCredentialsDrawerOpen.value = false;
+		});
+		const credentialsForSelectedProvider = computed(() => {
+			const provider = selectedModel.value?.model.provider;
+			if (!provider) return null;
+			if (!isLlmProvider(provider)) return {};
+			const credentialsId = credentialsByProvider.value?.[provider];
+			if (!credentialsId) return null;
+			return { [PROVIDER_CREDENTIAL_TYPE_MAP[provider]]: {
+				id: credentialsId,
+				name: ""
+			} };
+		});
+		const isMissingSelectedCredential = computed(() => !credentialsForSelectedProvider.value);
+		const { chatMessages, isResponding, isNewSession, messagingState, scrollContainerRef, arrivedState, scrollToBottom, loadSession } = useChatSession({
+			sessionId,
+			scrollableRef,
+			isNewSession: isNewSessionOverride,
+			extendMessagingState: () => {
+				if (chatStore.agentsReady && !selectedModel.value) return "missingAgent";
+				if (chatStore.agentsReady && isMissingSelectedCredential.value) return "missingCredentials";
+				if (dynamicCreds.hasDynamicCredentials.value && !dynamicCreds.allAuthenticated.value) return "missingDynamicCredentials";
+				return null;
+			},
+			shouldSkipScroll: () => {
+				if (shouldSkipNextScrollTrigger.value) {
+					shouldSkipNextScrollTrigger.value = false;
+					return true;
+				}
+				return false;
+			}
+		});
+		const scrollContainerSize = useElementSize(scrollContainerRef);
+		const artifacts = useChatArtifacts(chatLayoutElement, chatMessages);
+		const isMainPanelNarrow = computed(() => scrollContainerSize.width.value < 600);
+		const editingMessageId = ref();
+		const messageElementsRef = useTemplateRef("messages");
+		const didSubmitInCurrentSession = ref(false);
+		const fileDrop = useFileDrop(computed(() => {
+			if (!((selectedModel.value?.metadata.allowFileUploads ?? false) && !isMissingSelectedCredential.value)) return false;
+			if (editingMessageId.value) return chatMessages.value.find((msg) => msg.id === editingMessageId.value)?.type === "human";
+			return true;
+		}), onFilesDropped);
+		useChatInputFocus(inputRef, { disabled: computed(() => showWelcomeScreen.value === true || messagingState.value !== "idle") });
+		watch(() => chatStore.agents, (models) => {
+			const settings = settingsStore.moduleSettings?.["chat-hub"];
+			if (!models || !!selectedModel.value || !isNewSession.value || !settings) return;
+			const model = findOneFromModelsResponse(models, settings.providers);
+			if (model) handleSelectAgent(model);
+		}, { immediate: true });
+		watch([sessionId, isNewSession], async ([id, isNew]) => {
+			didSubmitInCurrentSession.value = false;
+			editingMessageId.value = void 0;
+			if (!isNew) try {
+				await loadSession(id);
+			} catch (error) {
+				toast.showError(error, i18n.baseText("chatHub.error.fetchConversationFailed"));
+				await router.push({ name: CHAT_VIEW });
+			}
+		}, { immediate: true });
+		watch([inputRef, sessionId], ([input]) => {
+			input?.focus();
+		}, { immediate: true });
+		watch(currentConversationTitle, (title) => {
+			documentTitle.set(title ?? "Chat");
+		}, { immediate: true });
+		watch(credentialsByProvider, (credentials) => {
+			if (credentials) chatStore.fetchAgents(credentials);
+		}, { immediate: true });
+		watch(defaultAgent, (agent, prevAgent) => {
+			if (defaultModel.value && agent?.name && agent.name !== prevAgent?.name) defaultModel.value = {
+				...defaultModel.value,
+				cachedDisplayName: agent.name
+			};
+			if (defaultModel.value && agent?.icon && (agent.icon.type !== prevAgent?.icon?.type || agent.icon.value !== prevAgent.icon.value)) defaultModel.value = {
+				...defaultModel.value,
+				cachedIcon: agent.icon
+			};
+		}, { immediate: true });
+		watch([
+			welcomeScreenDismissed,
+			userCanClaimOpenAiCredits,
+			messagingState,
+			() => chatStore.agentsReady
+		], async ([dismissed, canClaim, state, ready]) => {
+			if (!canClaim || hasAttemptedAutoClaim.value) return;
+			if (dismissed || ready && state === "missingCredentials") {
+				hasAttemptedAutoClaim.value = true;
+				if (await claimCredits("chatHubAutoClaim")) showCreditsClaimedCallout.value = true;
+			}
+		}, { immediate: true });
+		watch(chatMessages, (messages) => {
+			if (messages.length > 0) showCreditsClaimedCallout.value = false;
+		});
+		watch(hasSession, (value) => {
+			hadConversationBefore.value = hadConversationBefore.value || value;
+		}, { immediate: true });
+		function handleDismissCreditsCallout() {
+			showCreditsClaimedCallout.value = false;
+		}
+		async function onSubmit(message, attachments) {
+			if (!message.trim() || isResponding.value || !selectedModel.value || !credentialsForSelectedProvider.value || dynamicCreds.hasDynamicCredentials.value && !dynamicCreds.allAuthenticated.value) return;
+			didSubmitInCurrentSession.value = true;
+			editingMessageId.value = void 0;
+			await chatStore.sendMessage(sessionId.value, message, selectedModel.value, credentialsForSelectedProvider.value, attachments);
+			inputRef.value?.reset();
+			if (isNewSession.value) router.push({
+				name: CHAT_CONVERSATION_VIEW,
+				params: { id: sessionId.value }
+			});
+		}
+		async function onStop() {
+			await chatStore.stopStreamingMessage(sessionId.value);
+		}
+		function handleStartEditMessage(messageId) {
+			editingMessageId.value = messageId;
+		}
+		function handleCancelEditMessage() {
+			editingMessageId.value = void 0;
+		}
+		async function handleEditMessage(content, keptAttachmentIndices, newFiles) {
+			if (!editingMessageId.value || isResponding.value || !selectedModel.value || !credentialsForSelectedProvider.value || dynamicCreds.hasDynamicCredentials.value && !dynamicCreds.allAuthenticated.value) return;
+			await chatStore.editMessage(sessionId.value, editingMessageId.value, content, selectedModel.value, credentialsForSelectedProvider.value, keptAttachmentIndices, newFiles);
+			editingMessageId.value = void 0;
+		}
+		async function handleRegenerateMessage(message) {
+			if (isResponding.value || message.type !== "ai" || !selectedModel.value || !credentialsForSelectedProvider.value || dynamicCreds.hasDynamicCredentials.value && !dynamicCreds.allAuthenticated.value) return;
+			const messageToRetry = message.id;
+			editingMessageId.value = void 0;
+			await chatStore.regenerateMessage(sessionId.value, messageToRetry, selectedModel.value, credentialsForSelectedProvider.value);
+		}
+		async function handleSelectModel(selection, selectedAgent) {
+			const agent = selectedAgent ?? chatStore.getAgent(selection);
+			if (currentConversation.value) try {
+				await chatStore.updateSessionModel(sessionId.value, selection, agent.name);
+			} catch (error) {
+				toast.showError(error, i18n.baseText("chatHub.error.updateModelFailed"));
+			}
+			else {
+				defaultModel.value = {
+					...selection,
+					cachedDisplayName: agent.name,
+					cachedIcon: agent.icon ?? void 0
+				};
+				await router.push({
+					name: CHAT_VIEW,
+					force: true
+				});
+			}
+		}
+		async function handleSelectAgent(selection) {
+			await handleSelectModel(selection.model, selection);
+		}
+		function handleSwitchAlternative(messageId) {
+			shouldSkipNextScrollTrigger.value = true;
+			chatStore.switchAlternative(sessionId.value, messageId);
+		}
+		function handleConfigureCredentials(provider) {
+			headerRef.value?.openCredentialSelector(provider);
+		}
+		function handleConfigureModel() {
+			headerRef.value?.openModelSelector();
+		}
+		function handleEditAgent(agentId) {
+			uiStore.openModalWithData({
+				name: AGENT_EDITOR_MODAL_KEY,
+				data: {
+					agentId,
+					credentials: credentialsByProvider,
+					onCreateCustomAgent: handleSelectAgent
+				}
+			});
+		}
+		function openNewAgentCreator() {
+			uiStore.openModalWithData({
+				name: AGENT_EDITOR_MODAL_KEY,
+				data: {
+					credentials: credentialsByProvider,
+					onCreateCustomAgent: handleSelectAgent
+				}
+			});
+		}
+		function handleOpenWorkflow(workflowId) {
+			const routeData = router.resolve({
+				name: VIEWS.WORKFLOW,
+				params: { workflowId }
+			});
+			window.open(routeData.href, "_blank");
+		}
+		function handleSelectPrompt(prompt) {
+			if (selectedModel.value) telemetry.track("User clicked chat hub suggested prompt", {
+				...flattenModel(selectedModel.value.model),
+				source: "chat_hub"
+			});
+			inputRef.value?.setText(prompt);
+			inputRef.value?.focus();
+		}
+		function onFilesDropped(files) {
+			if (!editingMessageId.value) {
+				inputRef.value?.addAttachments(files);
+				return;
+			}
+			const index = chatMessages.value.findIndex((message) => message.id === editingMessageId.value);
+			messageElementsRef.value?.[index]?.addFiles(files);
+		}
+		return (_ctx, _cache) => {
+			return showWelcomeScreen.value !== void 0 ? (openBlock(), createBlock(ChatLayout_default, {
+				key: 0,
+				ref: "chatLayout",
+				class: normalizeClass({
+					[_ctx.$style.chatLayout]: true,
+					[_ctx.$style.isNewSession]: unref(isNewSession),
+					[_ctx.$style.isAgentNewSession]: unref(isNewSession) && isAgentModel.value,
+					[_ctx.$style.isExistingSession]: !unref(isNewSession),
+					[_ctx.$style.isMobileDevice]: unref(isMobileDevice),
+					[_ctx.$style.isDraggingFile]: unref(fileDrop).isDragging.value,
+					[_ctx.$style.hasArtifact]: unref(artifacts).isViewerVisible.value,
+					[_ctx.$style.isMainPanelNarrow]: isMainPanelNarrow.value,
+					[_ctx.$style.isResizing]: unref(artifacts).isViewerResizing.value
+				}),
+				onDragenter: unref(fileDrop).handleDragEnter,
+				onDragleave: unref(fileDrop).handleDragLeave,
+				onDragover: unref(fileDrop).handleDragOver,
+				onDrop: unref(fileDrop).handleDrop,
+				onPaste: unref(fileDrop).handlePaste
+			}, {
+				default: withCtx(() => [
+					unref(fileDrop).isDragging.value ? (openBlock(), createElementBlock("div", {
+						key: 0,
+						class: normalizeClass(_ctx.$style.dropOverlay)
+					}, [createVNode(unref(N8nText_default), {
+						size: "large",
+						color: "text-dark"
+					}, {
+						default: withCtx(() => [createTextVNode(toDisplayString(unref(i18n).baseText("chatHub.chat.dropOverlay")), 1)]),
+						_: 1
+					})], 2)) : createCommentVNode("", true),
+					createVNode(unref(N8nResizeWrapper_default), {
+						class: normalizeClass(_ctx.$style.mainContentResizer),
+						width: unref(artifacts).viewerSize.value,
+						style: normalizeStyle({ width: unref(artifacts).isViewerVisible.value ? `${unref(artifacts).viewerSize.value}px` : isDynamicCredentialsDrawerOpen.value ? "calc(100% - 340px)" : "100%" }),
+						"supported-directions": ["right"],
+						"is-resizing-enabled": true,
+						onResize: unref(artifacts).handleViewerResize,
+						onResizeend: unref(artifacts).handleViewerResizeEnd
+					}, {
+						default: withCtx(() => [createBaseVNode("div", { class: normalizeClass(_ctx.$style.mainContent) }, [
+							!showWelcomeScreen.value ? (openBlock(), createBlock(ChatConversationHeader_default, {
+								key: 0,
+								ref_key: "headerRef",
+								ref: headerRef,
+								"selected-model": selectedModel.value,
+								credentials: unref(credentialsByProvider),
+								"ready-to-show-model-selector": unref(isNewSession) || !!currentConversation.value,
+								"show-artifact-icon": unref(artifacts).allArtifacts.value.length > 0 && unref(artifacts).isViewerCollapsed.value,
+								"has-dynamic-credentials": unref(dynamicCreds).hasDynamicCredentials.value,
+								onSelectModel: handleSelectModel,
+								onEditCustomAgent: handleEditAgent,
+								onCreateCustomAgent: openNewAgentCreator,
+								onSelectCredential: unref(selectCredential),
+								onOpenWorkflow: handleOpenWorkflow,
+								onReopenArtifact: unref(artifacts).handleOpenViewer,
+								onToggleDynamicCredentials: _cache[0] || (_cache[0] = ($event) => isDynamicCredentialsDrawerOpen.value = !isDynamicCredentialsDrawerOpen.value)
+							}, null, 8, [
+								"selected-model",
+								"credentials",
+								"ready-to-show-model-selector",
+								"show-artifact-icon",
+								"has-dynamic-credentials",
+								"onSelectCredential",
+								"onReopenArtifact"
+							])) : createCommentVNode("", true),
+							createVNode(unref(N8nScrollArea_default), {
+								type: "scroll",
+								"enable-vertical-scroll": true,
+								"enable-horizontal-scroll": false,
+								"as-child": "",
+								class: normalizeClass(_ctx.$style.scrollArea)
+							}, {
+								default: withCtx(() => [createBaseVNode("div", {
+									ref: "scrollable",
+									class: normalizeClass(_ctx.$style.scrollable)
+								}, [unref(isNewSession) ? (openBlock(), createBlock(ChatGreetings_default, {
+									key: 0,
+									class: normalizeClass({ [_ctx.$style.greetingsCentered]: !isAgentModel.value }),
+									"selected-agent": selectedModel.value,
+									loading: !unref(chatStore).agentsReady,
+									onSelectPrompt: handleSelectPrompt
+								}, null, 8, [
+									"class",
+									"selected-agent",
+									"loading"
+								])) : (openBlock(), createElementBlock("div", {
+									key: 1,
+									role: "log",
+									"aria-live": "polite",
+									class: normalizeClass(_ctx.$style.messageList)
+								}, [(openBlock(true), createElementBlock(Fragment, null, renderList(unref(chatMessages), (message, index) => {
+									return openBlock(), createBlock(ChatMessage_default, {
+										key: message.id,
+										ref_for: true,
+										ref: "messages",
+										message,
+										compact: isMainPanelNarrow.value,
+										"is-editing": editingMessageId.value === message.id,
+										"is-edit-submitting": unref(chatStore).streaming?.revisionOfMessageId === message.id,
+										"has-session-streaming": unref(isResponding),
+										"cached-agent-display-name": selectedModel.value?.name ?? null,
+										"cached-agent-icon": selectedModel.value?.icon ?? null,
+										"accepted-mime-types": selectedModel.value?.metadata.allowedFilesMimeTypes ?? "",
+										"min-height": didSubmitInCurrentSession.value && message.type === "ai" && index === unref(chatMessages).length - 1 && unref(scrollContainerRef) ? unref(scrollContainerRef).offsetHeight - 30 - 200 : void 0,
+										onStartEdit: ($event) => handleStartEditMessage(message.id),
+										onCancelEdit: handleCancelEditMessage,
+										onRegenerate: handleRegenerateMessage,
+										onUpdate: handleEditMessage,
+										onSwitchAlternative: handleSwitchAlternative,
+										onOpenArtifact: unref(artifacts).handleOpenViewer
+									}, null, 8, [
+										"message",
+										"compact",
+										"is-editing",
+										"is-edit-submitting",
+										"has-session-streaming",
+										"cached-agent-display-name",
+										"cached-agent-icon",
+										"accepted-mime-types",
+										"min-height",
+										"onStartEdit",
+										"onOpenArtifact"
+									]);
+								}), 128))], 2)), !showWelcomeScreen.value ? (openBlock(), createElementBlock("div", {
+									key: 2,
+									class: normalizeClass(_ctx.$style.promptContainer)
+								}, [!unref(arrivedState).bottom && !unref(isNewSession) ? (openBlock(), createBlock(unref(N8nIconButton_default), {
+									key: 0,
+									variant: "subtle",
+									icon: "arrow-down",
+									class: normalizeClass(_ctx.$style.scrollToBottomButton),
+									title: unref(i18n).baseText("chatHub.chat.scrollToBottom"),
+									onClick: _cache[1] || (_cache[1] = ($event) => unref(scrollToBottom)(true))
+								}, null, 8, ["class", "title"])) : createCommentVNode("", true), createVNode(ChatPrompt_default, {
+									ref_key: "inputRef",
+									ref: inputRef,
+									"selected-model": selectedModel.value,
+									"checked-tool-ids": canSelectTools.value ? checkedToolIds.value : [],
+									"session-id": unref(isNewSession) ? void 0 : sessionId.value,
+									"custom-agent-id": customAgentId.value,
+									"messaging-state": unref(messagingState),
+									"is-tools-selectable": canSelectTools.value,
+									"is-new-session": unref(isNewSession),
+									"show-credits-claimed-callout": showCreditsClaimedCallout.value,
+									"show-dynamic-credentials-missing-callout": showDynamicCredentialsMissingCallout.value,
+									"ai-credits-quota": String(unref(aiCreditsQuota)),
+									onSubmit,
+									onStop,
+									onSelectModel: handleConfigureModel,
+									onSetCredentials: handleConfigureCredentials,
+									onEditAgent: handleEditAgent,
+									onDismissCreditsCallout: handleDismissCreditsCallout,
+									onOpenDynamicCredentials: _cache[2] || (_cache[2] = ($event) => isDynamicCredentialsDrawerOpen.value = true)
+								}, null, 8, [
+									"selected-model",
+									"checked-tool-ids",
+									"session-id",
+									"custom-agent-id",
+									"messaging-state",
+									"is-tools-selectable",
+									"is-new-session",
+									"show-credits-claimed-callout",
+									"show-dynamic-credentials-missing-callout",
+									"ai-credits-quota"
+								])], 2)) : createCommentVNode("", true)], 2)]),
+								_: 1
+							}, 8, ["class"]),
+							unref(isNewSession) ? (openBlock(), createBlock(ChatStarter_default, {
+								key: 1,
+								"show-welcome-screen": showWelcomeScreen.value,
+								onStartNewChat: _cache[3] || (_cache[3] = ($event) => {
+									welcomeScreenDismissed.value = true;
+									inputRef.value?.focus();
+								})
+							}, null, 8, ["show-welcome-screen"])) : createCommentVNode("", true)
+						], 2)]),
+						_: 1
+					}, 8, [
+						"class",
+						"width",
+						"style",
+						"onResize",
+						"onResizeend"
+					]),
+					isDynamicCredentialsDrawerOpen.value && unref(dynamicCreds).hasDynamicCredentials.value ? (openBlock(), createBlock(DynamicCredentialsDrawer_default, {
+						key: 1,
+						class: normalizeClass(_ctx.$style.dynamicCredentialsDrawer),
+						credentials: unref(dynamicCreds).credentials.value,
+						"connected-count": unref(dynamicCreds).connectedCount.value,
+						"total-count": unref(dynamicCreds).totalCount.value,
+						"data-testid": "dynamic-credentials-drawer",
+						onClose: _cache[4] || (_cache[4] = ($event) => isDynamicCredentialsDrawerOpen.value = false),
+						onAuthorize: unref(dynamicCreds).authorize,
+						onRevoke: unref(dynamicCreds).revoke
+					}, null, 8, [
+						"class",
+						"credentials",
+						"connected-count",
+						"total-count",
+						"onAuthorize",
+						"onRevoke"
+					])) : createCommentVNode("", true),
+					unref(artifacts).isViewerVisible.value ? (openBlock(), createBlock(ChatArtifactViewer_default, {
+						key: sessionId.value,
+						class: normalizeClass(_ctx.$style.artifactViewer),
+						artifacts: unref(artifacts).allArtifacts.value,
+						"selected-index": unref(artifacts).selectedIndex.value,
+						onClose: unref(artifacts).handleCloseViewer,
+						onSelectArtifact: unref(artifacts).handleSelect,
+						onDownload: unref(artifacts).handleDownload
+					}, null, 8, [
+						"class",
+						"artifacts",
+						"selected-index",
+						"onClose",
+						"onSelectArtifact",
+						"onDownload"
+					])) : createCommentVNode("", true)
+				]),
+				_: 1
+			}, 8, [
+				"class",
+				"onDragenter",
+				"onDragleave",
+				"onDragover",
+				"onDrop",
+				"onPaste"
+			])) : createCommentVNode("", true);
+		};
+	}
+});
+//#endregion
+//#region src/features/ai/chatHub/ChatView.vue?vue&type=style&index=0&lang.module.scss
+var chatLayout = "_chatLayout_1v6yj_388";
+var hasArtifact = "_hasArtifact_1v6yj_393";
+var mainContent = "_mainContent_1v6yj_393";
+var mainContentResizer = "_mainContentResizer_1v6yj_401";
+var dynamicCredentialsDrawer = "_dynamicCredentialsDrawer_1v6yj_414";
+var artifactViewer = "_artifactViewer_1v6yj_421";
+var isResizing = "_isResizing_1v6yj_426";
+var scrollArea = "_scrollArea_1v6yj_431";
+var scrollable = "_scrollable_1v6yj_436";
+var isNewSession = "_isNewSession_1v6yj_445";
+var isAgentNewSession = "_isAgentNewSession_1v6yj_448";
+var greetingsCentered = "_greetingsCentered_1v6yj_452";
+var header = "_header_1v6yj_459";
+var messageList = "_messageList_1v6yj_465";
+var promptContainer = "_promptContainer_1v6yj_475";
+var isMobileDevice = "_isMobileDevice_1v6yj_482";
+var isExistingSession = "_isExistingSession_1v6yj_482";
+var isMainPanelNarrow = "_isMainPanelNarrow_1v6yj_495";
+var scrollToBottomButton = "_scrollToBottomButton_1v6yj_500";
+var isDraggingFile = "_isDraggingFile_1v6yj_508";
+var dropOverlay = "_dropOverlay_1v6yj_512";
+var shimmer = "_shimmer_1v6yj_1";
+var spin = "_spin_1v6yj_1";
+var opacityPulse = "_opacityPulse_1v6yj_1";
+var popoverIn = "_popoverIn_1v6yj_1";
+var fadeIn = "_fadeIn_1v6yj_1";
+var collapsibleSlideDown = "_collapsibleSlideDown_1v6yj_1";
+var collapsibleSlideUp = "_collapsibleSlideUp_1v6yj_1";
+var collapsibleSlideDownBlurred = "_collapsibleSlideDownBlurred_1v6yj_1";
+var collapsibleSlideUpBlurred = "_collapsibleSlideUpBlurred_1v6yj_1";
+var blurSwapIn = "_blurSwapIn_1v6yj_1";
+var blurSwapOut = "_blurSwapOut_1v6yj_1";
+var pulseGlow = "_pulseGlow_1v6yj_1";
+var pulseGlowDelayed = "_pulseGlowDelayed_1v6yj_1";
+var fade = "_fade_1v6yj_1";
+var fadeInUp = "_fadeInUp_1v6yj_1";
+var fadeInDown = "_fadeInDown_1v6yj_1";
+var fadeInLeft = "_fadeInLeft_1v6yj_1";
+var fadeInRight = "_fadeInRight_1v6yj_1";
+var fadeOut = "_fadeOut_1v6yj_1";
+var fadeOutDown = "_fadeOutDown_1v6yj_1";
+var fadeOutUp = "_fadeOutUp_1v6yj_1";
+var fadeOutLeft = "_fadeOutLeft_1v6yj_1";
+var fadeOutRight = "_fadeOutRight_1v6yj_1";
+var ping = "_ping_1v6yj_1";
+var blinkBackground = "_blinkBackground_1v6yj_1";
+var typingBlink = "_typingBlink_1v6yj_1";
+var ChatView_vue_vue_type_style_index_0_lang_module_default = {
+	chatLayout,
+	hasArtifact,
+	mainContent,
+	mainContentResizer,
+	dynamicCredentialsDrawer,
+	artifactViewer,
+	isResizing,
+	scrollArea,
+	scrollable,
+	isNewSession,
+	isAgentNewSession,
+	greetingsCentered,
+	header,
+	messageList,
+	promptContainer,
+	isMobileDevice,
+	isExistingSession,
+	isMainPanelNarrow,
+	scrollToBottomButton,
+	isDraggingFile,
+	dropOverlay,
+	shimmer,
+	spin,
+	"skeleton-pulse": "_skeleton-pulse_1v6yj_1",
+	opacityPulse,
+	popoverIn,
+	fadeIn,
+	collapsibleSlideDown,
+	collapsibleSlideUp,
+	collapsibleSlideDownBlurred,
+	collapsibleSlideUpBlurred,
+	blurSwapIn,
+	blurSwapOut,
+	pulseGlow,
+	pulseGlowDelayed,
+	fade,
+	fadeInUp,
+	fadeInDown,
+	fadeInLeft,
+	fadeInRight,
+	fadeOut,
+	fadeOutDown,
+	fadeOutUp,
+	fadeOutLeft,
+	fadeOutRight,
+	ping,
+	blinkBackground,
+	typingBlink
+};
+var ChatView_default = /* @__PURE__ */ _plugin_vue_export_helper_default(ChatView_vue_vue_type_script_setup_true_lang_default, [["__cssModules", { "$style": ChatView_vue_vue_type_style_index_0_lang_module_default }]]);
+//#endregion
+export { ChatView_default as default };
