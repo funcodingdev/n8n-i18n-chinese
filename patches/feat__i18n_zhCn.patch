@@ -1,4 +1,4 @@
-Subject: [PATCH] feat: i18n import zhCn for n8n@2.37.7
+Subject: [PATCH] feat: i18n import zhCn for n8n@2.37.9
 ---
 diff --git a/packages/frontend/@n8n/i18n/src/index.ts b/packages/frontend/@n8n/i18n/src/index.ts
 index 8f3dc011..d6bd0553 100644
