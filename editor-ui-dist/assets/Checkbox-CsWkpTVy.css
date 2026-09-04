@@ -1,0 +1,77 @@
+
+._checkbox_1sdxs_2 {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	gap: var(--spacing--2xs);
+	cursor: pointer;
+	color: white;
+&[data-disabled] {
+		cursor: not-allowed;
+}
+}
+._checkboxRoot_1sdxs_13 {
+	position: relative;
+	background: transparent;
+	width: 16px;
+	height: 16px;
+	border-radius: var(--radius);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	border: var(--border);
+	color: white;
+	cursor: inherit;
+	-ms-flex-negative: 0;
+	    flex-shrink: 0;
+&[data-state='checked'],
+	&[data-state='indeterminate'] {
+		background-color: var(--color--primary);
+		border-color: var(--color--primary--shade-1);
+&[data-disabled] {
+			background: var(--color--foreground);
+			border-color: var(--color--foreground);
+}
+}
+&:focus-visible {
+		-webkit-box-shadow: 0 0 0 2px var(--color--secondary);
+		        box-shadow: 0 0 0 2px var(--color--secondary);
+		outline: none;
+		z-index: 1;
+}
+}
+._checkboxIndicator_1sdxs_45 {
+	position: absolute;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+._label_1sdxs_52 {
+	-webkit-box-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+	padding-top: 1px;
+	font-size: var(--checkbox--label--font-size, var(--font-size--sm));
+	line-height: 1;
+	color: var(--color--text--shade-1);
+	cursor: inherit;
+&[data-disabled] {
+		color: var(--color--text--tint-1);
+}
+}
