@@ -1,0 +1,590 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+@keyframes _shimmer_whmcq_1 {
+0% {
+    background-position: 200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+100% {
+    background-position: -200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+}
+@keyframes _spin_whmcq_1 {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+@keyframes _skeleton-pulse_whmcq_1 {
+0%, 100% {
+    opacity: var(--animation--skeleton-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--skeleton-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _opacityPulse_whmcq_1 {
+0%, 100% {
+    opacity: var(--animation--opacity-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--opacity-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _popoverIn_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translate(var(--animation--popover-in--translate-x, 0), var(--animation--popover-in--translate-y, 0)) scale(var(--animation--popover-in--scale, 0.96));
+}
+to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+}
+@keyframes _fadeIn_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in--translate, 8px));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _collapsibleSlideDown_whmcq_1 {
+from {
+    height: 0;
+}
+to {
+    height: var(--reka-collapsible-content-height);
+}
+}
+@keyframes _collapsibleSlideUp_whmcq_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+}
+to {
+    height: 0;
+}
+}
+/* The filter only exists inside the keyframes: once the animation finishes the
+ * element returns to its unfiltered base styles, so no stacking context (or
+ * compositing surface) stays active on settled content. */
+@keyframes _collapsibleSlideDownBlurred_whmcq_1 {
+from {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+to {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideUpBlurred_whmcq_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+}
+@keyframes _blurSwapIn_whmcq_1 {
+from {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+to {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _blurSwapOut_whmcq_1 {
+from {
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+}
+@keyframes _pulseGlow_whmcq_1 {
+0% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+58.33% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+66.6% {
+    box-shadow: 0 0 0 66px transparent;
+}
+66.7% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _pulseGlowDelayed_whmcq_1 {
+0%, 16.66% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+50% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+83.3% {
+    box-shadow: 0 0 0 66px transparent;
+}
+83.4% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _fade_whmcq_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeInUp_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in-up--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInDown_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-in-down--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInLeft_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-in-left--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeInRight_whmcq_1 {
+from {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-in-right--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeOut_whmcq_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeOutDown_whmcq_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-out-down--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _fadeOutUp_whmcq_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-out-up--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutLeft_whmcq_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-out-left--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutRight_whmcq_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-out-right--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _ping_whmcq_1 {
+75%, 100% {
+    transform: scale(var(--animation--ping--scale, 2));
+    opacity: 0;
+}
+}
+@keyframes _blinkBackground_whmcq_1 {
+from, to {
+    background-color: var(--animation--blink-background--color-start, transparent);
+}
+50% {
+    background-color: var(--animation--blink-background--color-end, var(--color--foreground--shade-2));
+}
+}
+@keyframes _typingBlink_whmcq_1 {
+0%, 80%, 100% {
+    opacity: var(--animation--typing-blink--opacity-start, 0.35);
+    transform: translateY(0);
+}
+40% {
+    opacity: var(--animation--typing-blink--opacity-end, 1);
+    transform: translateY(var(--animation--typing-blink--translate, -2px));
+}
+}
+._overlay_whmcq_388 {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  /* Top-aligned so a tall consent card scrolls within the page instead of clipping. */
+  align-items: flex-start;
+  padding: var(--spacing--xl) var(--spacing--sm);
+  overflow-y: auto;
+  background: var(--background--subtle);
+  z-index: 1000;
+}
+._consent-dialog_whmcq_401 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--md);
+  width: 100%;
+  max-width: 36rem;
+  /* Settle the card a step below the top on tall windows, but don't waste
+     vertical space in the short popup windows OAuth clients open. */
+  margin-block-start: clamp(0px, 10vh - var(--spacing--3xl), var(--spacing--4xl));
+  padding: var(--spacing--xl);
+  background: var(--background--surface);
+  border: var(--border-width, 1px) solid var(--border-color--subtle);
+  border-radius: var(--radius--lg);
+  box-shadow: var(--shadow--sm);
+}
+._header_whmcq_418 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing--xs);
+}
+._logo_whmcq_425 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  width: calc(var(--spacing--md) * 2);
+  height: calc(var(--spacing--md) * 2);
+  border: var(--border-width, 1px) solid var(--border-color--subtle);
+  border-radius: var(--radius--xs);
+  background: var(--background--surface);
+  box-shadow: var(--shadow--xs);
+  font-size: var(--font-size--xl);
+  color: var(--text-color--subtle);
+}
+._brand-icon_whmcq_440 {
+  width: 1em;
+  height: 1em;
+}
+._connector_whmcq_445 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing--3xl);
+  height: var(--spacing--2xs);
+  color: var(--color--primary);
+}
+._connector_whmcq_445 svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Dashes march toward the n8n tile (right); a whole dash period (2 + 5) keeps the loop seamless. */
+._connector-line_whmcq_462 {
+  animation: _mcp-connector-dash_whmcq_1 0.8s linear infinite;
+}
+@keyframes _mcp-connector-dash_whmcq_1 {
+to {
+    stroke-dashoffset: -14;
+}
+}
+/* Muted spinner disc centered over the connector; the surface fill lets it overlap the line. */
+._badge_whmcq_472 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  width: var(--spacing--lg);
+  height: var(--spacing--lg);
+  border-radius: var(--radius--full);
+  background: var(--background--surface);
+  color: var(--color--text--tint-1);
+  line-height: 0;
+}
+
+/* Slow, calm rotation since the spinner can sit on screen while the user decides. */
+._badge-spinner_whmcq_489 {
+  transform-origin: center;
+  animation: _mcp-connector-spin_whmcq_1 2s linear infinite;
+}
+@keyframes _mcp-connector-spin_whmcq_1 {
+to {
+    transform: rotate(360deg);
+}
+}
+@media (prefers-reduced-motion: reduce) {
+._connector-line_whmcq_462,
+  ._badge-spinner_whmcq_489 {
+    animation: none;
+}
+}
+._content_whmcq_505 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+}
+._success_whmcq_511 {
+  padding: var(--spacing--xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  text-align: center;
+}
+._text-content_whmcq_520 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+}
+._permission-list_whmcq_526 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+  padding-left: var(--spacing--lg);
+  list-style-type: disc;
+}
+._permission-list_whmcq_526 li {
+  color: var(--color--text);
+  font-size: var(--font-size--2xs);
+}
+
+/* The gap gives each separator the same breathing room above the line as the
+   `.divided` padding gives below it. */
+._footer_whmcq_540 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+}
+
+/* Hairline separators keep the redirect note and the action row as distinct steps
+   without adding more nested boxes. */
+._divided_whmcq_539 {
+  padding-block-start: var(--spacing--sm);
+  border-block-start: var(--border-width, 1px) solid var(--border-color--subtle);
+}
+
+/* The `secondary` callout theme is purple; retint it to a neutral grey so the note
+   reads as information rather than as a banner users learn to skip. Retinting the
+   theme's own custom properties rather than the resolved colors keeps this working
+   regardless of whether the callout's CSS is bundled before or after this file. */
+._redirect-note_whmcq_558 {
+  --callout--border-color--secondary: var(--border-color--subtle);
+  --callout--color--background--secondary: var(--background--subtle);
+  --callout--color--text--secondary: var(--text-color--subtle);
+}
+
+/* Both lines size themselves rather than restyling the callout's inner N8nText,
+   which is an implementation detail of the component. */
+._redirect-note-title_whmcq_566,
+._redirect-url_whmcq_567 {
+  display: block;
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--lg);
+}
+._redirect-url_whmcq_567 {
+  margin-block-start: var(--spacing--4xs);
+  font-family: var(--font-family--monospace);
+  overflow-wrap: anywhere;
+}
+
+/* The trust checkbox anchors the left edge of the row and keeps its full label
+   width, so the button group is what drops to a second line when space runs out. */
+._footer-actions_whmcq_581 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing--2xs) var(--spacing--sm);
+  /* The auto margin is what right-aligns the buttons, on both a shared line and a
+     wrapped one, and when there is no checkbox at all (first-party, error). */
+}
+._footer-actions_whmcq_581 ._button-group_whmcq_590 {
+  display: flex;
+  align-items: center;
+  margin-inline-start: auto;
+  gap: var(--spacing--2xs);
+}
+
+/* Tone the label down to match the note it refers to; the checkbox's own default is
+   the darker body color. */
+._trust-confirm_whmcq_599 label {
+  color: var(--text-color--subtle);
+}
