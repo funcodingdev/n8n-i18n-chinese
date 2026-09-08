@@ -1,0 +1,25 @@
+import { S as computed, Ut as toValue } from "./vue.runtime.esm-bundler-DYHsQBZB.js";
+import { bn as useProjectsStore, xn as useSourceControlStore } from "./workflows.store-C0TGOSWn.js";
+import { Sa as getResourcePermissions } from "./src-B2jBAc9z.js";
+import { t as useUsersStore } from "./users.store-HhKNW5xV.js";
+//#region src/features/agents/composables/useAgentPermissions.ts
+function useAgentPermissions(projectId) {
+	const projectsStore = useProjectsStore();
+	const usersStore = useUsersStore();
+	const sourceControlStore = useSourceControlStore();
+	const projectScopes = computed(() => getResourcePermissions(projectsStore.myProjects?.find((p) => p.id === toValue(projectId))?.scopes).agent);
+	const globalScopes = computed(() => getResourcePermissions(usersStore.currentUser?.globalScopes).agent);
+	const isReadOnly = computed(() => sourceControlStore.preferences.branchReadOnly);
+	const hasScope = (key) => Boolean(globalScopes.value[key] ?? projectScopes.value[key]);
+	const pick = (key) => computed(() => !isReadOnly.value && hasScope(key));
+	return {
+		canCreate: pick("create"),
+		canUpdate: pick("update"),
+		canDelete: pick("delete"),
+		canPublish: pick("publish"),
+		canUnpublish: pick("unpublish"),
+		canExecute: computed(() => hasScope("execute"))
+	};
+}
+//#endregion
+export { useAgentPermissions as t };
