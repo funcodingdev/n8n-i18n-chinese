@@ -1,0 +1,13 @@
+
+._footer_wiyfb_2 {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: end;
+	    -ms-flex-pack: end;
+	        justify-content: flex-end;
+	gap: var(--spacing--2xs);
+}
+* + ._footer_wiyfb_2 {
+	margin-top: var(--spacing--md);
+}
