@@ -1,0 +1,922 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+@keyframes _shimmer_1qosa_1 {
+0% {
+    background-position: 200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+100% {
+    background-position: -200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+}
+@keyframes _spin_1qosa_1 {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+@keyframes _skeleton-pulse_1qosa_1 {
+0%, 100% {
+    opacity: var(--animation--skeleton-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--skeleton-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _opacityPulse_1qosa_1 {
+0%, 100% {
+    opacity: var(--animation--opacity-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--opacity-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _popoverIn_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translate(var(--animation--popover-in--translate-x, 0), var(--animation--popover-in--translate-y, 0)) scale(var(--animation--popover-in--scale, 0.96));
+}
+to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+}
+@keyframes _fadeIn_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in--translate, 8px));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _collapsibleSlideDown_1qosa_1 {
+from {
+    height: 0;
+}
+to {
+    height: var(--reka-collapsible-content-height);
+}
+}
+@keyframes _collapsibleSlideUp_1qosa_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+}
+to {
+    height: 0;
+}
+}
+/* The filter only exists inside the keyframes: once the animation finishes the
+ * element returns to its unfiltered base styles, so no stacking context (or
+ * compositing surface) stays active on settled content. */
+@keyframes _collapsibleSlideDownBlurred_1qosa_1 {
+from {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+to {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideUpBlurred_1qosa_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+}
+@keyframes _blurSwapIn_1qosa_1 {
+from {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+to {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _blurSwapOut_1qosa_1 {
+from {
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+}
+@keyframes _pulseGlow_1qosa_1 {
+0% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+58.33% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+66.6% {
+    box-shadow: 0 0 0 66px transparent;
+}
+66.7% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _pulseGlowDelayed_1qosa_1 {
+0%, 16.66% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+50% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+83.3% {
+    box-shadow: 0 0 0 66px transparent;
+}
+83.4% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _fade_1qosa_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeInUp_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in-up--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInDown_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-in-down--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInLeft_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-in-left--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeInRight_1qosa_1 {
+from {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-in-right--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeOut_1qosa_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeOutDown_1qosa_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-out-down--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _fadeOutUp_1qosa_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-out-up--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutLeft_1qosa_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-out-left--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutRight_1qosa_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-out-right--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _ping_1qosa_1 {
+75%, 100% {
+    transform: scale(var(--animation--ping--scale, 2));
+    opacity: 0;
+}
+}
+@keyframes _blinkBackground_1qosa_1 {
+from, to {
+    background-color: var(--animation--blink-background--color-start, transparent);
+}
+50% {
+    background-color: var(--animation--blink-background--color-end, var(--color--foreground--shade-2));
+}
+}
+@keyframes _typingBlink_1qosa_1 {
+0%, 80%, 100% {
+    opacity: var(--animation--typing-blink--opacity-start, 0.35);
+    transform: translateY(0);
+}
+40% {
+    opacity: var(--animation--typing-blink--opacity-end, 1);
+    transform: translateY(var(--animation--typing-blink--translate, -2px));
+}
+}
+._suggestion_1qosa_388 {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing--lg);
+  justify-content: space-between;
+  min-width: 200px;
+  background-color: var(--color--background--light-3);
+}
+._clickable_1qosa_397 {
+  cursor: pointer;
+}
+._clickable_1qosa_397:hover {
+  box-shadow: var(--shadow--card-hover);
+}
+._clickable_1qosa_397:hover ._title_1qosa_403 {
+  color: var(--color--primary);
+  text-decoration: underline;
+}
+._cardContent_1qosa_408 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+  flex: 1;
+}
+._nodes_1qosa_415 {
+  display: flex;
+  gap: var(--spacing--xs);
+}
+._statItemLeft_1qosa_420 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  min-width: 0;
+}
+._userInfo_1qosa_427 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  margin-top: auto;
+}
+._userAvatar_1qosa_434 {
+  width: var(--spacing--sm);
+  height: var(--spacing--sm);
+  border-radius: 50%;
+  object-fit: cover;
+}
+._verifiedBadge_1qosa_441 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  margin-left: var(--spacing--xs);
+}
+._categories_1qosa_448 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing--2xs);
+}
+._categoryTag_1qosa_454 {
+  --tag--height: var(--spacing--lg);
+  --tag--border-color: transparent;
+  --tag--padding: var(--spacing--4xs) var(--spacing--2xs);
+}
+._statItem_1qosa_420 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing--xs);
+}
+._mintGreen_1qosa_467 {
+  color: var(--color--mint-700);
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+@keyframes _shimmer_1hymb_1 {
+0% {
+    background-position: 200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+100% {
+    background-position: -200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+}
+@keyframes _spin_1hymb_1 {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+@keyframes _skeleton-pulse_1hymb_1 {
+0%, 100% {
+    opacity: var(--animation--skeleton-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--skeleton-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _opacityPulse_1hymb_1 {
+0%, 100% {
+    opacity: var(--animation--opacity-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--opacity-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _popoverIn_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translate(var(--animation--popover-in--translate-x, 0), var(--animation--popover-in--translate-y, 0)) scale(var(--animation--popover-in--scale, 0.96));
+}
+to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+}
+@keyframes _fadeIn_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in--translate, 8px));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _collapsibleSlideDown_1hymb_1 {
+from {
+    height: 0;
+}
+to {
+    height: var(--reka-collapsible-content-height);
+}
+}
+@keyframes _collapsibleSlideUp_1hymb_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+}
+to {
+    height: 0;
+}
+}
+/* The filter only exists inside the keyframes: once the animation finishes the
+ * element returns to its unfiltered base styles, so no stacking context (or
+ * compositing surface) stays active on settled content. */
+@keyframes _collapsibleSlideDownBlurred_1hymb_1 {
+from {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+to {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideUpBlurred_1hymb_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+}
+@keyframes _blurSwapIn_1hymb_1 {
+from {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+to {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _blurSwapOut_1hymb_1 {
+from {
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+}
+@keyframes _pulseGlow_1hymb_1 {
+0% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+58.33% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+66.6% {
+    box-shadow: 0 0 0 66px transparent;
+}
+66.7% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _pulseGlowDelayed_1hymb_1 {
+0%, 16.66% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+50% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+83.3% {
+    box-shadow: 0 0 0 66px transparent;
+}
+83.4% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _fade_1hymb_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeInUp_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in-up--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInDown_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-in-down--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInLeft_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-in-left--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeInRight_1hymb_1 {
+from {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-in-right--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeOut_1hymb_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeOutDown_1hymb_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-out-down--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _fadeOutUp_1hymb_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-out-up--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutLeft_1hymb_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-out-left--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutRight_1hymb_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-out-right--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _ping_1hymb_1 {
+75%, 100% {
+    transform: scale(var(--animation--ping--scale, 2));
+    opacity: 0;
+}
+}
+@keyframes _blinkBackground_1hymb_1 {
+from, to {
+    background-color: var(--animation--blink-background--color-start, transparent);
+}
+50% {
+    background-color: var(--animation--blink-background--color-end, var(--color--foreground--shade-2));
+}
+}
+@keyframes _typingBlink_1hymb_1 {
+0%, 80%, 100% {
+    opacity: var(--animation--typing-blink--opacity-start, 0.35);
+    transform: translateY(0);
+}
+40% {
+    opacity: var(--animation--typing-blink--opacity-end, 1);
+    transform: translateY(var(--animation--typing-blink--translate, -2px));
+}
+}
+._notFound_1hymb_388 {
+  padding-top: var(--spacing--sm);
+}
+._previewWrapper_1hymb_392 {
+  position: relative;
+}
+._image_1hymb_396 {
+  width: 100%;
+  height: 500px;
+  border: var(--border);
+  overflow: hidden;
+}
+._image_1hymb_396 img {
+  width: 100%;
+}
+._button_1hymb_406 {
+  position: absolute;
+  bottom: var(--spacing--sm);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--canvas-select-box--z);
+}
+._contentContainer_1hymb_414 {
+  max-width: var(--content-container--width);
+  margin: var(--spacing--lg) auto 0;
+  padding: 0 var(--spacing--2xl);
+}
+._content_1hymb_414 {
+  display: flex;
+  gap: var(--spacing--lg);
+}
+@media (max-width: 768px) {
+._content_1hymb_414 {
+    display: block;
+}
+}
+._templateActions_1hymb_430 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing--xs);
+}
+._startWithAi_1hymb_437._startWithAi_1hymb_437 {
+  --button--color: var(--assistant--color--highlight-2);
+  border: 1px solid transparent;
+  background: var(--assistant--button--color--background--gradient) padding-box, var(--assistant--color--highlight-gradient) border-box;
+}
+._startWithAi_1hymb_437._startWithAi_1hymb_437:hover {
+  background: var(--assistant--button--color--background--hover) padding-box, var(--assistant--button--color--background--gradient--hover) padding-box, var(--assistant--color--highlight-gradient--reverse) border-box;
+}
+._startWithAi_1hymb_437._startWithAi_1hymb_437:active {
+  background: var(--assistant--button--color--background--active) padding-box, var(--assistant--button--color--background--gradient--active) padding-box, var(--assistant--color--highlight-gradient--reverse) border-box;
+}
+._startWithAi_1hymb_437._startWithAi_1hymb_437 span {
+  background: var(--assistant--color--highlight-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+._templateCard_1hymb_455 {
+  width: 380px;
+  flex-shrink: 0;
+  position: sticky;
+  top: var(--spacing--lg);
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+._templateCard_1hymb_455 {
+    width: 100%;
+    position: static;
+    margin-bottom: var(--spacing--lg);
+}
+}
+._markdown_1hymb_470 {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: var(--spacing--lg);
+}
