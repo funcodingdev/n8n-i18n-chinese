@@ -1,0 +1,41 @@
+//#region ../../../node_modules/.pnpm/reka-ui@2.5.0_patch_hash=f1cec654cb01a5751dfc1de06604bb22f9518860ea9c72fb685e770509923a_8bfd31862bb4e8c13f88fc52583372b4/node_modules/reka-ui/dist/shared/useKbd.js
+function useKbd() {
+	return {
+		ALT: "Alt",
+		ARROW_DOWN: "ArrowDown",
+		ARROW_LEFT: "ArrowLeft",
+		ARROW_RIGHT: "ArrowRight",
+		ARROW_UP: "ArrowUp",
+		BACKSPACE: "Backspace",
+		CAPS_LOCK: "CapsLock",
+		CONTROL: "Control",
+		DELETE: "Delete",
+		END: "End",
+		ENTER: "Enter",
+		ESCAPE: "Escape",
+		F1: "F1",
+		F10: "F10",
+		F11: "F11",
+		F12: "F12",
+		F2: "F2",
+		F3: "F3",
+		F4: "F4",
+		F5: "F5",
+		F6: "F6",
+		F7: "F7",
+		F8: "F8",
+		F9: "F9",
+		HOME: "Home",
+		META: "Meta",
+		PAGE_DOWN: "PageDown",
+		PAGE_UP: "PageUp",
+		SHIFT: "Shift",
+		SPACE: " ",
+		TAB: "Tab",
+		CTRL: "Control",
+		ASTERISK: "*",
+		SPACE_CODE: "Space"
+	};
+}
+//#endregion
+export { useKbd as t };
