@@ -1,0 +1,541 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+/* Focus State
+ -------------------------- */
+@keyframes _shimmer_3ixsa_1 {
+0% {
+    background-position: 200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+100% {
+    background-position: -200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+}
+@keyframes _spin_3ixsa_1 {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+@keyframes _skeleton-pulse_3ixsa_1 {
+0%, 100% {
+    opacity: var(--animation--skeleton-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--skeleton-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _opacityPulse_3ixsa_1 {
+0%, 100% {
+    opacity: var(--animation--opacity-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--opacity-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _popoverIn_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translate(var(--animation--popover-in--translate-x, 0), var(--animation--popover-in--translate-y, 0)) scale(var(--animation--popover-in--scale, 0.96));
+}
+to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+}
+@keyframes _fadeIn_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in--translate, 8px));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _collapsibleSlideDown_3ixsa_1 {
+from {
+    height: 0;
+}
+to {
+    height: var(--reka-collapsible-content-height);
+}
+}
+@keyframes _collapsibleSlideUp_3ixsa_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+}
+to {
+    height: 0;
+}
+}
+/* The filter only exists inside the keyframes: once the animation finishes the
+ * element returns to its unfiltered base styles, so no stacking context (or
+ * compositing surface) stays active on settled content. */
+@keyframes _collapsibleSlideDownBlurred_3ixsa_1 {
+from {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+to {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideUpBlurred_3ixsa_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+}
+@keyframes _blurSwapIn_3ixsa_1 {
+from {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+to {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _blurSwapOut_3ixsa_1 {
+from {
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+}
+@keyframes _pulseGlow_3ixsa_1 {
+0% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+58.33% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+66.6% {
+    box-shadow: 0 0 0 66px transparent;
+}
+66.7% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _pulseGlowDelayed_3ixsa_1 {
+0%, 16.66% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+50% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+83.3% {
+    box-shadow: 0 0 0 66px transparent;
+}
+83.4% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _fade_3ixsa_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeInUp_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in-up--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInDown_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-in-down--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes _fadeInLeft_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-in-left--translate, var(--spacing--4xs))));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeInRight_3ixsa_1 {
+from {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-in-right--translate, var(--spacing--4xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+}
+}
+@keyframes _fadeOut_3ixsa_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeOutDown_3ixsa_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-out-down--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _fadeOutUp_3ixsa_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-out-up--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutLeft_3ixsa_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-out-left--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutRight_3ixsa_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-out-right--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _ping_3ixsa_1 {
+75%, 100% {
+    transform: scale(var(--animation--ping--scale, 2));
+    opacity: 0;
+}
+}
+@keyframes _blinkBackground_3ixsa_1 {
+from, to {
+    background-color: var(--animation--blink-background--color-start, transparent);
+}
+50% {
+    background-color: var(--animation--blink-background--color-end, var(--color--foreground--shade-2));
+}
+}
+@keyframes _typingBlink_3ixsa_1 {
+0%, 80%, 100% {
+    opacity: var(--animation--typing-blink--opacity-start, 0.35);
+    transform: translateY(0);
+}
+40% {
+    opacity: var(--animation--typing-blink--opacity-end, 1);
+    transform: translateY(var(--animation--typing-blink--translate, -2px));
+}
+}
+._insightsWrapper_3ixsa_388 {
+  position: relative;
+  padding: var(--spacing--xs) 0 0;
+  margin-bottom: var(--spacing--2xl);
+}
+._insights_3ixsa_388 {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+._insights_3ixsa_388 ul {
+  display: flex;
+  height: 101px;
+  align-items: stretch;
+  justify-content: space-evenly;
+  border: var(--border);
+  border-radius: 6px;
+  list-style: none;
+  overflow-x: auto;
+}
+._insights_3ixsa_388 ul li {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  flex: 1 0;
+  border-left: var(--border);
+}
+._insights_3ixsa_388 ul li:first-child {
+  border-left: 0;
+}
+._insights_3ixsa_388 ul li > span {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+._insights_3ixsa_388 ul a {
+  display: grid;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing--3xs) var(--spacing--lg) 0;
+  background-color: var(--background--surface);
+  border-bottom: 3px solid transparent;
+}
+._insights_3ixsa_388 ul a:hover {
+  background-color: var(--background-hover);
+}
+._insights_3ixsa_388 ul a._activeTab_3ixsa_436 {
+  background-color: var(--color--background--light-3);
+  border-color: var(--color--primary);
+  transition: background-color 0.3s ease-in-out;
+}
+._insights_3ixsa_388 ul a strong {
+  justify-self: flex-start;
+  color: var(--color--text--shade-1);
+  font-size: var(--font-size--sm);
+  font-weight: 400;
+  white-space: nowrap;
+  margin-bottom: var(--spacing--3xs);
+}
+._insights_3ixsa_388 ul a ._days_3ixsa_449 {
+  padding: 0;
+  margin: 0 0 var(--spacing--xs);
+  color: var(--color--text--tint-1);
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--regular);
+}
+._insights_3ixsa_388 ul a span {
+  display: flex;
+  align-items: baseline;
+}
+._insights_3ixsa_388 ul a span._empty_3ixsa_460 em {
+  color: var(--color--text--tint-2);
+}
+body[data-theme=dark] ._insights_3ixsa_388 ul a span._empty_3ixsa_460 em {
+  color: var(--color--text--tint-1);
+}
+._insights_3ixsa_388 ul a span._empty_3ixsa_460 small {
+  padding: 0;
+  height: 21px;
+  font-weight: var(--font-weight--bold);
+}
+._insights_3ixsa_388 ul a span._empty_3ixsa_460 small ._icon_3ixsa_471 {
+  top: 5px;
+  transform: translateY(0);
+  color: var(--color--text--tint-1);
+}
+._insights_3ixsa_388 ul a em {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  color: var(--color--text--shade-1);
+  font-size: 24px;
+  line-height: 100%;
+  font-weight: 600;
+  font-style: normal;
+  gap: var(--spacing--5xs);
+}
+._insights_3ixsa_388 ul a em i {
+  font-size: 22px;
+  font-style: normal;
+}
+._insights_3ixsa_388 ul a small {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 14px;
+  margin: 0 0 0 var(--spacing--xs);
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--bold);
+  white-space: nowrap;
+}
+._insights_3ixsa_388 ._noData_3ixsa_501 em {
+  color: var(--color--text--tint-1);
+  font-size: var(--font-size--md);
+}
+._positive_3ixsa_506 {
+  color: var(--color--success);
+}
+._negative_3ixsa_510 {
+  color: var(--color--danger);
+}
+._neutral_3ixsa_514 {
+  color: var(--color--text--tint-1);
+}
+._neutral_3ixsa_514 ._icon_3ixsa_471 {
+  font-size: 17px;
+}
+._icon_3ixsa_471 {
+  position: absolute;
+  font-size: 17px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+._loading_3ixsa_529 {
+  display: flex;
+  align-self: stretch;
+  align-items: stretch;
+}
+._loading_3ixsa_529 > div {
+  margin: 0;
+  height: auto;
+  border-radius: inherit;
+}
+._queueModeWarning_3ixsa_540 {
+  margin-bottom: var(--spacing--xs);
+}
+._queueModeWarning_3ixsa_540 a {
+  text-decoration: none;
+}
+._queueModeWarning_3ixsa_540 a ._underlined_3ixsa_546 {
+  text-decoration: underline;
+}

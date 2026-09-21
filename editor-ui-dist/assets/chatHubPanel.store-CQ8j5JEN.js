@@ -1,0 +1,51 @@
+import { It as ref, S as computed, W as nextTick, gt as watch } from "./vue.runtime.esm-bundler-DYHsQBZB.js";
+import { c as useRoute } from "./vue-router-D2dKRIiV.js";
+import { sr as STORES, ur as defineStore } from "./useRootStore-B-A2Ktsc.js";
+import { t as useSettingsStore } from "./settings.store-BVABgv-1.js";
+import { t as useTelemetry } from "./useTelemetry-CgKpOMtU.js";
+import { t as usePostHog } from "./posthog.store-ok5mOe66.js";
+import { Ma as FLOATING_CHAT_HUB_PANEL_EXPERIMENT, Rr as EDITABLE_CANVAS_VIEWS } from "./constants-Bwbcx8Ih.js";
+//#region src/features/ai/chatHub/chatHubPanel.store.ts
+function isEnabledView(route, views) {
+	return typeof route === "string" && views.includes(route);
+}
+var useChatHubPanelStore = defineStore(STORES.CHAT_HUB_PANEL, () => {
+	const route = useRoute();
+	const posthogStore = usePostHog();
+	const settingsStore = useSettingsStore();
+	const telemetry = useTelemetry();
+	const isOpen = ref(false);
+	const isPoppedOut = ref(false);
+	const isFloatingChatEnabled = computed(() => settingsStore.isChatFeatureEnabled && posthogStore.isVariantEnabled(FLOATING_CHAT_HUB_PANEL_EXPERIMENT.name, FLOATING_CHAT_HUB_PANEL_EXPERIMENT.variant));
+	function open() {
+		if (!isEnabledView(route?.name, EDITABLE_CANVAS_VIEWS)) return;
+		isOpen.value = true;
+		telemetry.track("User opened floating chat panel", { source: "canvas" });
+	}
+	function close() {
+		if (isPoppedOut.value) {
+			isPoppedOut.value = false;
+			nextTick(() => {
+				isOpen.value = false;
+			});
+		} else isOpen.value = false;
+	}
+	function popOut() {
+		isPoppedOut.value = true;
+		telemetry.track("User popped out floating chat panel", { source: "canvas" });
+	}
+	watch(() => route?.name, (newRoute) => {
+		if (!newRoute || !isOpen.value) return;
+		if (!isEnabledView(newRoute, EDITABLE_CANVAS_VIEWS)) close();
+	});
+	return {
+		isOpen,
+		isPoppedOut,
+		isFloatingChatEnabled,
+		open,
+		close,
+		popOut
+	};
+});
+//#endregion
+export { useChatHubPanelStore as t };
