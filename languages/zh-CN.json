@@ -7117,6 +7117,7 @@
     "instanceAi.threads.actions": "对话操作",
     "instanceAi.threads.rename": "重命名对话",
     "instanceAi.threads.renameError": "无法重命名聊天。请重试。",
+    "instanceAi.threads.renameSuccess": "聊天已重命名",
     "instanceAi.threads.loading": "正在加载聊天记录…",
     "instanceAi.threads.loadError": "无法加载聊天记录。请重试。",
     "instanceAi.threads.viewAll": "查看全部",
