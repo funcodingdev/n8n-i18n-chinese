@@ -13,8 +13,8 @@
   "private": true,
   "devDependencies": {
     "dotenv": "^16.4.7",
-    "n8n-nodes-base": "latest",
-    "qs": "latest"
+    "n8n-nodes-base": "2.15.1",
+    "qs": "6.16.0"
   },
   "dependencies": {
     "lodash": "^4.17.21",
