@@ -3652,6 +3652,7 @@
     "settings.mcp.connectDialog.configure.title": "配置",
     "settings.mcp.connectDialog.configure.description": "将此内容添加到你的配置文件中以连接到 n8n。",
     "settings.mcp.connectDialog.configure.antigravity.description": "将这段 mcpServers 配置添加到 ~/.gemini/config/mcp_config.json 中。Antigravity IDE、桌面应用和 CLI (agy) 共享此文件。",
+    "settings.mcp.connectDialog.configure.devin.description": "将这条 mcpServers 条目添加到 ~/.config/devin/mcp_config.json。Devin 桌面应用和 CLI 共享此文件。",
     "settings.mcp.connectDialog.configure.titleAlt": "或手动配置",
     "settings.mcp.connectDialog.configure.descriptionAlt": "宁愿不运行该命令吗？那么将这个添加到你的配置文件中。",
     "settings.mcp.connectDialog.authenticate.title": "身份验证",
