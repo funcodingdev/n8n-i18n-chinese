@@ -3559,6 +3559,8 @@
     "settings.communityNodes.uninstallAction.label": "卸载包",
     "settings.communityNodes.upToDate.tooltip": "您是最新版本",
     "settings.communityNodes.failedToLoad.tooltip": "这个包加载失败。它可能已损坏，或者可能需要更新版本的n8n。请尝试卸载并重新安装，或升级n8n。",
+    "settings.communityNodes.restricted.badge.label": "受限",
+    "settings.communityNodes.restricted.tooltip.heading": "被实例策略阻止",
     "settings.communityNodes.managedByEnv": "社区包通过环境变量进行管理，无法从UI中修改。",
     "settings.communityNodes.fetchError.title": "获取已安装的包时出现问题",
     "settings.communityNodes.fetchError.message": "您的互联网连接或 n8n 实例可能有问题",
