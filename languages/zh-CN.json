@@ -9511,7 +9511,7 @@
     "agents.builder.skills.validation.nameMaxLength": "名称必须不超过128个字符。",
     "agents.builder.skills.validation.nameDuplicate": "代理已经有一个类似名称的技能。",
     "agents.builder.skills.validation.descriptionRequired": "输入描述。",
-    "agents.builder.skills.validation.descriptionMaxLength": "描述必须不超过512个字符。",
+    "agents.builder.skills.validation.descriptionMaxLength": "描述必须为{max}个字符或更少。",
     "agents.builder.skills.validation.instructionsRequired": "输入指令。",
     "agents.builder.skills.validation.instructionsMaxLength": "说明必须为 {max} 个字符或更少。",
     "agents.builder.skills.missingContent.callout": "此技能内容缺失。请填写并保存以重新创建。",
