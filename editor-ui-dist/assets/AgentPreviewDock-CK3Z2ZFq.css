@@ -1,0 +1,101 @@
+._previewPage_dda05_1 {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  overflow: hidden;
+}
+._pageLayout_dda05_10 {
+  background-color: var(--background--surface);
+}
+._chatFrame_dda05_14 {
+  width: 100%;
+  min-height: 0;
+  display: flex;
+}._moreMenu_28k5h_1 {
+  min-width: 12rem;
+}
+._layoutSwitch_28k5h_5 {
+  pointer-events: none;
+}
+._metrics_28k5h_9 {
+  font-variant-numeric: tabular-nums;
+}
+._sessionMetadata_28k5h_13 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--sm) var(--spacing--xs);
+  border-top: var(--border);
+  color: var(--text-color--subtler);
+  font-size: var(--font-size--xs);
+  list-style: none;
+}
+._sessionMetadata_28k5h_13 li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+  margin: 0;
+  -webkit-user-select: none;
+          user-select: none;
+}._dock_1pag9_1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--agent-preview-chat-column-width, 30rem);
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+._dock_1pag9_1:has(._fullpage_1pag9_13) {
+  width: 100%;
+}
+._dockInner_1pag9_17 {
+  display: flex;
+  flex-direction: column;
+  width: var(--agent-preview-chat-column-width, 30rem);
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--background--surface);
+  border-left: var(--border);
+  pointer-events: none;
+  transform: translateX(100%);
+  transition: transform var(--duration--snappy) var(--easing--ease-out);
+  will-change: transform;
+}
+._open_1pag9_30 ._dockInner_1pag9_17 {
+  pointer-events: auto;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+._dockInner_1pag9_17 {
+    transition: none;
+    will-change: auto;
+}
+}
+._fullpage_1pag9_13 {
+  width: 100%;
+  border-left: 0;
+}
+._header_1pag9_46 {
+  padding: var(--spacing--2xs) var(--spacing--xs);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._sessionHistory_1pag9_54 {
+  min-width: 0;
+}
+._actions_1pag9_58 {
+  margin-inline-start: auto;
+  min-width: max-content;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+}

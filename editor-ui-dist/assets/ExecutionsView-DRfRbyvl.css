@@ -1,0 +1,61 @@
+._link_1uojm_1 {
+  display: inline-block;
+  margin-top: var(--spacing--xs);
+}._modeCell_13m38_1 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  /* Normalize icon wrappers so SVG baseline doesn't shift relative to tooltip spans */
+}
+._modeCell_13m38_1 :deep(svg),
+._modeCell_13m38_1 :deep(span) {
+  display: inline-flex;
+  align-items: center;
+}
+._status_13m38_13 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+tr._dangerBg_13m38_19 {
+  background-color: rgba(215, 56, 58, 0.1);
+}
+._workflowName_13m38_23 {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  max-width: 100%;
+  color: var(--color--text--shade-1);
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--lg);
+  max-width: 450px;
+}._execListWrapper_17pg6_1 {
+  padding: var(--spacing--lg) var(--spacing--2xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  max-width: var(--content-container--width);
+}
+._execList_17pg6_1 {
+  flex-shrink: 1; /* Allows shrinking when needed */
+  max-height: 100%; /* Prevents overflowing the parent */
+  overflow: auto; /* Scroll only when needed */
+}
+._execListHeaderControls_17pg6_16 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: var(--spacing--sm);
+}
+._execTable_17pg6_23 {
+  height: 100%;
+  flex: 0 1 auto;
+}
+._execHeaderRight_17pg6_28 {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: var(--spacing--sm);
+}

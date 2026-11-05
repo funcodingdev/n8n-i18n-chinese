@@ -1,0 +1,473 @@
+@charset "UTF-8";
+@keyframes _shimmer_1uy1n_1 {
+0% {
+    background-position: 200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+100% {
+    background-position: -200% 0;
+    animation-timing-function: var(--animation--shimmer-burst--easing, var(--easing--ease-in-out));
+}
+}
+@keyframes _spin_1uy1n_1 {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+@keyframes _skeleton-pulse_1uy1n_1 {
+0%, 100% {
+    opacity: var(--animation--skeleton-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--skeleton-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _opacityPulse_1uy1n_1 {
+0%, 100% {
+    opacity: var(--animation--opacity-pulse--opacity-start, 1);
+}
+50% {
+    opacity: var(--animation--opacity-pulse--opacity-end, 0.4);
+}
+}
+@keyframes _popoverIn_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translate(var(--animation--popover-in--translate-x, 0), var(--animation--popover-in--translate-y, 0)) scale(var(--animation--popover-in--scale, 0.96));
+}
+to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+}
+@keyframes _fadeIn_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in--translate, 8px));
+    filter: blur(var(--animation--fade-in--blur, var(--spacing--5xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideDown_1uy1n_1 {
+from {
+    height: 0;
+}
+to {
+    height: var(--reka-collapsible-content-height);
+}
+}
+@keyframes _collapsibleSlideUp_1uy1n_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+}
+to {
+    height: 0;
+}
+}
+/* The filter only exists inside the keyframes: once the animation finishes the
+ * element returns to its unfiltered base styles, so no stacking context (or
+ * compositing surface) stays active on settled content. */
+@keyframes _collapsibleSlideDownBlurred_1uy1n_1 {
+from {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+to {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _collapsibleSlideUpBlurred_1uy1n_1 {
+from {
+    height: var(--reka-collapsible-content-height);
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    height: 0;
+    opacity: 0;
+    filter: blur(var(--animation--collapsible-slide-blurred--blur, 4px));
+}
+}
+@keyframes _blurSwapIn_1uy1n_1 {
+from {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+to {
+    opacity: 1;
+    filter: blur(0);
+}
+}
+@keyframes _blurSwapOut_1uy1n_1 {
+from {
+    opacity: 1;
+    filter: blur(0);
+}
+to {
+    opacity: 0;
+    filter: blur(var(--animation--blur-swap--blur, 4px));
+}
+}
+@keyframes _pulseGlow_1uy1n_1 {
+0% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+58.33% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+66.6% {
+    box-shadow: 0 0 0 66px transparent;
+}
+66.7% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _pulseGlowDelayed_1uy1n_1 {
+0%, 16.66% {
+    box-shadow: 0 0 0 0 hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0.4);
+}
+50% {
+    box-shadow: 0 0 0 60px hsla(var(--color--primary--h), var(--color--primary--s), var(--color--primary--l), 0);
+}
+83.3% {
+    box-shadow: 0 0 0 66px transparent;
+}
+83.4% {
+    box-shadow: 0 0 0 0 transparent;
+}
+}
+@keyframes _fade_1uy1n_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeInUp_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-in-up--translate, var(--spacing--4xs)));
+    filter: blur(var(--animation--fade-in-up--blur, var(--spacing--5xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(var(--animation--fade-in-up--end, 0));
+    filter: blur(0);
+}
+}
+@keyframes _fadeInDown_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-in-down--translate, var(--spacing--4xs))));
+    filter: blur(var(--animation--fade-in-down--blur, var(--spacing--5xs)));
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+}
+@keyframes _fadeInLeft_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-in-left--translate, var(--spacing--4xs))));
+    filter: blur(var(--animation--fade-in-left--blur, var(--spacing--5xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+}
+}
+@keyframes _fadeInRight_1uy1n_1 {
+from {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-in-right--translate, var(--spacing--4xs)));
+    filter: blur(var(--animation--fade-in-right--blur, var(--spacing--5xs)));
+}
+to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+}
+}
+@keyframes _fadeOut_1uy1n_1 {
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+}
+@keyframes _fadeOutDown_1uy1n_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(var(--animation--fade-out-down--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _fadeOutUp_1uy1n_1 {
+from {
+    opacity: 1;
+    transform: translateY(0);
+}
+to {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--animation--fade-out-up--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutLeft_1uy1n_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--animation--fade-out-left--translate, var(--spacing--4xs))));
+}
+}
+@keyframes _fadeOutRight_1uy1n_1 {
+from {
+    opacity: 1;
+    transform: translateX(0);
+}
+to {
+    opacity: 0;
+    transform: translateX(var(--animation--fade-out-right--translate, var(--spacing--4xs)));
+}
+}
+@keyframes _ping_1uy1n_1 {
+75%, 100% {
+    transform: scale(var(--animation--ping--scale, 2));
+    opacity: 0;
+}
+}
+@keyframes _blinkBackground_1uy1n_1 {
+from, to {
+    background-color: var(--animation--blink-background--color-start, transparent);
+}
+50% {
+    background-color: var(--animation--blink-background--color-end, var(--color--foreground--shade-2));
+}
+}
+@keyframes _typingBlink_1uy1n_1 {
+0%, 80%, 100% {
+    opacity: var(--animation--typing-blink--opacity-start, 0.35);
+    transform: translateY(0);
+}
+40% {
+    opacity: var(--animation--typing-blink--opacity-end, 1);
+    transform: translateY(var(--animation--typing-blink--translate, -2px));
+}
+}
+/* The QR code makes this the tallest of the account dialogs. On a short viewport it scrolls as a
+   whole instead of overflowing the screen, so the code field and the footer stay reachable. */
+._dialog_1uy1n_279 {
+  max-height: calc(100dvh - var(--spacing--lg));
+  overflow-y: auto;
+}
+._steps_1uy1n_284 {
+  position: relative;
+}
+
+/* Pinned to a height only while the steps swap: clipped, so the leaving step doesn't spill past the new height. */
+._stepsResizing_1uy1n_289 {
+  overflow: hidden;
+  transition: height var(--animation--height-transition--duration, var(--duration--snappy)) var(--animation--height-transition--easing, var(--easing--ease-out));
+  will-change: height;
+}
+@media (prefers-reduced-motion: reduce) {
+._stepsResizing_1uy1n_289 {
+    transition: none;
+    will-change: auto;
+}
+}
+._stepEnterActive_1uy1n_301 {
+  animation: _blurSwapIn_1uy1n_1 var(--animation--blur-swap--duration, 250ms) var(--animation--blur-swap--easing, var(--easing--ease-out-quint));
+}
+@media (prefers-reduced-motion: reduce) {
+._stepEnterActive_1uy1n_301 {
+    animation: none;
+}
+}
+
+/* The leaving step keeps its place at the top while the next one takes over the flow. */
+._stepLeaveActive_1uy1n_311 {
+  position: absolute;
+  inset: 0 0 auto;
+  animation: _blurSwapOut_1uy1n_1 var(--animation--blur-swap--duration, 250ms) var(--animation--blur-swap--easing, var(--easing--ease-out-quint));
+}
+@media (prefers-reduced-motion: reduce) {
+._stepLeaveActive_1uy1n_311 {
+    animation: none;
+}
+}
+._setup_1uy1n_322 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--lg);
+  padding-top: var(--spacing--sm);
+}
+._scan_1uy1n_329 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+}
+._scanHeader_1uy1n_335 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--4xs);
+}
+._scanHeader_1uy1n_335 > * {
+  margin: 0;
+}
+._inset_1uy1n_344 {
+  padding: var(--spacing--sm);
+  border-radius: var(--radius--xs);
+  background-color: light-dark(var(--color--neutral-100), var(--color--neutral-900));
+}
+
+/*
+ * The key's row is as tall as its copy button, which puts the key about 24px from the bottom edge.
+ * The same room above the QR code keeps the two optically balanced.
+ */
+._qrCode_1uy1n_354 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  padding-top: var(--spacing--lg);
+}
+
+/* QR codes need dark modules on a light background to scan, also in the dark theme. */
+._qrFrame_1uy1n_363 {
+  position: relative;
+  display: flex;
+  padding: var(--spacing--xs);
+  border-radius: var(--radius--3xs);
+  background-color: var(--color--neutral-white);
+}
+._qrFrame_1uy1n_363 svg {
+  display: block;
+}
+._qrLoading_1uy1n_374 .el-skeleton__item {
+  width: 100%;
+  height: 100%;
+}
+
+/* The skeleton leaves from the QR code's own spot, so the two overlap during the swap. */
+._qrLoadingLeaveActive_1uy1n_380 {
+  position: absolute;
+  inset: var(--spacing--xs);
+  animation: _blurSwapOut_1uy1n_1 var(--animation--blur-swap--duration, 250ms) var(--animation--blur-swap--easing, var(--easing--ease-out-quint));
+}
+@media (prefers-reduced-motion: reduce) {
+._qrLoadingLeaveActive_1uy1n_380 {
+    animation: none;
+}
+}
+._secret_1uy1n_391 {
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+  min-height: var(--height--sm);
+}
+
+/* Centre the key under the QR code and let the copy button trail it, so the button doesn't push the key off-centre. */
+._secretContent_1uy1n_399 {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  column-gap: var(--spacing--4xs);
+}
+._secretContent_1uy1n_399 > :last-child {
+  justify-self: start;
+}
+._secretKey_1uy1n_410 {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.5ch;
+  font-family: var(--font-family--monospace);
+  font-size: var(--font-size--sm);
+  color: var(--text-color);
+  cursor: pointer;
+}
+._code_1uy1n_422 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--4xs);
+}
+
+/*
+ * The input declares its own border variable, so an ancestor value is shadowed; target the
+ * input element itself with a more specific selector to turn the border red. The input keeps
+ * the focus after a failed check, so the focus border turns red too.
+ */
+._codeInvalid_1uy1n_433 .n8n-input {
+  --input--border-color: var(--color--danger);
+  --input--border-color--hover: var(--color--danger);
+  --input--border-color--focus: var(--color--danger);
+}
+
+/* Puts the description where the dialog header would: the header's own title–description gap. */
+._recovery_1uy1n_440 {
+  padding-top: var(--spacing--2xs);
+}
+._recoveryCodes_1uy1n_444 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  margin: var(--spacing--sm) 0 0;
+  list-style: none;
+  font-family: var(--font-family--monospace);
+  font-size: var(--font-size--2xs);
+  line-height: var(--line-height--xl);
+  color: var(--text-color);
+}
+._saveActions_1uy1n_457 {
+  display: flex;
+  gap: var(--spacing--2xs);
+  margin-inline-end: auto;
+}
+._iconSwap_1uy1n_463 {
+  --animation--blur-swap--blur: 2px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+._swapEnterActive_1uy1n_471 {
+  animation: _blurSwapIn_1uy1n_1 var(--animation--blur-swap--duration, 250ms) var(--animation--blur-swap--easing, var(--easing--ease-out-quint));
+}
+@media (prefers-reduced-motion: reduce) {
+._swapEnterActive_1uy1n_471 {
+    animation: none;
+}
+}
+._swapLeaveActive_1uy1n_480 {
+  position: absolute;
+  animation: _blurSwapOut_1uy1n_1 var(--animation--blur-swap--duration, 250ms) var(--animation--blur-swap--easing, var(--easing--ease-out-quint));
+}
+@media (prefers-reduced-motion: reduce) {
+._swapLeaveActive_1uy1n_480 {
+    animation: none;
+}
+}

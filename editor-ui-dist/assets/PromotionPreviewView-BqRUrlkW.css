@@ -1,0 +1,213 @@
+@charset "UTF-8";._blockers_11aek_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--md);
+  padding: var(--spacing--sm) var(--spacing--lg);
+  overflow-y: auto;
+}
+._section_11aek_9 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+}
+._sectionHeader_11aek_15 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+._sectionHeader_11aek_15:focus-visible {
+  outline: var(--focus--border-width) solid var(--focus--outline-color);
+  outline-offset: var(--spacing--4xs);
+}
+._groups_11aek_31 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+}
+._group_11aek_31 {
+  display: flex;
+  flex-direction: column;
+  border: var(--border);
+  border-radius: var(--radius--xs);
+  overflow: hidden;
+}
+._group_11aek_31 ._table_11aek_44 {
+  border: none;
+  border-top: var(--border);
+  border-radius: 0;
+}
+._callout_11aek_50 {
+  border: none;
+  border-radius: 0;
+}
+._table_11aek_44 {
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--radius--xs);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+._table_11aek_44 th,
+._table_11aek_44 td {
+  padding: var(--spacing--xs) var(--spacing--sm);
+  text-align: left;
+  vertical-align: middle;
+}
+._table_11aek_44 th {
+  background-color: var(--background--subtle);
+  color: var(--text-color--subtle);
+  font-size: var(--font-size--2xs);
+  font-weight: var(--font-weight--bold);
+}
+._table_11aek_44 td {
+  border-top: var(--border);
+}
+
+/* Fixed widths keep the columns in place when the last action button goes away. */
+._fixedColumns_11aek_80 {
+  table-layout: fixed;
+}
+._nameColumn_11aek_84 {
+  width: 36%;
+}
+._typeColumn_11aek_88,
+._statusColumn_11aek_89 {
+  width: 12%;
+}
+._actionColumn_11aek_93 {
+  width: 16%;
+}
+._name_11aek_84 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._icon_11aek_103 {
+  flex-shrink: 0;
+  color: var(--icon-color);
+}
+._detail_11aek_108 {
+  margin-top: var(--spacing--4xs);
+}
+._status_11aek_89 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  font-size: var(--font-size--2xs);
+  white-space: nowrap;
+}
+._warning_11aek_120 {
+  color: var(--text-color--warning);
+}
+._success_11aek_124 {
+  color: var(--text-color--success);
+}
+._action_11aek_93 {
+  text-align: right;
+  white-space: nowrap;
+}._body_htak6_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--md);
+}
+._page_1e5up_2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+._header_1e5up_10 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing--2xs);
+  /* The same inset as the tree rows and the card panel, so the tab divider lines up with both. */
+  padding: var(--spacing--sm) var(--spacing--sm) 0;
+  background-color: var(--background--surface);
+}
+._title_1e5up_20 {
+  margin-bottom: var(--spacing--2xs);
+}
+._back_1e5up_24 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+}
+._tabRow_1e5up_30 {
+  /* N8nTabs draws its active indicator this far below its own box. Reserving the space puts the
+     indicator on the divider, as in the inbox. No token matches this value. */
+  --promotion-preview--tab-overhang: 14px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: var(--promotion-preview--tab-overhang);
+  justify-content: space-between;
+  gap: var(--spacing--sm);
+  width: 100%;
+  border-bottom: var(--border);
+}
+._tabs_1e5up_43 {
+  flex: 1;
+  min-width: 0;
+}
+._meta_1e5up_48 {
+  flex-shrink: 0;
+  /* Centers the group on the tab label, which sits half the overhang below the tab box. */
+  margin-bottom: calc(var(--promotion-preview--tab-overhang) / -2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing--sm);
+}
+._details_1e5up_58 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--spacing--2xs);
+}
+._details_1e5up_58 > * + *::before {
+  content: "·"/"";
+  margin-right: var(--spacing--2xs);
+}
+._state_1e5up_70 {
+  /* The empty states draw their own border, so the space goes outside them. */
+  margin: var(--spacing--sm);
+}
+._operationNotices_1e5up_75 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--sm) var(--spacing--sm) 0;
+}
+._blockers_1e5up_82 {
+  flex: 1;
+  min-height: 0;
+}
+._panes_1e5up_87 {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+._tree_1e5up_93 {
+  flex-shrink: 0;
+  min-height: 0;
+  border-right: var(--border);
+  background-color: var(--background--surface);
+}
+._cards_1e5up_100 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing--sm);
+}

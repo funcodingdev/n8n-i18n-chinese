@@ -1,0 +1,266 @@
+._wrapper_183my_1 {
+  display: grid;
+  height: 100%;
+}
+._overflow_183my_6 ._list_183my_6 ._body_183my_6 {
+  overflow: auto;
+}
+._list_183my_6 {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+._list_183my_6 ._body_183my_6 {
+  position: relative;
+  height: 100%;
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+._filters-row_18h2g_121 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--spacing--2xs);
+}
+._filters_18h2g_121 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr max-content max-content max-content;
+  gap: var(--spacing--4xs);
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+}
+._filters_18h2g_121 ._sort-and-filter_18h2g_139 {
+  display: flex;
+  gap: var(--spacing--4xs);
+  align-items: center;
+}
+._filters_18h2g_121 ._sort-and-filter_18h2g_139 input {
+  min-height: 0;
+  width: 196px;
+  height: 32px;
+}
+@media screen and (max-width: 767px) {
+._filters_18h2g_121 {
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
+    grid-template-columns: 1fr;
+}
+}
+._search_18h2g_157 {
+  max-width: 196px;
+  justify-self: end;
+}
+@media screen and (max-width: 991px) {
+._search_18h2g_157 {
+    max-width: 100%;
+}
+}
+._listWrapper_18h2g_167 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+._paginatedListWrapper_18h2g_173 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  gap: var(--spacing--md);
+}
+._listItems_18h2g_181 {
+  overflow-y: auto;
+  padding-inline: var(--spacing--4xs);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color--text--tint-2) transparent;
+}
+._listItems_18h2g_181::-webkit-scrollbar {
+  z-index: 11;
+  width: 6px;
+}
+._listItems_18h2g_181::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+._listItems_18h2g_181::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  width: 6px;
+  background-color: var(--color--text--tint-2);
+}
+._listItems_18h2g_181::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color--text--tint-1);
+}
+._listItems_18h2g_181::-webkit-scrollbar-corner, ._listItems_18h2g_181::-webkit-scrollbar-track, ._listItems_18h2g_181::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+._listItems_18h2g_181 {
+  scrollbar-gutter: stable;
+}
+._listPagination_18h2g_209 {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing--lg);
+}
+._sort-and-filter_18h2g_139 {
+  white-space: nowrap;
+}
+@media screen and (max-width: 991px) {
+._sort-and-filter_18h2g_139 {
+    width: 100%;
+}
+}
+._datatable_18h2g_224 {
+  padding-bottom: var(--spacing--sm);
+}.resource-list-loading[data-v-f08a6de2] {
+  position: relative;
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+  /*
+  Show the loading skeleton only if the loading takes longer than 300ms
+  */
+  animation: 0.01s linear 0.3s forwards changeVisibility-f08a6de2;
+}
+.resource-list-loading[data-v-f08a6de2] .el-skeleton {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.resource-list-loading[data-v-f08a6de2] .el-skeleton > div > div:first-child .el-skeleton__item {
+  height: 42px;
+  margin: 0;
+}
+.resource-list-loading[data-v-f08a6de2] .el-skeleton .el-skeleton__item {
+  height: 69px;
+}
+.resource-list-loading-instant[data-v-f08a6de2] {
+  animation: 0.01s linear 0s forwards changeVisibility-f08a6de2;
+}
+@keyframes changeVisibility-f08a6de2 {
+from {
+    height: 0;
+}
+to {
+    height: 100%;
+}
+}

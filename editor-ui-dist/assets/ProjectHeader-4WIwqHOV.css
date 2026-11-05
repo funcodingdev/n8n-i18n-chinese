@@ -1,0 +1,213 @@
+._buttonGroup_1d8c0_1 {
+  display: inline-flex;
+}
+._buttonGroup_1d8c0_1 > .button:not(:first-child) {
+  border-radius: 0;
+}
+._buttonGroup_1d8c0_1 > .button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  /** Accounts for optical alignment as right side isn't rounded so looks bigger **/
+  padding-inline-start: var(--spacing--sm);
+}
+._buttonGroupDropdown_1d8c0_14 {
+  border-left: 1px solid var(--color--black-alpha-100);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  /** Offset this icon as button is rounded so some icons optically look mis-aligned when centered **/
+}
+._buttonGroupDropdown_1d8c0_14 .n8n-icon {
+  transform: translateX(-2px);
+}._badges_1lsl4_1 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+}
+._link_1lsl4_7 {
+  display: inline-flex;
+  /* Matches the small badge, so the focus ring follows its shape. */
+  border-radius: var(--radius--xs);
+}
+._link_1lsl4_7:focus-visible {
+  outline: var(--focus--border-width) solid var(--focus--outline-color);
+  outline-offset: var(--focus--border-width);
+}
+._disabled_1lsl4_17 {
+  cursor: not-allowed;
+}
+
+/* The disabled badge swallows pointer events, so the span around it gets them. */
+._inert_1lsl4_22 {
+  pointer-events: none;
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+._projectHeader_18cko_113 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: var(--spacing--3xl);
+}
+._projectDetails_18cko_120 {
+  display: flex;
+  align-items: center;
+}
+._actions_18cko_125 {
+  padding: var(--spacing--2xs) 0 var(--spacing--xs);
+}
+._projectDescriptionWrapper_18cko_129 {
+  position: relative;
+  display: inline-block;
+}
+._projectDescriptionWrapper_18cko_129:hover ._tooltip_18cko_133 {
+  display: block;
+}
+._tooltip_18cko_133 {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(-1 * var(--spacing--3xs));
+  background-color: var(--color--background--light-2);
+  padding: 0 var(--spacing--3xs) var(--spacing--3xs);
+  z-index: 10;
+  white-space: normal;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+._favoriteBtn_18cko_150 {
+  cursor: pointer;
+  color: var(--color--text--tint-2);
+  margin-top: var(--spacing--5xs);
+  margin-left: var(--spacing--3xs);
+  opacity: 0.8;
+}
+._favoriteBtn_18cko_150._favoriteBtnActive_18cko_157 {
+  color: var(--color--yellow-500);
+}
+._titleRow_18cko_161 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._projectDetails_18cko_120:hover ._favoriteBtn_18cko_150 {
+  opacity: 1;
+}
+@media screen and (max-width: 767px) {
+._projectHeader_18cko_113 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing--xs);
+}
+._headerActions_18cko_177 {
+    margin-left: auto;
+}
+}

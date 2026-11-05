@@ -1,0 +1,186 @@
+/* Focus State
+ -------------------------- */
+._card_1g259_3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--sm);
+  background-color: var(--color--background--light-3);
+  border: var(--border);
+  border-radius: var(--radius--lg);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.3s ease;
+}
+._card_1g259_3:hover {
+  box-shadow: var(--shadow--card-hover);
+}
+._card_1g259_3:focus-visible {
+  outline: var(--focus--border-width) solid var(--focus--outline-color);
+}
+._main_1g259_23 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--sm);
+  width: 100%;
+}
+._unavailable_1g259_30 {
+  border-style: dashed;
+  background-color: var(--color--background--light-2);
+}
+._unavailable_1g259_30:hover {
+  box-shadow: none;
+}
+._unavailable_1g259_30 ._muted_1g259_37 {
+  opacity: 0.5;
+}
+._makeAvailable_1g259_41 {
+  margin-left: calc(-1 * var(--spacing--2xs));
+}
+._content_1g259_45 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--4xs);
+  flex: 1;
+  min-width: 0;
+}
+._title_1g259_53 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._description_1g259_59 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}._content_1oyzm_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+}/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+._grid_hp5sa_113 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing--sm);
+}
+@media screen and (max-width: 991px) {
+._grid_hp5sa_113 {
+    grid-template-columns: 1fr;
+}
+}
+._skeletonCard_hp5sa_124 {
+  --skeleton-agent-card-avatar-size: 40px;
+}

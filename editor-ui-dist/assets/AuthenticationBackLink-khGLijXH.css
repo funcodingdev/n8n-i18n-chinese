@@ -1,0 +1,8 @@
+._backRow_icycf_1 {
+  display: flex;
+  margin-bottom: var(--spacing--lg);
+}
+._backButton_icycf_6 {
+  /* Pull the ghost button's inner padding so the arrow aligns with the page heading. */
+  margin-inline-start: calc(-1 * var(--spacing--xs));
+}

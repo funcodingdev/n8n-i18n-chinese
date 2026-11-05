@@ -1,0 +1,86 @@
+._trigger_1sa5x_1 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  padding: var(--spacing--4xs) var(--spacing--3xs);
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  cursor: pointer;
+}
+._trigger_1sa5x_1:hover {
+  background-color: var(--background--hover);
+}
+._trigger_1sa5x_1[aria-expanded=true] {
+  background-color: var(--background--active);
+}._badge_rs0ww_1 {
+  max-width: 100%;
+}
+._badge_rs0ww_1 > .n8n-text {
+  line-height: 1;
+  padding-block: var(--spacing--5xs);
+}
+._icon_rs0ww_9 {
+  flex-shrink: 0;
+}._skillCell_t38t9_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--5xs);
+  min-width: 0;
+}
+._creator_t38t9_8 {
+  padding-block: var(--spacing--2xs);
+  min-width: 0;
+}
+._skillTitle_t38t9_13 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing--2xs);
+}
+._description_t38t9_20 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._actions_t38t9_26 {
+  display: flex;
+  justify-content: flex-end;
+}
+._row_t38t9_31 {
+  cursor: pointer;
+}/* The settings shell insets the page; the header is pulled to the table's left edge. */
+._layout_1l2i4_2 {
+  padding: 0;
+}
+._layout_1l2i4_2 header {
+  margin-inline: 0 auto;
+}
+._toolbar_1l2i4_9 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--xs);
+  width: 100%;
+}
+._spacer_1l2i4_16 {
+  flex: 1;
+}
+._search_1l2i4_20 {
+  max-width: 20rem;
+}
+._filter_1l2i4_24 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+}
+._filter_1l2i4_24 + ._filter_1l2i4_24 {
+  margin-top: var(--spacing--sm);
+}
+._empty_1l2i4_33 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--2xl) var(--spacing--md);
+  text-align: center;
+}
