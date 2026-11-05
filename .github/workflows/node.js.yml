@@ -79,15 +79,22 @@ jobs:
       run: |
         echo "标签已存在，停止工作流"
 
+    # 验证 OpenAI 兼容翻译接口，不调用真实模型
+    - name: 安装翻译依赖并测试
+      if: steps.check_tag.outputs.exists == 'false'
+      run: pnpm install --frozen-lockfile && pnpm test
+      working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/script
+
     # 使用 AI 翻译新增的字符串到中文
     - name: 翻译新增字符串
       if: steps.check_tag.outputs.exists == 'false'
-      run: pnpm install --frozen-lockfile && pnpm run translate
+      run: pnpm run translate
       working-directory: /home/runner/work/n8n-i18n-chinese/n8n-i18n-chinese/n8n-i18n-chinese/script
       env:
-        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
-        OPENROUTER_API_CONCURRENT: ${{ vars.OPENROUTER_API_CONCURRENT }}
+        OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+        OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_API_CONCURRENT: ${{ vars.OPENAI_API_CONCURRENT }}
 
     # 提交翻译结果到 Git 仓库
     - name: 提交翻译结果

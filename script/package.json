@@ -3,7 +3,8 @@
   "private": true,
   "packageManager": "pnpm@11.5.1",
   "scripts": {
-    "translate": "node translate.js"
+    "translate": "node translate.js",
+    "test": "node --test openai-client.test.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

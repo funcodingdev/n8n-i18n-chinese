@@ -1,16 +1,11 @@
-require('dotenv').config()
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const fs = require('fs');
-const lodash = require("lodash")
+const lodash = require("lodash");
 const pLimit = require('p-limit');
+const { readConfig, createTranslator } = require('./openai-client');
 
-if (!process.env.OPENROUTER_API_KEY){
-    console.error("请设置环境变量 OPENROUTER_API_KEY");
-    process.exit(1);
-}
-
-// OpenRouter 使用固定的 API 地址
-const OPENROUTER_API_BASE = "https://openrouter.ai/api/v1";
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+let doTranslate;
 
 const targetLanguages = [
     {
@@ -18,81 +13,6 @@ const targetLanguages = [
         "label": "简体中文",
     }
 ]
-
-function retry(fn, maxRetry = 5, interval = 1000) {
-    return new Promise((resolve, reject) => {
-        let retryCount = 0
-        const retry = () => {
-            fn()
-                .then(resolve)
-                .catch(err => {
-                    if (retryCount >= maxRetry) {
-                        reject(err)
-                    } else {
-                        retryCount++
-                        setTimeout(retry, interval)
-                    }
-                })
-        }
-        retry()
-    })
-}
-
-async function doTranslate(message, language) {
-    const response = await retry(() => fetch(OPENROUTER_API_BASE + "/chat/completions", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + process.env.OPENROUTER_API_KEY,
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://github.com/n8n-i18n-chinese", // OpenRouter 需要
-            "X-Title": "n8n-i18n-chinese" // OpenRouter 需要
-        },
-        body: JSON.stringify(			{
-            "model": OPENROUTER_MODEL,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": `
-你是n8n项目的翻译助手，你的任务是将英文文本翻译成指定的语言。请将以下英文文本翻译成 ${language}
-## 限制：
-- 仅输出翻译后的内容
-- 不要处理 {} 里面包裹的变量名称
-`
-                },
-                {
-                    "role": "user",
-                    "content": message
-                }
-            ],
-        }),
-    }));
-
-    // 请求过多，等待重试
-    if (response.status === 429){
-        const body = await response.text();
-        console.log('翻译请求过多，等待1s后重试...', response.status, response.statusText, body);
-        return new Promise((resolve) => {
-            return setTimeout(async () => {
-                resolve(await doTranslate(message, language));
-            }, 1000);
-        });
-    }
-
-    if (response.status !== 200){
-        throw new Error(`翻译请求失败: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
-
-    if (data.error){
-        throw new Error("翻译失败: ", data.error.message);
-    }
-
-    const content =  data.choices[0].message.content
-
-    // 删除思考 <think></think>
-    return content.replace(/<think>[\s\S]*>?<\/think>/g, '').trim();
-}
 
 function putObjectValue(obj, key, value) {
     const keys = key.split('##');
@@ -112,11 +32,12 @@ function putObjectValue(obj, key, value) {
 async function translate(waitTranslateList, targetObject, targetLanguage) {
     let promises = [];
     let doNum = 0;
-    let concurrentNum = parseInt(process.env.OPENROUTER_API_CONCURRENT || 2);
+    let failures = 0;
+    const concurrentNum = readConfig().concurrency;
 
     console.log('concurrentNum', concurrentNum);
 
-    const limit = pLimit(concurrentNum); // 限制同时执行 5 个任务
+    const limit = pLimit(concurrentNum);
 
     for (let i = 0; i < waitTranslateList.length; i++) {
         let item = waitTranslateList[i];
@@ -126,7 +47,8 @@ async function translate(waitTranslateList, targetObject, targetLanguage) {
                 console.log("翻译 key", item.key, "为", targetLanguage, ":", item.message , ' => ', mesasge);
                 putObjectValue(targetObject, item.key, mesasge)
             }).catch(e => {
-                console.log("翻译失败", item.key, ":", e);
+                failures++;
+                console.error("翻译失败", item.key, ":", e.message);
             }).finally(() => {
                 doNum++;
                 console.log("剩余翻译数量", waitTranslateList.length - doNum);
@@ -135,6 +57,9 @@ async function translate(waitTranslateList, targetObject, targetLanguage) {
     }
 
     await Promise.all(promises);
+    if (failures > 0) {
+        throw new Error(`${failures} 个字符串翻译失败，未更新语言文件和英文基线`);
+    }
 }
 
 // 收集需要翻译的key和message
@@ -158,14 +83,15 @@ function collectMessages(oldSourceLanguages, newSourceLanguages, targetLanguages
 
 
 async function run(){
+    doTranslate = createTranslator();
     const oldEnLanguages = require("./en.json");
-    const newEnNodesLanguages = fs.existsSync("./en-nodes.json") ? require("./en-nodes.json") : {};
+    const newEnNodesLanguages = fs.existsSync(path.join(__dirname, "en-nodes.json")) ? require("./en-nodes.json") : {};
     let newEnLanguages = await fetch("https://raw.githubusercontent.com/n8n-io/n8n/master/packages/frontend/%40n8n/i18n/src/locales/en.json")
         .then(res => res.json())
 
     for (const targetLanguage of targetLanguages) {
         let targetLanguages = {};
-        let fileName = `../languages/${targetLanguage.name}.json`;
+        let fileName = path.join(__dirname, `../languages/${targetLanguage.name}.json`);
         if (fs.existsSync(fileName)){
             targetLanguages = JSON.parse(fs.readFileSync(fileName, "utf8"))
         }else{
@@ -186,7 +112,10 @@ async function run(){
         // 将翻译后的语言写入文件
         fs.writeFileSync(fileName, JSON.stringify(sortedTargetLanguages, null, 4));
     }
-    fs.writeFileSync("./en.json", JSON.stringify(newEnLanguages, null, 4));
+    fs.writeFileSync(path.join(__dirname, "en.json"), JSON.stringify(newEnLanguages, null, 4));
 }
 
-run();
+run().catch(error => {
+    console.error(error.message);
+    process.exitCode = 1;
+});
