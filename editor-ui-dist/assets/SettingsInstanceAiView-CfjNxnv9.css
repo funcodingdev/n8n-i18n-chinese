@@ -1,0 +1,48 @@
+._highlighted_mc897_1 {
+  border-radius: var(--radius);
+  animation: _flash_mc897_1 1.2s ease-in-out 2;
+}
+@keyframes _flash_mc897_1 {
+50% {
+    background-color: var(--color--foreground--tint-1);
+}
+}._statusLabel_1rfln_1 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+}
+._danger_1rfln_7 {
+  color: var(--text-color--danger);
+}
+._titleWithTag_1rfln_11 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._dim_1rfln_17 {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Keeps "lead-in + link + icon" on one line, as the page header does. */
+._docsPhrase_1rfln_23 {
+  white-space: nowrap;
+}
+._permissionList_1rfln_27 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+  padding: var(--spacing--2xs) var(--spacing--sm);
+}
+._permissionDescription_1rfln_34 {
+  padding-bottom: var(--spacing--2xs);
+}
+._permissionRow_1rfln_38 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing--sm);
+}
+._permissionSelect_1rfln_45 {
+  width: 11rem;
+}

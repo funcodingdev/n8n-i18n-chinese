@@ -1,0 +1,12 @@
+/* Focus State
+ -------------------------- */
+._indicator_6a55n_3 {
+  gap: var(--spacing--3xs);
+}
+._indicator_6a55n_3:focus-visible {
+  outline: var(--focus--border-width) solid var(--focus--outline-color);
+  border-color: var(--focus--border-color);
+}
+._indicator_6a55n_3 * {
+  line-height: calc(var(--font-size--sm) + var(--border-width));
+}

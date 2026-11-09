@@ -1,0 +1,60 @@
+._container_1g3iq_1 {
+  display: flex;
+  align-items: center;
+}
+._toolsButton_1g3iq_6 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._toolsButton_1g3iq_6._transparentBg_1g3iq_11 {
+  background-color: transparent !important;
+}
+._iconStack_1g3iq_15 {
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* maintain component height regardless of icon */
+  margin-block: -4px;
+}
+._icon_1g3iq_15 {
+  padding: var(--spacing--4xs);
+  background-color: var(--color--background--light-2);
+  border-radius: 50%;
+  outline: 2px var(--color--background--light-3) solid;
+}
+._iconOverlap_1g3iq_30 {
+  margin-left: -5px;
+}
+._countBadge_1g3iq_34 {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: var(--font-size--3xs);
+  color: var(--color--text);
+  box-sizing: border-box;
+}
+._settingsButton_1g3iq_47 {
+  color: var(--button--color--text--secondary);
+  margin-right: -2px;
+}
+._settingsButton_1g3iq_47:hover {
+  color: var(--button--color--text--secondary--hover-active-focus);
+}
+._itemSettingsButton_1g3iq_55 {
+  opacity: 0;
+}
+._checkPlaceholder_1g3iq_59 {
+  width: 16px;
+  flex-shrink: 0;
+}.tools-selector-dropdown {
+  z-index: 10000;
+  min-width: 330px;
+}
+.tools-selector-dropdown [data-highlighted] [class*=itemSettingsButton] {
+  opacity: 1;
+}

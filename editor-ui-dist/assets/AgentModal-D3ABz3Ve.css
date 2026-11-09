@@ -1,0 +1,307 @@
+/* BEM support Func
+ -------------------------- */
+/* Transition
+-------------------------- */
+/* Color
+-------------------------- */
+/* Link
+-------------------------- */
+/* Border
+-------------------------- */
+/* Outline
+-------------------------- */
+/* Box shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Typography
+-------------------------- */
+/* z-index
+-------------------------- */
+/* Disable base
+-------------------------- */
+/* Icon
+-------------------------- */
+/* Checkbox
+-------------------------- */
+/* Radio
+-------------------------- */
+/* Select
+-------------------------- */
+/* Alert
+-------------------------- */
+/* MessageBox
+-------------------------- */
+/* Message
+-------------------------- */
+/* Notification
+-------------------------- */
+/* Input
+-------------------------- */
+/* Cascader
+-------------------------- */
+/* Group
+-------------------------- */
+/* Tab
+-------------------------- */
+/* Button
+-------------------------- */
+/* cascader
+-------------------------- */
+/* Switch
+-------------------------- */
+/* Dialog
+-------------------------- */
+/* Table
+-------------------------- */
+/* Popup
+-------------------------- */
+/* Popover
+-------------------------- */
+/* Tooltip
+-------------------------- */
+/* Tag
+-------------------------- */
+/* Tree
+-------------------------- */
+/* Dropdown
+-------------------------- */
+/* Badge
+-------------------------- */
+/* Card
+--------------------------*/
+/* Slider
+--------------------------*/
+/* Steps
+--------------------------*/
+/* Menu
+--------------------------*/
+/* Rate
+--------------------------*/
+/* DatePicker
+--------------------------*/
+/* Loading
+--------------------------*/
+/* Scrollbar
+--------------------------*/
+/* Carousel
+--------------------------*/
+/* Collapse
+--------------------------*/
+/* Transfer
+--------------------------*/
+/* Header
+  --------------------------*/
+/* Footer
+--------------------------*/
+/* Main
+--------------------------*/
+/* Timeline
+--------------------------*/
+/* Backtop
+--------------------------*/
+/* Link
+--------------------------*/
+/* Calendar
+--------------------------*/
+/* Form
+-------------------------- */
+/* Avatar
+--------------------------*/
+/* Break-point
+--------------------------*/
+/* Break-points
+ -------------------------- */
+/* Scrollbar
+ -------------------------- */
+/* Placeholder
+ -------------------------- */
+/* BEM
+ -------------------------- */
+[role=dialog]._dialog_3pwdo_121 {
+  --n8n-dialog-region--padding: 0;
+  --n8n-dialog-close--inset-block-start: calc(
+  	var(--spacing--md) + (var(--n8n-dialog-title--line) - var(--n8n-dialog-close--size)) / 2
+  );
+  --n8n-dialog-close--inset-inline-end: var(--spacing--lg);
+}
+._header_3pwdo_129 {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing--md) var(--spacing--lg);
+  padding-inline-end: calc(var(--spacing--lg) + var(--n8n-dialog-close--size, var(--spacing--lg)) + var(--spacing--xs));
+}
+._titleError_3pwdo_136 {
+  min-width: 0;
+}
+._titleErrorWithBack_3pwdo_140 {
+  padding-left: calc(var(--spacing--xl) + var(--spacing--2xs));
+}
+._headerContent_3pwdo_144 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  width: 100%;
+  min-width: 0;
+}
+._backButton_3pwdo_152 {
+  flex-shrink: 0;
+}
+._titlePrefix_3pwdo_156 {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+._titleGroup_3pwdo_162 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--xs);
+  min-width: 0;
+  flex: 1;
+}
+._titleGroup_3pwdo_162:hover ._editIcon_3pwdo_169, ._titleGroup_3pwdo_162:focus-within ._editIcon_3pwdo_169 {
+  opacity: 1;
+}
+._title_3pwdo_136 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._editableTitle_3pwdo_179 {
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+  color: inherit;
+}
+._editIcon_3pwdo_169 {
+  flex-shrink: 0;
+  opacity: 0;
+  color: var(--color--text--tint-1);
+  transition: opacity var(--duration--snappy) ease;
+}
+._headerActions_3pwdo_193 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  margin-left: auto;
+}
+._footer_3pwdo_200 {
+  padding: var(--spacing--md) var(--spacing--lg);
+  border-top: var(--border);
+}
+._body_3pwdo_205 {
+  --agent-modal-body--padding-inline: var(--spacing--lg);
+  --agent-modal-body--padding-block-end: var(--spacing--md);
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: min(70dvh, var(--height--5xl) * 6);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding: 0 var(--agent-modal-body--padding-inline) var(--agent-modal-body--padding-block-end);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color--text--tint-2) transparent;
+}
+._body_3pwdo_205::-webkit-scrollbar {
+  z-index: 11;
+  width: 6px;
+}
+._body_3pwdo_205::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+._body_3pwdo_205::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  width: 6px;
+  background-color: var(--color--text--tint-2);
+}
+._body_3pwdo_205::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color--text--tint-1);
+}
+._body_3pwdo_205::-webkit-scrollbar-corner, ._body_3pwdo_205::-webkit-scrollbar-track, ._body_3pwdo_205::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+._body_3pwdo_205[data-slot=dialog-body][data-scrollable] {
+  padding-block-end: var(--agent-modal-body--padding-block-end);
+  margin-block-end: 0;
+}
+._body_3pwdo_205[data-flush=true][data-slot=dialog-body][data-scrollable] {
+  padding: 0;
+}
+._body_3pwdo_205[data-scrollable=false] {
+  overflow: hidden;
+}
+._body_3pwdo_205[data-scrollable=true] > * {
+  flex-shrink: 0;
+}
+._bodyStableHeight_3pwdo_253 {
+  height: min(60dvh, var(--height--5xl) * 5);
+}
+._body_3pwdo_205 .n8n-markdown {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color--text--tint-2) transparent;
+}
+._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar {
+  z-index: 11;
+  width: 6px;
+}
+._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  width: 6px;
+  background-color: var(--color--text--tint-2);
+}
+._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color--text--tint-1);
+}
+._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar-corner, ._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar-track, ._body_3pwdo_205 .n8n-markdown::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+._footerLayout_3pwdo_280 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing--2xs);
+  width: 100%;
+}
+._footerLeft_3pwdo_288,
+._footerActions_3pwdo_289 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+}
+._footerActions_3pwdo_289 {
+  margin-left: auto;
+}
+@media (max-width: 480px) {
+._body_3pwdo_205 {
+    --agent-modal-body--padding-inline: var(--spacing--md);
+}
+[role=dialog]._dialog_3pwdo_121 {
+    --n8n-dialog-close--inset-inline-end: var(--spacing--md);
+}
+._header_3pwdo_129 {
+    padding-inline-start: var(--spacing--md);
+    padding-inline-end: calc(var(--spacing--md) + var(--n8n-dialog-close--size, var(--spacing--lg)) + var(--spacing--xs));
+}
+._footer_3pwdo_200 {
+    padding-inline: var(--spacing--md);
+}
+._footerLayout_3pwdo_280 {
+    align-items: stretch;
+    flex-direction: column-reverse;
+}
+._footerLeft_3pwdo_288,
+  ._footerActions_3pwdo_289 {
+    width: 100%;
+}
+._footerLeft_3pwdo_288 button,
+  ._footerActions_3pwdo_289 button {
+    flex: 1;
+}
+}
+@media (hover: none) {
+._editIcon_3pwdo_169 {
+    opacity: 1;
+}
+}
