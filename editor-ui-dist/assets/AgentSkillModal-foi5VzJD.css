@@ -1,0 +1,327 @@
+
+._upload_5o0ud_2 {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: var(--spacing--md);
+	min-width: 0;
+}
+._dropZone_5o0ud_12 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--spacing--md);
+	width: 100%;
+	box-sizing: border-box;
+	padding: var(--spacing--3xl) var(--spacing--xl);
+	border: calc(var(--border-width) * 2) dashed var(--border-color);
+	border-radius: var(--radius--lg);
+	text-align: center;
+}
+._dragOver_5o0ud_25 {
+	border-color: var(--color--primary);
+	background: var(--color--orange-alpha-100);
+}
+._title_5o0ud_30 {
+	margin: 0;
+	font-size: var(--font-size--xl);
+	font-weight: var(--font-weight--regular);
+}
+._description_5o0ud_36 {
+	/* Use a text measure to keep the upload instructions readable. */
+	max-width: 45ch;
+	line-height: var(--line-height--xl);
+}
+._actions_5o0ud_42 {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--spacing--2xs);
+}
+._manual_5o0ud_50 {
+	text-align: center;
+}
+._manualButton_5o0ud_54 {
+	appearance: none;
+	border: 0;
+	background: transparent;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+&:hover:not(:disabled) {
+		color: var(--text-color);
+}
+&:disabled {
+		cursor: not-allowed;
+}
+}
+@media (max-width: 480px) {
+._dropZone_5o0ud_12 {
+		padding: var(--spacing--xl) var(--spacing--sm);
+}
+}
+._diff_1drwg_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--md);
+  flex: 1;
+  min-width: 0;
+}
+._field_1drwg_9 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+}
+._fieldHeader_1drwg_15 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+._body_1drwg_21 {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing--2xs) 0;
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow-wrap: anywhere;
+}
+._line_1drwg_30 {
+  position: relative;
+  margin: 0;
+  padding: var(--spacing--4xs) var(--spacing--sm) var(--spacing--4xs) var(--spacing--lg);
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--lg);
+  white-space: pre-wrap;
+}
+._equal_1drwg_39 {
+  padding-inline: var(--spacing--lg) var(--spacing--sm);
+}
+._marker_1drwg_43 {
+  position: absolute;
+  left: var(--spacing--xs);
+  -webkit-user-select: none;
+          user-select: none;
+}
+._removed_1drwg_49 {
+  background-color: var(--diff--color--deleted--faint);
+  box-shadow: inset 2px 0 0 var(--diff--color--deleted);
+}
+._added_1drwg_54 {
+  background-color: var(--diff--color--new--faint);
+  box-shadow: inset 2px 0 0 var(--diff--color--new);
+}
+._removed_1drwg_49 ._changedWord_1drwg_59 {
+  background-color: var(--diff--color--deleted--light);
+}
+._added_1drwg_54 ._changedWord_1drwg_59 {
+  background-color: var(--diff--color--new--light);
+}._panel_1k1tl_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--md) var(--spacing--sm) var(--spacing--md) var(--spacing--md);
+}
+._header_1k1tl_8 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--sm);
+}
+._title_1k1tl_14 {
+  margin: 0;
+}
+._list_1k1tl_18 {
+  --skill-version-timeline--gap: var(--spacing--lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--skill-version-timeline--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+._row_1k1tl_28 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--xs);
+  padding: var(--spacing--2xs) var(--spacing--xs);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+._row_1k1tl_28:hover, ._row_1k1tl_28._shown_1k1tl_37 {
+  background-color: var(--background--hover);
+}
+._row_1k1tl_28 {
+  /* The line that joins the dots of the rows. */
+}
+._row_1k1tl_28:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--spacing--xs) + var(--spacing--5xs) - 0.5px);
+  top: calc(50% + var(--spacing--2xs));
+  /* Down to the dot of the next row, across the gap between the rows. */
+  height: calc(100% - var(--spacing--xs) + var(--skill-version-timeline--gap));
+  border-left: var(--border);
+}
+._dot_1k1tl_53 {
+  width: var(--spacing--3xs);
+  height: var(--spacing--3xs);
+  flex-shrink: 0;
+  border: var(--border);
+  border-radius: 50%;
+  background-color: var(--color--background--light-3);
+}
+._draftDot_1k1tl_62 {
+  border-color: var(--color--warning);
+  background-color: var(--color--warning);
+}
+._latestDot_1k1tl_67 {
+  border-color: var(--color--success);
+  background-color: var(--color--success);
+}
+._publishedDot_1k1tl_72 {
+  border-color: var(--color--teal);
+  background-color: var(--color--teal);
+}
+
+/* The draft and the published agent run the same version: an amber dot with a teal ring. */
+._draftDot_1k1tl_62._publishedDot_1k1tl_72 {
+  border-color: var(--color--teal);
+  background-color: var(--color--warning);
+}
+._versionLine_1k1tl_83 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing--4xs);
+}
+._text_1k1tl_89 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+._actions_1k1tl_96 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--5xs);
+}
+._content_nwziy_2 {
+	/* The Design System has no width preset between 2xlarge and full. */
+	width: min(52rem, calc(100dvw - var(--spacing--lg) * 3));
+	display: flex;
+	gap: var(--spacing--lg);
+}
+._picker_nwziy_9 {
+	width: min(calc(52rem - var(--spacing--lg) * 2), calc(100dvw - var(--spacing--lg) * 5));
+	height: 100%;
+}
+._callout_nwziy_14 {
+	margin-bottom: var(--spacing--md);
+}
+
+/* The header menu, as the design: grey icons and check mark, a red Delete when it is allowed. */
+._menuItem_nwziy_19 svg {
+	color: var(--color--text--tint-1);
+}
+._deleteItem_nwziy_23:not([data-disabled]) {
+	color: var(--color--danger);
+}
+._menuSwitchRow_nwziy_27 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing--lg);
+}
+._menuSwitch_nwziy_27 {
+	pointer-events: none;
+}
+
+/* A pinned skill: a warning strip over the file list and the form, as the design does. */
+._pinnedBar_nwziy_39 {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing--2xs);
+	padding: var(--spacing--2xs) var(--spacing--lg);
+	min-height: var(--spacing--xl);
+	border-bottom: var(--border-width) var(--border-style) var(--callout--border-color--warning);
+	background-color: var(--callout--color--background--warning);
+}
+._pinnedIcon_nwziy_49 {
+	flex-shrink: 0;
+	color: var(--callout--icon-color--warning);
+}
+._pinnedText_nwziy_54 {
+	color: var(--callout--color--text--warning);
+}
+._barAction_nwziy_58 {
+	margin-left: auto;
+}
+
+/* A full-width strip under the header, as the body of the form steps is flush. */
+._viewingBar_nwziy_63 {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing--2xs);
+	padding: var(--spacing--xs) var(--spacing--lg);
+	border-bottom: var(--border);
+	background-color: var(--color--background--light-2);
+	color: var(--color--text--shade-1);
+}
+._compareBar_nwziy_73 {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing--2xs);
+	padding: var(--spacing--2xs) var(--spacing--lg);
+	border-bottom: var(--border);
+	background-color: var(--color--background--light-2);
+}
+._compareSelect_nwziy_82 {
+	width: calc(var(--spacing--3xl) + var(--spacing--xs));
+}
+._compareDone_nwziy_86 {
+	margin-left: auto;
+}
+._versionsButtonActive_nwziy_90 {
+	background-color: var(--background--active);
+}
+
+/* The form steps have a flush body, so their callouts keep the body inset themselves. */
+._calloutInset_nwziy_95 {
+	margin: var(--spacing--md) var(--spacing--lg) 0;
+}
+
+/* The file list runs to the edges of the modal and each column keeps its own inset. The modal has
+   a fixed size on these steps, so the columns fill it, beside the Versions panel or not. */
+._contentFlush_nwziy_101 {
+	gap: 0;
+	align-items: stretch;
+	width: auto;
+	flex: 1;
+}
+
+/* Nested, so it wins over the file list's own background. */
+._contentFlush_nwziy_101 ._fileColumn_nwziy_109 {
+	background-color: var(--background--subtle);
+}
+._formColumn_nwziy_113 {
+	flex: 1;
+	padding: var(--spacing--md) var(--spacing--lg);
+}
+._footerHint_nwziy_118 {
+	text-align: right;
+}
+
+/* Geist sits high in its line box, as in the Settings scope badge. */
+._scopeBadge_nwziy_123 > .n8n-text {
+	line-height: 1;
+	padding-block: var(--spacing--5xs);
+}
+@media (max-width: 480px) {
+._content_nwziy_2 {
+		flex-direction: column;
+}
+}

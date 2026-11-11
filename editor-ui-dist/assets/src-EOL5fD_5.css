@@ -1,0 +1,120 @@
+._icon_4a7um_1 {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius--full);
+  background-color: var(--background--subtle);
+}
+._xsmall_4a7um_10 {
+  width: var(--height--2xs);
+  height: var(--height--2xs);
+}
+._xsmall_4a7um_10 ._emoji_4a7um_14 {
+  font-size: var(--font-size--3xs);
+}
+._small_4a7um_18 {
+  width: var(--height--sm);
+  height: var(--height--sm);
+}
+._small_4a7um_18 ._emoji_4a7um_14 {
+  font-size: var(--font-size--2xs);
+}
+._medium_4a7um_26 {
+  width: var(--height--xl);
+  height: var(--height--xl);
+}
+._medium_4a7um_26 ._emoji_4a7um_14 {
+  font-size: var(--font-size--sm);
+}._personalTab_d322i_1 {
+  min-width: 0;
+}
+._table_d322i_5 {
+  margin-bottom: var(--spacing--sm);
+}
+._table_d322i_5 .table-scroll {
+  scrollbar-gutter: auto;
+}
+._people_d322i_12 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+  padding: var(--spacing--2xs) 0;
+}
+._person_d322i_1 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  min-width: 0;
+}
+._personName_d322i_26 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._empty_d322i_32 {
+  display: block;
+  margin-bottom: var(--spacing--sm);
+}
+._loadingLine_d322i_37 {
+  max-width: 50%;
+  margin-bottom: var(--spacing--sm);
+}
+._loadingLine_d322i_37 .el-skeleton__p {
+  display: block;
+  margin-top: 0;
+}._page_c46my_1 {
+  width: 100%;
+}
+._backBar_c46my_5 {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--spacing--2xs) var(--spacing--lg) var(--spacing--sm);
+  background-color: var(--color--background--light-2);
+}
+._backButton_c46my_13 {
+  margin-inline-start: calc(-1 * var(--spacing--xs));
+}
+._layout_c46my_17 {
+  padding-top: var(--spacing--2xs);
+}
+._actions_c46my_21 {
+  margin-top: var(--spacing--lg);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing--2xs);
+}
+._searchPicker_c46my_28 [data-icon=search] {
+  color: var(--input--placeholder--color);
+}
+._person_c46my_32 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  min-width: 0;
+}
+._personText_c46my_39 {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+._truncate_c46my_45 {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+._projectMembers_c46my_52 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--xs);
+  min-width: 0;
+}
+._hint_c46my_59 {
+  display: block;
+  margin-top: var(--spacing--2xs);
+}
+._skeleton_c46my_64 .el-skeleton__p {
+  margin-top: 0;
+}

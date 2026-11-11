@@ -1,0 +1,206 @@
+._counts_pkrbl_1 {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--spacing--4xs);
+  font-size: var(--font-size--3xs);
+}
+._removed_pkrbl_8 {
+  color: var(--diff--color--deleted);
+}
+._added_pkrbl_12 {
+  color: var(--diff--color--new);
+}._nav_13ik9_1 {
+  width: 240px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border-right: var(--border-width) var(--border-style) var(--color--foreground);
+  padding: var(--spacing--sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--sm);
+  background: var(--color--background--light);
+}
+._section_13ik9_13 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+}
+._sectionHeader_13ik9_19 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing--2xs);
+}
+._item_13ik9_26 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--2xs);
+  width: 100%;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--border-radius-base);
+  color: var(--color--text);
+  padding: var(--spacing--2xs);
+  text-align: left;
+  cursor: pointer;
+}
+._item_13ik9_26:hover {
+  background: var(--color--background--light-2);
+}
+._icon_13ik9_44 {
+  flex-shrink: 0;
+}
+._referenceRow_13ik9_48 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--3xs);
+  width: 100%;
+  min-width: 0;
+  border-radius: var(--border-radius-base);
+}
+._referenceRow_13ik9_48 ._removeReference_13ik9_56 {
+  opacity: 0;
+}
+._referenceRow_13ik9_48:hover, ._referenceRow_13ik9_48:focus-within {
+  background: var(--color--background--light-2);
+}
+._referenceRow_13ik9_48:hover ._removeReference_13ik9_56, ._referenceRow_13ik9_48:focus-within ._removeReference_13ik9_56 {
+  opacity: 1;
+}
+._reference_13ik9_48 {
+  flex: 1;
+  padding-left: var(--spacing--xs);
+}
+._reference_13ik9_48:hover {
+  background: transparent;
+}
+._sectionTitle_13ik9_74 {
+  padding-inline: var(--spacing--2xs);
+}
+._addReference_13ik9_78 {
+  width: var(--spacing--lg);
+  height: var(--spacing--lg);
+}
+._removeReference_13ik9_56 {
+  width: var(--spacing--lg);
+  height: var(--spacing--lg);
+  margin-left: auto;
+  margin-right: var(--spacing--2xs);
+  flex-shrink: 0;
+}
+._invalidIcon_13ik9_91 {
+  color: var(--color--danger);
+}
+._selected_13ik9_95 {
+  /* A translucent overlay, so the selected file stands out on a grey or a white list. */
+  background: var(--background--active);
+}
+._path_13ik9_100 {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+._nav_13ik9_1 {
+    width: 100%;
+    max-height: calc(var(--height--5xl) * 2);
+    border-right: 0;
+    border-bottom: var(--border-width) var(--border-style) var(--color--foreground);
+    overflow-y: auto;
+}
+}
+._count_13ik9_116 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--4xs);
+  margin-left: auto;
+}
+._fileAdded_13ik9_123 {
+  color: var(--diff--color--new);
+}
+._fileDeleted_13ik9_127 {
+  color: var(--diff--color--deleted);
+}._panel_1u7js_1 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--md);
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+._readOnlyField_1u7js_10 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+}
+._readOnlyText_1u7js_16 {
+  margin: 0;
+  line-height: var(--line-height--xl);
+  white-space: pre-wrap;
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 {
+  --n8n-markdown--base-font-size: var(--font-size--sm);
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 p,
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 li {
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--xl);
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h1,
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h2 {
+  margin: var(--spacing--sm) 0 var(--spacing--2xs);
+  font-size: var(--font-size--md);
+  line-height: var(--line-height--lg);
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h3,
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h4,
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h5,
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 h6 {
+  margin: var(--spacing--xs) 0 var(--spacing--3xs);
+  font-size: var(--font-size--sm);
+  line-height: var(--line-height--lg);
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 :is(h1, h2, h3, h4, h5, h6):first-child {
+  margin-top: 0;
+}
+._panel_1u7js_1 ._readOnlyMarkdown_1u7js_22 li label {
+  display: inline;
+  line-height: inherit;
+}
+._field_1u7js_52 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--3xs);
+}
+._editor_1u7js_58 .n8n-markdown {
+  min-height: calc(var(--height--5xl) + var(--spacing--sm));
+}
+
+/* The user drags the bottom edge to make the box taller or shorter. Doubled, so it wins over the
+   editor's own overflow. The text scrolls inside the editor's content, which clips it by default,
+   so a shorter box still shows all of it. */
+._resizable_1u7js_65._resizable_1u7js_65 {
+  resize: vertical;
+  overflow: hidden;
+}
+._resizable_1u7js_65._resizable_1u7js_65 [data-markdown-editor-content-wrapper] {
+  overflow-y: auto;
+}
+._referenceEditor_1u7js_73 .n8n-markdown {
+  min-height: calc(var(--height--5xl) + var(--height--4xl));
+}
+._editorLabel_1u7js_77 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--2xs);
+}
+._editorMeta_1u7js_83 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--4xs);
+}
+._characterCount_1u7js_89 {
+  text-align: right;
+}
