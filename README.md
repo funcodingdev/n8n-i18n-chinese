@@ -67,8 +67,8 @@ funcodingdev/n8n-chinese-mock
 
 | 类型 | 名称 | 示例或说明 |
 | --- | --- | --- |
-| Environment variable | `OPENAI_BASE_URL` | `https://api.flowist.dev/v1` |
-| Environment variable | `OPENAI_MODEL` | `sub2apigpt/gpt-6.1-sol`，以网关可用模型为准 |
+| Environment variable | `OPENAI_BASE_URL` | `https://api.example.com/v1` |
+| Environment variable | `OPENAI_MODEL` | `gpt-6.1-sol`，以网关可用模型为准 |
 | Environment secret | `OPENAI_API_KEY` | 中转站密钥，通过 `Authorization: Bearer` 发送 |
 | Environment variable，可选 | `OPENAI_API_CONCURRENT` | 并发请求数，默认 `2`，必须是正整数 |
 
